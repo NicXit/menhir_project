@@ -1,10 +1,10 @@
 package fr.utt.isi.lo02.menhir.modele.carte;
 
 public class CarteIngredient {
-	private int[][] value;
+	public int[][] value;
 	
-	public CarteIngredient() {
-		
+	public CarteIngredient(int[][] v) {
+		this.value = v;
 	}
 	
 }
