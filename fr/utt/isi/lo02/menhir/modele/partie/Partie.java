@@ -1,23 +1,27 @@
 package fr.utt.isi.lo02.menhir.modele.partie;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Scanner;
 
 import fr.utt.isi.lo02.menhir.modele.enumeration.Saison;
 import fr.utt.isi.lo02.menhir.modele.enumeration.TypePartie;
 import fr.utt.isi.lo02.menhir.modele.joueur.*;
 
-public class Partie implements java.lang.Comparable{
+public class Partie{
 	private TypePartie typePartie;
 	private Saison saison;
-	private ArrayList<Joueur> ordreJeu;
 	private int nbJoueur, manche, tour;
+	public ArrayList<Humain> listeHumains;
+	public ArrayList<Joueur> ordreJeu;
 	
 	public Partie() {
 		this.saison=Saison.printemps;
+		this.listeHumains = new ArrayList<Humain>();
 		this.ordreJeu = new ArrayList<Joueur>();
 	}
 	
+
 	/*
 	 * Méthode qui choisit le type de la partie
 	 * 
@@ -36,12 +40,12 @@ public class Partie implements java.lang.Comparable{
 			}
 		}
 	}
-	
+	/*
 	public static void main(String[] args) {
 		Partie partie1 = new Partie();
 		partie1.typePartie();
 		System.out.print(partie1.typePartie);
-	}
+	}*/
 	
 
 
@@ -49,48 +53,46 @@ public class Partie implements java.lang.Comparable{
 	/*
 	 * Méthode qui initialise les joueurs humains
 	 */
-	public void ajouterJoueur(){
-		System.out.println("Saisir le nombre de joueur réels : ");
-		Scanner in = new Scanner(System.in);
-		int nbHumain= in.nextInt();
-		
-		for (int i=0; i<nbHumain; i++) {			
-			System.out.println("Veuillez sasir le nom du joueur "+(i+1)+" (humain) : ");
-			Scanner in2 = new Scanner(System.in);
-			String name = in2.nextLine();
+	public void ajouterHumain(int i){
+			Scanner joueur = new Scanner(System.in);
+			System.out.println("Veuillez saisir le nom du joueur " + i + " (humain) : ");
+			String nom = joueur.nextLine();
 			
-			System.out.println("Veuillez sasir l'age du joueur "+(i+1)+" (humain) : ");
-			Scanner in3 = new Scanner(System.in);
-			int age = in3.nextInt();
+			System.out.println("Veuillez sasir l'age du joueur " + i + " : ");
+			int age = joueur.nextInt();
 			
-			System.out.println("Le joueur est-il du genre féminin "+(i+1)+" (true/false) : ");
-			Scanner in4 = new Scanner(System.in);
-			boolean genreF = in4.nextBoolean();
+			System.out.println("Le joueur est-il du genre féminin (true/false) ?");
+			boolean genreF = joueur.nextBoolean();
 			
-			Humain humain = new Humain (name, age, genreF);
-			this.ordreJeu.add(humain);			
+			this.listeHumains.add(new Humain(nom,age,genreF));			
+		}
+	
+	public void ajouterIA(int i){
+		Scanner ia = new Scanner(System.in);
+		System.out.println("Veuillez saisir le nom de l'IA " + i + " : ");
+		String nom = ia.nextLine();
+
+		this.ordreJeu.add(new IA(nom));		
+	}
+	
+	 
+	public void triOrdreJeu(){	 
+		Collections.sort(this.listeHumains);
+		for(Humain h : this.listeHumains){
+			this.ordreJeu.add(h);
 		}
 	}
-	
-	 public int compareTo(Object other) { 
-	      boolean genreF = ((Humain) other).getGenreF(); 
-	      int age = ((Humain) other).getAge();
-	      int genreF2 = this.getGenreF(); 
-	      int age = ((Humain) other).getAge();
-	      if (nombre1 > nombre2)  return -1; 
-	      else if(nombre1 == nombre2) return 0; 
-	      else return 1; 
-	   } 
-	 
-	public void ordreJeu(){	  
-		this.ordreJeu.add(joueur);
-	}
-	
-	public void definirOrdreJeu(){
 		
-	}
-	
-	
+		public TypePartie getTypePartie(){
+			return this.typePartie;
+		}
+		
+		public Joueur getJoueurActif(int tour){
+			return this.ordreJeu.get(tour);
+		}
+			
 }
+	
+
 
 

@@ -1,8 +1,7 @@
 package fr.utt.isi.lo02.menhir.modele.joueur;
 
-import fr.utt.isi.lo02.menhir.modele.partie.Partie;
 
-public class Humain extends Joueur{
+public class Humain extends Joueur implements Comparable<Humain>{
 	private int age;
 	private boolean genreF;
 	
@@ -19,6 +18,32 @@ public class Humain extends Joueur{
 	public int getAge(){
 		return this.age;
 	}
+	
+	public int compareTo(Humain autreHumain)
+	   {
+	      int resultat = 0;
+	      if (this.genreF == true){
+	    	  if (autreHumain.genreF == false)
+	    		  resultat = -1;
+	    	  if (this.age > autreHumain.age && autreHumain.genreF == true)
+	    		  resultat = 1;
+	    	  if (this.age < autreHumain.age && autreHumain.genreF == true)
+	    		  resultat = -1;
+	    	  if (this.age == autreHumain.age && autreHumain.genreF == true)
+	    		  resultat = 0;
+	      }
+	      else{
+	    	  if (autreHumain.genreF == true)
+	    		  resultat = 1;
+	    	  if (this.age > autreHumain.age && autreHumain.genreF == false)
+	    		  resultat = 1;
+	    	  if (this.age < autreHumain.age && autreHumain.genreF == false)
+	    		  resultat = -1;
+	    	  if (this.age == autreHumain.age && autreHumain.genreF == false)
+	    		  resultat = 0;
+	      }
+	      return resultat;
+	   }
 
 
 }
