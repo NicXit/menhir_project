@@ -7,5 +7,5 @@ public class CarteIngredient extends Carte {
 		super(nom);
 		this.value = v;
 	}
-	
+		
 }

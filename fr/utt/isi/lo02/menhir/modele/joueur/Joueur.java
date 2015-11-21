@@ -2,7 +2,7 @@ package fr.utt.isi.lo02.menhir.modele.joueur;
 
 import fr.utt.isi.lo02.menhir.modele.partie.Partie;
 
-public abstract class Joueur {
+public abstract class Joueur{
 	protected int nbMenhir, nbPoints, nbGraines;
 	protected String nom;
 	protected Partie partie;
@@ -15,7 +15,9 @@ public abstract class Joueur {
 		
 	}
 	
-	
+	public String getNom(){
+		return this.nom;
+	}
 
 	
 	
