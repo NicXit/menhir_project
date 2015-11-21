@@ -103,17 +103,7 @@ public class Paquet {
 
 	}
 	
-	public void distribuerCartesIngredients(ArrayList<Joueur> ordreJeu){
-		Collections.shuffle(cartesIngredient);
-		for (Iterator<Joueur> it = ordreJeu.iterator(); it.hasNext(); ){
-			Joueur j = (Joueur) it.next();
-			for (int i=0; i<4; i++)
-				j.carteIngredient[i]=cartesIngredient.get(i);			
-		}
-			
-		
-		
-	}
+
 }
 
 	

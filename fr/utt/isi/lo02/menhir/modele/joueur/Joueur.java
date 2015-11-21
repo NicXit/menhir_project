@@ -39,4 +39,5 @@ public abstract class Joueur{
 		this.carteAllie = c;
 	}
 	
+	
 }
