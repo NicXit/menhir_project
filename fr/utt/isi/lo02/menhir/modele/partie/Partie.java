@@ -18,6 +18,15 @@ public class Partie implements java.lang.Comparable{
 		this.ordreJeu = new ArrayList<Joueur>();
 	}
 	
+	public void TypePartie(){
+		System.out.println("Choisir le type de Partie : ");
+		System.out.println("- rapide");
+		System.out.println("- avancée");
+		Scanner in = new Scanner(System.in);
+		if (TypePartie.values)
+		this.typePartie=in.nextTypePartie();
+		
+	}
 	/*
 	 * Méthode qui initialise les joueurs humains
 	 */
