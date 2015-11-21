@@ -1,0 +1,17 @@
+La taupe géante
+1 1 1 1
+
+La taupe géante
+0 2 2 0
+
+La taupe géante
+0 1 2 1
+
+Chien de garde
+2 0 2 0
+
+Chien de garde
+1 2 0 1
+
+Chien de garde
+0 1 3 0

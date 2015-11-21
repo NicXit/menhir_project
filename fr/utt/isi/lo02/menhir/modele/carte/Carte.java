@@ -1,10 +1,10 @@
 package fr.utt.isi.lo02.menhir.modele.carte;
 
 public abstract class Carte {
-	private String nom;
+	public String nom;
 	
-	public Carte() {
-		
+	public Carte(String nom) {
+		this.nom = nom;
 	}
 	
 }
