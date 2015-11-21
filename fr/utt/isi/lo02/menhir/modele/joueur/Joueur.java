@@ -7,9 +7,8 @@ public abstract class Joueur {
 	protected String nom;
 	protected Partie partie;
 	
-	public Joueur(String nom, Partie partie){
-		this.nom=nom;
-		this.partie=partie;
+	public Joueur(String nom){
+		this.nom=nom;		
 		this.nbMenhir=0;
 		this.nbPoints=0;
 		this.nbGraines=0;
