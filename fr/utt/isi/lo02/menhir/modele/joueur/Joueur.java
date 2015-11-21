@@ -1,11 +1,12 @@
 package fr.utt.isi.lo02.menhir.modele.joueur;
 
-import fr.utt.isi.lo02.menhir.modele.partie.Partie;
+import fr.utt.isi.lo02.menhir.modele.carte.CarteIngredient;
 
 public abstract class Joueur {
 	protected int nbMenhir, nbPoints, nbGraines;
 	protected String nom;
-	protected Partie partie;
+	public CarteIngredient carteIngredient[] = new CarteIngredient[4];
+
 	
 	public Joueur(String nom){
 		this.nom=nom;		

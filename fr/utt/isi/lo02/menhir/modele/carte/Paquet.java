@@ -3,8 +3,13 @@ package fr.utt.isi.lo02.menhir.modele.carte;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Iterator;
 import java.util.NoSuchElementException;
 import java.util.Scanner;
+
+import fr.utt.isi.lo02.menhir.modele.joueur.Joueur;
 
 public class Paquet {
 	public ArrayList<CarteIngredient> cartesIngredient;
@@ -97,4 +102,18 @@ public class Paquet {
 		}
 
 	}
+	
+	public void distribuerCartesIngredients(ArrayList<Joueur> ordreJeu){
+		Collections.shuffle(cartesIngredient);
+		for (Iterator<Joueur> it = ordreJeu.iterator(); it.hasNext(); ){
+			Joueur j = (Joueur) it.next();
+			for (int i=0; i<4; i++)
+				j.carteIngredient[i]=cartesIngredient.get(i);			
+		}
+			
+		
+		
+	}
 }
+
+	

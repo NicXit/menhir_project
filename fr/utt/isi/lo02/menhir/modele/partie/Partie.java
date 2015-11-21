@@ -20,9 +20,10 @@ public class Partie implements java.lang.Comparable{
 	
 	/*
 	 * Méthode qui choisit le type de la partie
+	 * 
+	 * ajouter while ou exception
 	 */
 	public void typePartie(){
-		System.out.println("Choisir le type de Partie : ");
 		for (TypePartie t : TypePartie.values()) {
 			System.out.println(t);
 		}		
@@ -35,12 +36,13 @@ public class Partie implements java.lang.Comparable{
 			}
 		}
 	}
-	/*
+	
 	public static void main(String[] args) {
-		Partie parti1 = new Partie();
-		parti1.typePartie();
+		Partie partie1 = new Partie();
+		partie1.typePartie();
+		System.out.print(partie1.typePartie);
 	}
-	*/
+	
 
 
 	
