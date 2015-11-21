@@ -18,15 +18,32 @@ public class Partie implements java.lang.Comparable{
 		this.ordreJeu = new ArrayList<Joueur>();
 	}
 	
-	public void TypePartie(){
+	/*
+	 * Méthode qui choisit le type de la partie
+	 */
+	public void typePartie(){
 		System.out.println("Choisir le type de Partie : ");
-		System.out.println("- rapide");
-		System.out.println("- avancée");
-		Scanner in = new Scanner(System.in);
-		if (TypePartie.values)
-		this.typePartie=in.nextTypePartie();
-		
+		for (TypePartie t : TypePartie.values()) {
+			System.out.println(t);
+		}		
+		try(Scanner in = new Scanner(System.in)){
+			String typePartie = in.nextLine();		
+			for (TypePartie t : TypePartie.values()) {
+		        if (t.name().equals(typePartie)) {
+		            this.typePartie=TypePartie.valueOf(typePartie);	            
+		        }	        
+			}
+		}
 	}
+	/*
+	public static void main(String[] args) {
+		Partie parti1 = new Partie();
+		parti1.typePartie();
+	}
+	*/
+
+
+	
 	/*
 	 * Méthode qui initialise les joueurs humains
 	 */
