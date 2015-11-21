@@ -8,8 +8,7 @@ import fr.utt.isi.lo02.menhir.modele.strategy.*;
 public class IA extends Joueur{
 	private Strategy strategy;
 	
-	public IA(String nom, Partie partie){
-		super(nom,partie);
+	public IA(String nom){		
 		this.strategy=choisirStrategy();
 		
 	}
