@@ -2,6 +2,7 @@ package fr.utt.isi.lo02.menhir.controleur;
 
 import java.util.Scanner;
 
+import fr.utt.isi.lo02.menhir.modele.carte.CarteIngredient;
 import fr.utt.isi.lo02.menhir.modele.enumeration.TypePartie;
 import fr.utt.isi.lo02.menhir.modele.joueur.Joueur;
 import fr.utt.isi.lo02.menhir.modele.partie.*;
@@ -81,7 +82,6 @@ public class Controleur {
 			}
 		}while (valeurJuste == 0);
 	
-		
 		
 		//if (p.getTypePartie() == TypePartie.rapide){
 			for(int tour = 0; tour < p.ordreJeu.size(); tour++){

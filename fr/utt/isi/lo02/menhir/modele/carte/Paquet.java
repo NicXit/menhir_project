@@ -117,6 +117,7 @@ public class Paquet {
 		joueur.setCarteAllieJoueur(cartesAllie.get(1));
 		cartesAllie.remove(1);
 	}
+
 }
 
 	
