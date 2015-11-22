@@ -1,7 +1,8 @@
 package fr.utt.isi.lo02.menhir.modele.carte;
 
 public class CarteIngredient extends Carte {
-	public int[] value;
+	public int[] value = new int[12];
+
 	
 	public CarteIngredient(String nom, int[] v) {
 		super(nom);

@@ -3,7 +3,6 @@ package fr.utt.isi.lo02.menhir.modele.carte;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
@@ -29,12 +28,12 @@ public class Paquet {
 		 
 		    String nom[] = new String[3];
 		    String nomCarte;
-		    int valeur[] = new int[12];
-		 
+		    
 		    while (true)
 		    {
 		        try
 		        {
+		        	int valeur[] = new int[12];
 		        	for(int i=0;i<3;i++){
 		        		nom[i] = scanner.next();
 		        	 }

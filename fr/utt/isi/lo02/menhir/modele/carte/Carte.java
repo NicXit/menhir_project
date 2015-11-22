@@ -7,6 +7,8 @@ public abstract class Carte {
 		this.nom = nom;
 	}
 	
+	
+	
 	public String toString(){
 		return this.nom;
 	}

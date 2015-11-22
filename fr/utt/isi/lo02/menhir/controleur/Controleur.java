@@ -2,38 +2,23 @@ package fr.utt.isi.lo02.menhir.controleur;
 
 import java.util.Scanner;
 
+<<<<<<< HEAD
 import fr.utt.isi.lo02.menhir.modele.carte.CarteIngredient;
 import fr.utt.isi.lo02.menhir.modele.carte.Paquet;
 import fr.utt.isi.lo02.menhir.modele.enumeration.TypePartie;
+=======
+import fr.utt.isi.lo02.menhir.modele.carte.Paquet;
+>>>>>>> dd5f13d282107cfee3e4e1f4bd55855f27ca642d
 import fr.utt.isi.lo02.menhir.modele.joueur.Joueur;
 import fr.utt.isi.lo02.menhir.modele.partie.*;
 
 public class Controleur {
 
 	public static void main(String[] args) {
-		/** TEST
+		// TEST
 		Paquet paquet = new Paquet();
 		paquet.genererPaquetIngredient();
-		
-	       for(CarteIngredient c: paquet.cartesIngredient)
-	       {
-	       	 System.out.println (c.nom);
-	       	 for(int v: c.value)
-		     {
-	       		 System.out.println (v);
-		     }
-	       }
-	       
-	       paquet.genererPaquetAllie();
-			
-	       for(CarteAllie c: paquet.cartesAllie)
-	       {
-	       	 System.out.println (c.nom);
-	       	 for(int v: c.value)
-		     {
-	       		 System.out.println (v);
-		     }
-	       }**/
+		paquet.genererPaquetAllie();
 		
 		Scanner sc = new Scanner(System.in);
 		Partie p = new Partie();
@@ -83,7 +68,7 @@ public class Controleur {
 			}
 		}while (valeurJuste == 0);
 		
-		Paquet paquet = new Paquet();
+		
 		paquet.genererPaquetIngredient();
 		paquet.distribuerCartesIngredientsJoueur(p.ordreJeu);
 		
