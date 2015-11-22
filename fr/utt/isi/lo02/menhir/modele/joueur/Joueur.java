@@ -25,6 +25,16 @@ public abstract class Joueur{
 		return this.carteIngredient;
 	}
 	
+	/**
+	 * méthode pour afficher les cartes ingrédients d'un joueur
+	 * 
+	public String afficherCarteIngredientJoueur(CarteIngredient[]){	
+		
+			return (nom+"\n"+"G : "+value[0]+" "+value[1]+" "+value[2]+" "+value[3]
+					+"\n"+"E : "+value[4]+" "+value[5]+" "+value[6]+" "+value[7]+"\n"
+					+"F : "+value[8]+" "+value[9]+" "+value[10]+" "+value[11]+"\n");
+	}*/
+	
 	public void setCarteIngredientJoueur(CarteIngredient c, int i){
 		this.carteIngredient[i] = c;
 	}

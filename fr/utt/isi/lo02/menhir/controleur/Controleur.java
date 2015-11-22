@@ -2,13 +2,9 @@ package fr.utt.isi.lo02.menhir.controleur;
 
 import java.util.Scanner;
 
-<<<<<<< HEAD
-import fr.utt.isi.lo02.menhir.modele.carte.CarteIngredient;
+
 import fr.utt.isi.lo02.menhir.modele.carte.Paquet;
-import fr.utt.isi.lo02.menhir.modele.enumeration.TypePartie;
-=======
-import fr.utt.isi.lo02.menhir.modele.carte.Paquet;
->>>>>>> dd5f13d282107cfee3e4e1f4bd55855f27ca642d
+import fr.utt.isi.lo02.menhir.modele.enumeration.Saison;
 import fr.utt.isi.lo02.menhir.modele.joueur.Joueur;
 import fr.utt.isi.lo02.menhir.modele.partie.*;
 
@@ -19,6 +15,7 @@ public class Controleur {
 		Paquet paquet = new Paquet();
 		paquet.genererPaquetIngredient();
 		paquet.genererPaquetAllie();
+		String newLine = System.getProperty("line.separator");
 		
 		Scanner sc = new Scanner(System.in);
 		Partie p = new Partie();
@@ -69,16 +66,22 @@ public class Controleur {
 		}while (valeurJuste == 0);
 		
 		
-		paquet.genererPaquetIngredient();
-		paquet.distribuerCartesIngredientsJoueur(p.ordreJeu);
 		
-		//if (p.getTypePartie() == TypePartie.rapide){
-			for(int tour = 0; tour < p.ordreJeu.size(); tour++){
-				Joueur actif = p.getJoueurActif(tour);
-				System.out.println("C'est au tour de " + actif.getNom()+ " de jouer !");
+		paquet.distribuerCartesIngredientsJoueur(p.ordreJeu);
+		//paquet.distribuerCarteAllieJoueur(p.ordreJeu.get(0));
+		
+		for (Saison saison : Saison.values()){
+			System.out.println(newLine+"Saison en cours : "+saison);
+			//if (p.getTypePartie() == TypePartie.rapide){
+			for(int numOrdreJoueur = 0; numOrdreJoueur < p.ordreJeu.size(); numOrdreJoueur++){
+				Joueur actif = p.getJoueurActif(numOrdreJoueur);
+				System.out.println(newLine+"C'est au tour de " + actif.getNom()+ " de jouer !");
+				System.out.println("Choisir une carte : ");
 				
+				//}
 			}
-			
-		//}
+		}
+		
+		
 	}
 }

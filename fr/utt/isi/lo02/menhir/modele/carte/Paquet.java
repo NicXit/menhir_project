@@ -70,12 +70,13 @@ public class Paquet {
 		 
 		    String nom[] = new String[3];
 		    String nomCarte;
-		    int valeur[] = new int[4];
+		    
 		 
 		    while (true)
 		    {
 		        try
 		        {
+		        	int valeur[] = new int[4];
 		        	for(int i=0;i<3;i++){
 		        		nom[i] = scanner.next();
 		        	 }
@@ -103,20 +104,22 @@ public class Paquet {
 	}
 	
 	public void distribuerCartesIngredientsJoueur(ArrayList<Joueur> ordreJeu){
-		Collections.shuffle(cartesIngredient);
+		//Collections.shuffle(cartesIngredient);
 		for (Iterator<Joueur> it = ordreJeu.iterator(); it.hasNext(); ){
 			Joueur j = (Joueur) it.next();
 			for (int i=0; i<4; i++){
-				j.setCarteIngredientJoueur(cartesIngredient.get(i),i);
-				//cartesIngredient.remove(i);
-				System.out.println(cartesIngredient.get(i).toString());}
+				j.setCarteIngredientJoueur(cartesIngredient.get(0),i);
+				//System.out.println(cartesIngredient.get(0).toString());
+				cartesIngredient.remove(0);				
+				}
 			}
 		}
 		
 	public void distribuerCarteAllieJoueur(Joueur joueur){
 		Collections.shuffle(cartesAllie);
-		joueur.setCarteAllieJoueur(cartesAllie.get(1));
-		cartesAllie.remove(1);		
+		joueur.setCarteAllieJoueur(cartesAllie.get(0));
+		//System.out.println(cartesAllie.get(1).toString());
+		cartesAllie.remove(0);		
 	}
 
 }

@@ -11,7 +11,7 @@ import fr.utt.isi.lo02.menhir.modele.joueur.*;
 public class Partie{
 	private TypePartie typePartie;
 	private Saison saison;
-	private int nbJoueur, manche, tour;
+	private int nbJoueur, manche;
 	public ArrayList<Humain> listeHumains;
 	public ArrayList<Joueur> ordreJeu;
 	
@@ -40,6 +40,8 @@ public class Partie{
 			}
 		}
 	}
+	
+	
 	/*
 	public static void main(String[] args) {
 		Partie partie1 = new Partie();
@@ -87,9 +89,15 @@ public class Partie{
 			return this.typePartie;
 		}
 		
-		public Joueur getJoueurActif(int tour){
-			return this.ordreJeu.get(tour);
+		public Joueur getJoueurActif(int numOrdreJoueur){
+			return this.ordreJeu.get(numOrdreJoueur);
 		}
+		
+		public Saison getSaison(){
+			return this.saison;
+		}
+		
+		
 			
 }
 	
