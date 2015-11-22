@@ -3,6 +3,7 @@ package fr.utt.isi.lo02.menhir.controleur;
 import java.util.Scanner;
 
 import fr.utt.isi.lo02.menhir.modele.carte.CarteIngredient;
+import fr.utt.isi.lo02.menhir.modele.carte.Paquet;
 import fr.utt.isi.lo02.menhir.modele.enumeration.TypePartie;
 import fr.utt.isi.lo02.menhir.modele.joueur.Joueur;
 import fr.utt.isi.lo02.menhir.modele.partie.*;
@@ -81,12 +82,16 @@ public class Controleur {
 				valeurJuste = 1;
 			}
 		}while (valeurJuste == 0);
-	
+		
+		Paquet paquet = new Paquet();
+		paquet.genererPaquetIngredient();
+		paquet.distribuerCartesIngredientsJoueur(p.ordreJeu);
 		
 		//if (p.getTypePartie() == TypePartie.rapide){
 			for(int tour = 0; tour < p.ordreJeu.size(); tour++){
 				Joueur actif = p.getJoueurActif(tour);
 				System.out.println("C'est au tour de " + actif.getNom()+ " de jouer !");
+				
 			}
 			
 		//}

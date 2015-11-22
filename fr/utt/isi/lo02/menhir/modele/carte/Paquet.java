@@ -107,15 +107,17 @@ public class Paquet {
 		Collections.shuffle(cartesIngredient);
 		for (Iterator<Joueur> it = ordreJeu.iterator(); it.hasNext(); ){
 			Joueur j = (Joueur) it.next();
-			for (int i=0; i<4; i++)
+			for (int i=0; i<4; i++){
 				j.setCarteIngredientJoueur(cartesIngredient.get(i),i);
+				//cartesIngredient.remove(i);
+				System.out.println(cartesIngredient.get(i).toString());}
 			}
 		}
 		
 	public void distribuerCarteAllieJoueur(Joueur joueur){
 		Collections.shuffle(cartesAllie);
 		joueur.setCarteAllieJoueur(cartesAllie.get(1));
-		cartesAllie.remove(1);
+		cartesAllie.remove(1);		
 	}
 
 }
