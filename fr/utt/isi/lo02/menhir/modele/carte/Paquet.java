@@ -111,18 +111,19 @@ public class Paquet {
 			Joueur j = (Joueur) it.next();			
 			for (int i=0; i<4; i++){
 				//System.out.println(cartesIngredient.get(0).toString());				
-				cartesIngredientsJoueur.add(cartesIngredient.remove(0));
+				//cartesIngredientsJoueur.add(cartesIngredient.remove(0));
+				j.ajouterCarteIngredientJoueur(cartesIngredient.remove(0));
 				}
-			j.setCarteIngredientJoueur(cartesIngredientsJoueur);
-			cartesIngredientsJoueur.removeAll(cartesIngredientsJoueur);
+			//j.setCarteIngredientJoueur(cartesIngredientsJoueur);
+			//j.getCarteIngredientJoueur();
+			//cartesIngredientsJoueur.clear();
+			//j.getCarteIngredientJoueur();
 			}
 		}
 		
 	public void distribuerCarteAllieJoueur(Joueur joueur){
 		Collections.shuffle(cartesAllie);
-		joueur.setCarteAllieJoueur(cartesAllie.remove(0));
-		//System.out.println(cartesAllie.get(1).toString());
-		//cartesAllie.remove(0);		
+		joueur.setCarteAllieJoueur(cartesAllie.remove(0));		
 	}
 
 }

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Scanner;
 
+import fr.utt.isi.lo02.menhir.modele.carte.CarteAllie;
 import fr.utt.isi.lo02.menhir.modele.carte.CarteIngredient;
 import fr.utt.isi.lo02.menhir.modele.carte.Paquet;
 import fr.utt.isi.lo02.menhir.modele.enumeration.Saison;
@@ -69,7 +70,7 @@ public class Controleur {
 		
 		
 		
-		paquet.distribuerCartesIngredientsJoueur(p.ordreJeu);
+		//paquet.distribuerCartesIngredientsJoueur(p.ordreJeu);
 		//paquet.distribuerCarteAllieJoueur(p.ordreJeu.get(0));
 		
 		for (Saison saison : Saison.values()){
@@ -79,14 +80,18 @@ public class Controleur {
 				Joueur actif = p.getJoueurActif(numOrdreJoueur);
 				System.out.println(newLine+"C'est au tour de " + actif.getNom()+ " de jouer !");
 				System.out.println("Choisir une carte : ");
+				
+	
+				
+				
+				
 				//actif.setCarteIngredientJoueur(actif.getCarteIngredientJoueur());
 				/*ArrayList<CarteIngredient> list = actif.getCarteIngredientJoueur();				
 				for(Iterator<CarteIngredient> it = list.iterator(); it.hasNext();){
 					CarteIngredient carte = (CarteIngredient) it.next();
 					System.out.println(carte.toString());
 				}*/
-				//actif.afficherCartesIngredientsJoueur();
-				
+								
 				//}
 			}
 		}
