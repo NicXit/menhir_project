@@ -70,7 +70,7 @@ public class Controleur {
 		
 		
 		
-		//paquet.distribuerCartesIngredientsJoueur(p.ordreJeu);
+		paquet.distribuerCartesIngredientsJoueur(p.ordreJeu);
 		//paquet.distribuerCarteAllieJoueur(p.ordreJeu.get(0));
 		
 		for (Saison saison : Saison.values()){
@@ -79,18 +79,15 @@ public class Controleur {
 			for(int numOrdreJoueur = 0; numOrdreJoueur < p.ordreJeu.size(); numOrdreJoueur++){
 				Joueur actif = p.getJoueurActif(numOrdreJoueur);
 				System.out.println(newLine+"C'est au tour de " + actif.getNom()+ " de jouer !");
-				System.out.println("Choisir une carte : ");
-				
-	
-				
-				
-				
-				//actif.setCarteIngredientJoueur(actif.getCarteIngredientJoueur());
-				/*ArrayList<CarteIngredient> list = actif.getCarteIngredientJoueur();				
-				for(Iterator<CarteIngredient> it = list.iterator(); it.hasNext();){
+				System.out.println("Choisir une carte : ");			
+				for(Iterator<CarteIngredient> it = actif.getCarteIngredientJoueur().iterator(); it.hasNext();){
 					CarteIngredient carte = (CarteIngredient) it.next();
 					System.out.println(carte.toString());
-				}*/
+				}
+				int choixCarte = sc.nextInt();
+				System.out.println("Vous avez choisi la carte : " + newLine + actif.getCarteIngredientJoueur().get(choixCarte-1));
+				System.out.println("Choisir une action : ");
+				
 								
 				//}
 			}

@@ -104,20 +104,12 @@ public class Paquet {
 	}
 	
 	public void distribuerCartesIngredientsJoueur(ArrayList<Joueur> ordreJeu){
-		Collections.shuffle(cartesIngredient);
-		ArrayList<CarteIngredient> cartesIngredientsJoueur = new ArrayList<CarteIngredient>();
-		
+		Collections.shuffle(cartesIngredient);		
 		for (Iterator<Joueur> it = ordreJeu.iterator(); it.hasNext(); ){
 			Joueur j = (Joueur) it.next();			
 			for (int i=0; i<4; i++){
-				//System.out.println(cartesIngredient.get(0).toString());				
-				//cartesIngredientsJoueur.add(cartesIngredient.remove(0));
 				j.ajouterCarteIngredientJoueur(cartesIngredient.remove(0));
 				}
-			//j.setCarteIngredientJoueur(cartesIngredientsJoueur);
-			//j.getCarteIngredientJoueur();
-			//cartesIngredientsJoueur.clear();
-			//j.getCarteIngredientJoueur();
 			}
 		}
 		
