@@ -89,6 +89,10 @@ public class Controleur {
 		
 		for (Saison saison : Saison.values()){
 			System.out.println(newLine+"Saison en cours : "+saison);
+			for(Iterator<Joueur> it = p.ordreJeu.iterator(); it.hasNext();){
+				Joueur j = (Joueur) it.next();
+				System.out.println(j.getNom()+" a " + j.getNbGraines() + " graines et " + j.getNbMenhir() + " menhirs.");
+			}
 			//if (p.getTypePartie() == TypePartie.rapide){
 			for(int numOrdreJoueur = 0; numOrdreJoueur < p.ordreJeu.size(); numOrdreJoueur++){
 				Joueur actif = p.getJoueurActif(numOrdreJoueur);
@@ -103,16 +107,34 @@ public class Controleur {
 				do{
 					if (choixAction > tabChoixAction.length || choixAction <= 0){
 						System.out.println("Choisir le numero de l'action : ");
-						choixAction = sc.nextInt();	
+						choixAction = sc.nextInt();							
 					}
 					else
+						System.out.println(choixAction);
 						System.out.println("numéro d'action incorrecte");
+						sc.next();
 				}while (choixAction > tabChoixAction.length || choixAction <= 0);
 				
 				System.out.println("Vous avez choisi l'action " + tabChoixAction[choixAction-1]);				
 				int valCarte[] = actif.getCarteIngredientJoueur().get(choixCarte-1).getValue();
 				int value = valCarte[choixAction - 1 + tabSaison.length - actif.getCarteIngredientJoueur().size()];
-				p.effectuerAction(choixAction, value, actif);
+				
+				switch (choixAction){				
+				case 1 :
+					p.effectuerActionGeant(value, actif);
+					break;
+				case 2 :
+					p.effectuerActionEngrais(value, actif);
+					break;
+				case 3 :
+					for(Iterator<Joueur> it = p.ordreJeu.iterator(); it.hasNext();){
+						Joueur j = (Joueur) it.next();
+						System.out.println(j.getNom()+" a " + j.getNbGraines() + " graines et " + j.getNbMenhir() + " menhirs.");
+					}					
+					System.out.println("Quelle joueur voulez vous attaquer ? ");
+					p.effectuerActionFarfadets(value, actif);
+					break;		
+				}		
 								
 				//}
 			}

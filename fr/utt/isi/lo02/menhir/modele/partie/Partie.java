@@ -2,6 +2,7 @@ package fr.utt.isi.lo02.menhir.modele.partie;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Iterator;
 import java.util.Scanner;
 
 import fr.utt.isi.lo02.menhir.modele.enumeration.Saison;
@@ -88,19 +89,34 @@ public class Partie{
 			return this.saison;
 		}
 		
-		public void effectuerAction(int choixAction, int valAction, Joueur joueur){			
-			switch (choixAction){				
-			case 1 :					
+		public void effectuerActionGeant(int valAction, Joueur joueur){	
 				joueur.setNbGraines(joueur.getNbGraines() + valAction);
-				break;
-			case 2 :
-				if (valAction <= joueur.getNbGraines())
-					joueur.setNbMenhir(joueur.getNbMenhir()+valAction);
-				else
-					joueur.setNbMenhir(joueur.getNbMenhir()+joueur.getNbGraines());					
-				break;						
-			case 3 :
-				break;
+		}
+		
+		public void effectuerActionEngrais(int valAction, Joueur joueur){
+			if (valAction <= joueur.getNbGraines())
+				joueur.setNbMenhir(joueur.getNbMenhir()+valAction);
+			else
+				joueur.setNbMenhir(joueur.getNbMenhir()+joueur.getNbGraines());		
+		}
+		
+		public void effectuerActionFarfadets(int valAction, Joueur joueur){			
+			try(Scanner in = new Scanner(System.in)){
+				String nomJoueurAttaque = in.nextLine();	
+				for(Iterator<Joueur> it = ordreJeu.iterator(); it.hasNext();){
+					Joueur joueurAttaque = (Joueur) it.next();
+					if(joueurAttaque.getNom() == nomJoueurAttaque){
+						if (valAction <= joueurAttaque.getNbGraines()){
+							joueur.setNbGraines(joueur.getNbGraines()+valAction);
+							joueurAttaque.setNbGraines(joueur.getNbGraines()-valAction);
+						}
+						else{
+							joueur.setNbGraines(joueur.getNbGraines()+joueurAttaque.getNbGraines());
+							joueurAttaque.setNbGraines(0);
+						}
+							
+					}        
+				}
 			}
 		}
 		
