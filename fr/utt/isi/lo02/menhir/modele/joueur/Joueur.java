@@ -7,7 +7,7 @@ import fr.utt.isi.lo02.menhir.modele.carte.CarteAllie;
 import fr.utt.isi.lo02.menhir.modele.carte.CarteIngredient;
 
 public abstract class Joueur{
-	protected int nbMenhir, nbPoints, nbGraines;
+	private int nbMenhir, nbPoints, nbGraines;
 	protected String nom;
 	private ArrayList<CarteIngredient> cartesIngredientsJoueur;
 	private CarteAllie carteAllie;
@@ -41,5 +41,19 @@ public abstract class Joueur{
 		this.carteAllie = c;		
 	}
 	
+	public int getNbGraines(){
+		return this.nbGraines;
+	}
+	
+	public void setNbGraines(int nbGraines){
+		this.nbGraines = nbGraines;
+	}
+	
+	public int getNbMenhir(){
+		return this.nbMenhir;
+	}
+	public void setNbMenhir(int nbMenhir){
+		this.nbMenhir=nbMenhir;
+	}
 	
 }

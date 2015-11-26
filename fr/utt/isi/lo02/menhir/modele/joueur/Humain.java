@@ -5,10 +5,13 @@ public class Humain extends Joueur implements Comparable<Humain>{
 	private int age;
 	private boolean genreF;
 	
-	public Humain(String nom, int age, boolean genreF){
+	public Humain(String nom, int age, char genreF){
 		super(nom);
 		this.age=age;
-		this.genreF=genreF;
+		if (genreF == 'o')
+			this.genreF=true;
+		else if (genreF == 'n')
+			this.genreF=false;
 	}
 	
 	public boolean getGenreF(){

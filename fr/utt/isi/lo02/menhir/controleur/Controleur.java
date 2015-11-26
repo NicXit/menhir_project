@@ -7,7 +7,9 @@ import java.util.Scanner;
 import fr.utt.isi.lo02.menhir.modele.carte.CarteAllie;
 import fr.utt.isi.lo02.menhir.modele.carte.CarteIngredient;
 import fr.utt.isi.lo02.menhir.modele.carte.Paquet;
+import fr.utt.isi.lo02.menhir.modele.enumeration.Action;
 import fr.utt.isi.lo02.menhir.modele.enumeration.Saison;
+import fr.utt.isi.lo02.menhir.modele.enumeration.TypePartie;
 import fr.utt.isi.lo02.menhir.modele.joueur.Joueur;
 import fr.utt.isi.lo02.menhir.modele.partie.*;
 
@@ -24,10 +26,13 @@ public class Controleur {
 		Partie p = new Partie();
 		int valeurJuste = 0;
 		int nbHumain = 0;
+		int choixAction =0;
+		Action[] tabChoixAction = Action.values();
+		Saison[] tabSaison = Saison.values();
 
 		
 		System.out.println("*** JEU MENHIR ***");
-		
+
 		
 		System.out.println("Veuillez choisir un type de partie parmi :");
 		//typePartie();
@@ -71,7 +76,16 @@ public class Controleur {
 		
 		
 		paquet.distribuerCartesIngredientsJoueur(p.ordreJeu);
-		//paquet.distribuerCarteAllieJoueur(p.ordreJeu.get(0));
+		
+		/*System.out.println("Choisir le type de partie : " );
+		p.typePartie();
+		if (p.getTypePartie()== TypePartie.rapide){
+			
+		}
+		else if (p.getTypePartie() == TypePartie.avancée){
+			paquet.distribuerCarteAllieJoueur(p.ordreJeu.get(0));
+		}*/
+		
 		
 		for (Saison saison : Saison.values()){
 			System.out.println(newLine+"Saison en cours : "+saison);
@@ -86,8 +100,19 @@ public class Controleur {
 				}
 				int choixCarte = sc.nextInt();
 				System.out.println("Vous avez choisi la carte : " + newLine + actif.getCarteIngredientJoueur().get(choixCarte-1));
-				System.out.println("Choisir une action : ");
+				do{
+					if (choixAction > tabChoixAction.length || choixAction <= 0){
+						System.out.println("Choisir le numero de l'action : ");
+						choixAction = sc.nextInt();	
+					}
+					else
+						System.out.println("numéro d'action incorrecte");
+				}while (choixAction > tabChoixAction.length || choixAction <= 0);
 				
+				System.out.println("Vous avez choisi l'action " + tabChoixAction[choixAction-1]);				
+				int valCarte[] = actif.getCarteIngredientJoueur().get(choixCarte-1).getValue();
+				int value = valCarte[choixAction - 1 + tabSaison.length - actif.getCarteIngredientJoueur().size()];
+				p.effectuerAction(choixAction, value, actif);
 								
 				//}
 			}

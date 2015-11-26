@@ -14,5 +14,9 @@ public class CarteIngredient extends Carte {
 				+"\n"+"E : "+this.value[4]+" "+this.value[5]+" "+this.value[6]+" "+this.value[7]+"\n"
 				+"F : "+this.value[8]+" "+this.value[9]+" "+this.value[10]+" "+this.value[11]+"\n");
 	}
+	
+	public int[] getValue(){
+		return this.value;
+	}
 		
 }

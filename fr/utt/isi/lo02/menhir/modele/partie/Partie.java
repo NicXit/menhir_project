@@ -40,16 +40,6 @@ public class Partie{
 			}
 		}
 	}
-	
-	
-	/*
-	public static void main(String[] args) {
-		Partie partie1 = new Partie();
-		partie1.typePartie();
-		System.out.print(partie1.typePartie);
-	}*/
-	
-
 
 	
 	/*
@@ -63,8 +53,9 @@ public class Partie{
 			System.out.println("Veuillez sasir l'age du joueur " + i + " : ");
 			int age = joueur.nextInt();
 			
-			System.out.println("Le joueur est-il du genre féminin (true/false) ?");
-			boolean genreF = joueur.nextBoolean();
+			joueur.nextLine();
+			System.out.println("Le joueur est-il du genre féminin (o/n) ?");
+			char genreF = joueur.nextLine().charAt(0);
 			
 			this.listeHumains.add(new Humain(nom,age,genreF));			
 		}
@@ -97,6 +88,21 @@ public class Partie{
 			return this.saison;
 		}
 		
+		public void effectuerAction(int choixAction, int valAction, Joueur joueur){			
+			switch (choixAction){				
+			case 1 :					
+				joueur.setNbGraines(joueur.getNbGraines() + valAction);
+				break;
+			case 2 :
+				if (valAction <= joueur.getNbGraines())
+					joueur.setNbMenhir(joueur.getNbMenhir()+valAction);
+				else
+					joueur.setNbMenhir(joueur.getNbMenhir()+joueur.getNbGraines());					
+				break;						
+			case 3 :
+				break;
+			}
+		}
 		
 			
 }
