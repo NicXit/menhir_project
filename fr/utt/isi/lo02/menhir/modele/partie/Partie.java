@@ -73,6 +73,9 @@ public class Partie{
 			return this.saison;
 		}
 		
+		public void setSaison(Saison saison){
+			this.saison=saison;
+		}
 		public int getNbManche(){
 			return this.nbManche;
 		}
