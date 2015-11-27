@@ -81,6 +81,7 @@ public class Controleur {
 			System.out.println(t);
 		}	
 		choixTypePartie = sc.nextInt();
+		
 		switch (choixTypePartie){
 			case 1 :	       
 	            p.setTypePartie(TypePartie.rapide);
