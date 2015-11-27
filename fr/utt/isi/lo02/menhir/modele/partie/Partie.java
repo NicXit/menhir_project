@@ -22,27 +22,7 @@ public class Partie{
 		this.listeHumains = new ArrayList<Humain>();
 		this.ordreJeu = new ArrayList<Joueur>();
 	}
-	
 
-	/*
-	 * Méthode qui affiche les différents types possible d'une partie, récupère la saisie et 
-	 * modifie la valeur de typePartie
-	 */
-	public void typePartie(){
-		for (TypePartie t : TypePartie.values()) {
-			System.out.println(t);
-		}		
-		try(Scanner in = new Scanner(System.in)){
-			String typePartie = in.nextLine();		
-			for (TypePartie t : TypePartie.values()) {
-		        if (t.name().equals(typePartie)) {
-		            this.typePartie=TypePartie.valueOf(typePartie);	            
-		        }	        
-			}
-		}
-	}
-
-	
 	/*
 	 * Méthode qui initialise les joueurs humains
 	 */
@@ -83,6 +63,11 @@ public class Partie{
 		
 		public TypePartie getTypePartie(){
 			return this.typePartie;
+		}
+		
+		public void setTypePartie(TypePartie typePartie){			
+				this.typePartie=typePartie;
+			
 		}
 		
 		public Joueur getJoueurActif(int numOrdreJoueur){
