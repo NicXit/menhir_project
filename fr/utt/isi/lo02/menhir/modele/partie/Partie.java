@@ -3,6 +3,7 @@ package fr.utt.isi.lo02.menhir.modele.partie;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Scanner;
 
 import fr.utt.isi.lo02.menhir.modele.enumeration.Saison;
@@ -74,6 +75,10 @@ public class Partie{
 		for(Humain h : this.listeHumains){
 			this.ordreJeu.add(h);
 		}
+	}
+	
+	public void triOrdreScore(){	 
+		Collections.sort(this.ordreJeu,Joueur.comparatorScore);
 	}
 		
 		public TypePartie getTypePartie(){

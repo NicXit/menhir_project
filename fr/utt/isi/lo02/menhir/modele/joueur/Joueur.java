@@ -1,6 +1,7 @@
 package fr.utt.isi.lo02.menhir.modele.joueur;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.Iterator;
 
 import fr.utt.isi.lo02.menhir.modele.carte.CarteAllie;
@@ -20,6 +21,29 @@ public abstract class Joueur{
 		this.cartesIngredientsJoueur = new ArrayList<CarteIngredient>();
 		
 	}
+	
+	public static Comparator<Joueur> comparatorScore = new Comparator<Joueur>(){
+		 public int compare(Joueur j1, Joueur j2) {
+               return j1.compareTo(j2);
+           }};
+	
+	public int compareTo(Joueur autreJoueur)
+	   {
+	      int resultat = 0;
+	      if (autreJoueur.nbMenhir == this.nbMenhir){
+	    	  if(this.nbGraines < autreJoueur.nbGraines)
+	    		  resultat = 1;
+	    	  if(this.nbGraines > autreJoueur.nbGraines)
+	    		  resultat = -1;
+	    	  if(this.nbGraines == autreJoueur.nbGraines)
+	    		  resultat = 0;
+	      }
+	      if (this.nbMenhir < autreJoueur.nbMenhir)
+	    	  resultat = 1;
+	      if (this.nbMenhir > autreJoueur.nbMenhir)
+	    	  resultat = -1;
+	      return resultat;
+	   }
 	
 	public String getNom(){
 		return this.nom;
