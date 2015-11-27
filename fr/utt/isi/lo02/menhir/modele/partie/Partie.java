@@ -24,9 +24,8 @@ public class Partie{
 	
 
 	/*
-	 * Méthode qui choisit le type de la partie
-	 * 
-	 * ajouter while ou exception
+	 * Méthode qui affiche les différents types possible d'une partie, récupère la saisie et 
+	 * modifie la valeur de typePartie
 	 */
 	public void typePartie(){
 		for (TypePartie t : TypePartie.values()) {

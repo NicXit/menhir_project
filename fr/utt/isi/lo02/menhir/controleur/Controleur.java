@@ -26,19 +26,17 @@ public class Controleur {
 		Partie p = new Partie();
 		int valeurJuste = 0, indiceChoix =0, nbHumain = 0, choixAction=1, choixCarte =0;
 		String nomJoueurGagnant;
+		char reponseBonusAvancee;
 		Action[] tabChoixAction = Action.values();
 		Saison[] tabSaison = Saison.values();
 
 		
 		System.out.println("*** JEU MENHIR ***");
 
-		
-		System.out.println("Veuillez choisir un type de partie parmi :");
-		//typePartie();
-		
 		do{
 			System.out.println("Combien de joueurs Humains (1..6) ?");
 			nbHumain = sc.nextInt();
+			sc.nextLine();
 			
 			if(nbHumain < 1 || nbHumain > 6){
 				System.out.println("Entrée incorrecte !");
@@ -58,6 +56,7 @@ public class Controleur {
 		do{
 			System.out.println("Combien de joueurs IA (0..5) ?");
 			int nbIA = sc.nextInt();
+			sc.nextLine();
 			
 			if((nbHumain + nbIA) < 2 || (nbHumain + nbIA) > 6){
 				System.out.println("Entrée incorrecte !");
@@ -74,15 +73,27 @@ public class Controleur {
 		
 		
 		
-		paquet.distribuerCartesIngredientsJoueur(p.ordreJeu);
+		paquet.distribuerCartesIngredientsJoueur(p.ordreJeu);	
 		
-		/*System.out.println("Choisir le type de partie : " );
-		p.typePartie();
+		//on choisit le type de partie
+		/*System.out.println("Veuillez choisir un type de partie parmi :");
+		p.typePartie();		
 		if (p.getTypePartie()== TypePartie.rapide){
-			
+			for(Iterator<Joueur> it = p.ordreJeu.iterator(); it.hasNext();){
+				Joueur j = (Joueur) it.next();
+				j.setNbGraines(2);
+			}			
 		}
 		else if (p.getTypePartie() == TypePartie.avancée){
-			paquet.distribuerCarteAllieJoueur(p.ordreJeu.get(0));
+			for(Iterator<Joueur> it = p.ordreJeu.iterator(); it.hasNext();){
+				Joueur j = (Joueur) it.next();
+				System.out.println("Voulez vous prendre 2 graines ou piocher une carte Alliés ? (g/a)");
+				reponseBonusAvancee = sc.nextLine().charAt(0);
+					if (reponseBonusAvancee == 'g')
+						j.setNbGraines(2);
+					else
+						paquet.distribuerCarteAllieJoueur(j);
+			}
 		}*/
 		
 		// On parcourt chaque saison pour correspondre à un tour de jeu
@@ -104,7 +115,7 @@ public class Controleur {
 				for(Iterator<CarteIngredient> it = actif.getCarteIngredientJoueur().iterator(); it.hasNext();){
 					CarteIngredient carte = (CarteIngredient) it.next();
 					System.out.println(carte.toString());
-				}
+				}	
 				choixCarte = sc.nextInt();
 				System.out.println("Vous avez choisi la carte : " + newLine + actif.getCarteIngredientJoueur().get(choixCarte-1));
 				
