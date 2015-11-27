@@ -25,7 +25,7 @@ public class Controleur {
 		
 		Scanner sc = new Scanner(System.in);
 		Partie p = new Partie();
-		int valeurJuste = 0, indiceChoix =0, nbHumain = 0, choixAction=1, choixCarte =0, numManche=0;
+		int valeurJuste = 0, indiceChoix =0, nbHumain = 0, choixAction=1, choixCarte =0, numManche=0, value = 0, valCarte[];
 		String nomJoueurGagnant, typePartie;
 		char reponseBonusAvancee, choixTypePartie;
 		Action[] tabChoixAction = Action.values();
@@ -142,7 +142,27 @@ public class Controleur {
     				Joueur j = (Joueur) it.next();
     				if (j.getCarteAllieJoueur().getNom().equals("La taupe géante")){
     					System.out.println(j.getNom() + " voulez vous jouer la carte (o/n)" +newLine + j.getCarteAllieJoueur());
-    					reponseBonusAvancee= sc.nextLine().charAt(0);    					
+    					reponseBonusAvancee= sc.nextLine().charAt(0);
+    					if (reponseBonusAvancee == 'o'){    						    						
+    						System.out.println("Quelle joueur voulez vous attaquer ? ");
+        					String nomJoueurAttaque = sc.nextLine();
+        					
+        					//on parcourt la liste de joueurs en comparant chaque nom de joueur au nom rentré par l'utilisateur
+        					for(Iterator<Joueur> it2 = p.ordreJeu.iterator(); it2.hasNext();){
+        						Joueur joueurAttaque = (Joueur) it2.next();
+        						valCarte=j.getCarteAllieJoueur().getValue();
+        						
+        						//nombre de saisons - nombre de cartes du dernier joueur
+        						value=valCarte[tabSaison.length - p.ordreJeu.get(p.ordreJeu.size()-1).getCarteIngredientJoueur().size()];
+        						
+        						//si le joueur éxiste on appelle la fonction TaupeGeante
+        						if(joueurAttaque.getNom().equals(nomJoueurAttaque)){							
+        							System.out.println("Le joueur : " + j.getNom() +" détruit des menhirs à " +joueurAttaque.getNom() + " avec sa carte de valeur " + value);
+        							p.effectuerActionTaupeGeante(value, joueurAttaque);        							
+        							}
+        					}
+    						
+    					}
     				}
     				
     			}
@@ -185,9 +205,9 @@ public class Controleur {
     				}
     				
     				//on récupère la valeur de l'action
-    				int valCarte[] = actif.getCarteIngredientJoueur().get(choixCarte-1).getValue();
+    				valCarte = actif.getCarteIngredientJoueur().get(choixCarte-1).getValue();
     				indiceChoix = valCarte.length/tabChoixAction.length * (choixAction-1) + tabSaison.length - actif.getCarteIngredientJoueur().size();
-    				int value = valCarte[indiceChoix];
+    				value = valCarte[indiceChoix];
     				System.out.println("Vous avez choisi l'action " + tabChoixAction[choixAction-1] + " qui a pour valeur " + value);
     				
     				//en fonction du choix de l'action on appelle sa méthode

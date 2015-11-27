@@ -108,6 +108,12 @@ public class Partie{
 			}
 		}
 		
+		public void effectuerActionTaupeGeante(int valAction, Joueur joueurAttaque){
+			if (valAction <= joueurAttaque.getNbMenhir())			
+				joueurAttaque.setNbMenhir(joueurAttaque.getNbMenhir()-valAction);			
+			else
+				joueurAttaque.setNbGraines(0);
+		}
 			
 }
 	
