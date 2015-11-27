@@ -196,14 +196,7 @@ public class Controleur {
         				}while (choixAction > tabChoixAction.length || choixAction <= 0);
     				}
     				else{
-    					/**
-    					 * 
-    					 * Actions ordinateur
-    					 * 
-    					 * 
-    					 * retourne nom de l'action et la choix carte
-    					 * 
-    					 */
+    					System.out.println(actif.jouer(actif, actif.getCarteIngredientJoueur(), tabSaison.length - actif.getCarteIngredientJoueur().size() + 1, p));
     				}
     				
     				//on récupère la valeur de l'action
