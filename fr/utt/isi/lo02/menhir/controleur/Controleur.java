@@ -26,7 +26,7 @@ public class Controleur {
 		Partie p = new Partie();
 		int valeurJuste = 0;
 		int nbHumain = 0;
-		int choixAction =0;
+		int choixAction=1, choixCarte =0;
 		Action[] tabChoixAction = Action.values();
 		Saison[] tabSaison = Saison.values();
 
@@ -86,59 +86,83 @@ public class Controleur {
 			paquet.distribuerCarteAllieJoueur(p.ordreJeu.get(0));
 		}*/
 		
-		
+		// On parcourt chaque saison pour correspondre à un tour de jeu
 		for (Saison saison : Saison.values()){
 			System.out.println(newLine+"Saison en cours : "+saison);
+			
+			//on rappelle le nombre de graines et de menhirs de chacun
 			for(Iterator<Joueur> it = p.ordreJeu.iterator(); it.hasNext();){
 				Joueur j = (Joueur) it.next();
 				System.out.println(j.getNom()+" a " + j.getNbGraines() + " graines et " + j.getNbMenhir() + " menhirs.");
 			}
-			//if (p.getTypePartie() == TypePartie.rapide){
+			//on fait jouer les joueurs les uns après les autres
 			for(int numOrdreJoueur = 0; numOrdreJoueur < p.ordreJeu.size(); numOrdreJoueur++){
 				Joueur actif = p.getJoueurActif(numOrdreJoueur);
 				System.out.println(newLine+"C'est au tour de " + actif.getNom()+ " de jouer !");
-				System.out.println("Choisir une carte : ");			
+				System.out.println("Choisir une carte : ");
+				
+				//on affiche toutes les cartes d'un joueur
 				for(Iterator<CarteIngredient> it = actif.getCarteIngredientJoueur().iterator(); it.hasNext();){
 					CarteIngredient carte = (CarteIngredient) it.next();
 					System.out.println(carte.toString());
 				}
-				int choixCarte = sc.nextInt();
+				choixCarte = sc.nextInt();
 				System.out.println("Vous avez choisi la carte : " + newLine + actif.getCarteIngredientJoueur().get(choixCarte-1));
+				
+				//on demande à l'utilisateur de choisir une action
 				do{
-					if (choixAction > tabChoixAction.length || choixAction <= 0){
-						System.out.println("Choisir le numero de l'action : ");
-						choixAction = sc.nextInt();							
-					}
-					else
-						System.out.println(choixAction);
+					System.out.println("Choisir le numero de l'action : ");
+					choixAction = sc.nextInt();	
+					sc.nextLine();
+					
+					if (choixAction > tabChoixAction.length || choixAction <= 0){						
 						System.out.println("numéro d'action incorrecte");
 						sc.next();
-				}while (choixAction > tabChoixAction.length || choixAction <= 0);
+					}						
+				}while (choixAction > tabChoixAction.length || choixAction <= 0);				
 				
-				System.out.println("Vous avez choisi l'action " + tabChoixAction[choixAction-1]);				
-				int valCarte[] = actif.getCarteIngredientJoueur().get(choixCarte-1).getValue();
+				//on récupère la valeur de l'action
+				int valCarte[] = actif.getCarteIngredientJoueur().get(choixCarte-1).getValue();				
 				int value = valCarte[choixAction - 1 + tabSaison.length - actif.getCarteIngredientJoueur().size()];
+				System.out.println("Vous avez choisi l'action " + tabChoixAction[choixAction-1] + " qui a pour valeur " + value);
 				
+				//en fonction du choix de l'action on appelle sa méthode
 				switch (choixAction){				
 				case 1 :
-					p.effectuerActionGeant(value, actif);
+					p.effectuerActionGeant(value, actif);					
 					break;
 				case 2 :
 					p.effectuerActionEngrais(value, actif);
 					break;
 				case 3 :
+					//rappelle le nombre de graines et de menhirs de chacun
 					for(Iterator<Joueur> it = p.ordreJeu.iterator(); it.hasNext();){
 						Joueur j = (Joueur) it.next();
 						System.out.println(j.getNom()+" a " + j.getNbGraines() + " graines et " + j.getNbMenhir() + " menhirs.");
 					}					
 					System.out.println("Quelle joueur voulez vous attaquer ? ");
-					p.effectuerActionFarfadets(value, actif);
-					break;		
-				}		
-								
-				//}
+					String nomJoueurAttaque = sc.nextLine();
+					
+					//on parcourt la liste de joueurs en comparant chaque nom de joueur au nom rentré par l'utilisateur
+					for(Iterator<Joueur> it = p.ordreJeu.iterator(); it.hasNext();){
+						Joueur joueurAttaque = (Joueur) it.next();
+						
+						//si le joueur éxiste on appelle la fonction farfadet
+						if(joueurAttaque.getNom().equals(nomJoueurAttaque)){							
+							System.out.println("Le joueur : " + actif.getNom() +" vole des graines à " +joueurAttaque.getNom() + " avec sa carte de valeur " + value);
+							p.effectuerActionFarfadets(value, actif, joueurAttaque);
+							break;
+							}						
+					}
+					break;
+				}
+				//on supprime la carte quand le joueur a fini de jouer
+				actif.getCarteIngredientJoueur().remove(choixCarte-1);
+				
+				
 			}
 		}
+		System.out.println("La partie est finie.");
 		
 		
 	}

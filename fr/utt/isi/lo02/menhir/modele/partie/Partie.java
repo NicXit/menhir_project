@@ -94,29 +94,22 @@ public class Partie{
 		}
 		
 		public void effectuerActionEngrais(int valAction, Joueur joueur){
-			if (valAction <= joueur.getNbGraines())
+			if (valAction <= joueur.getNbGraines()){
 				joueur.setNbMenhir(joueur.getNbMenhir()+valAction);
+				joueur.setNbGraines(joueur.getNbGraines()-valAction);
+			}
 			else
 				joueur.setNbMenhir(joueur.getNbMenhir()+joueur.getNbGraines());		
 		}
 		
-		public void effectuerActionFarfadets(int valAction, Joueur joueur){			
-			try(Scanner in = new Scanner(System.in)){
-				String nomJoueurAttaque = in.nextLine();	
-				for(Iterator<Joueur> it = ordreJeu.iterator(); it.hasNext();){
-					Joueur joueurAttaque = (Joueur) it.next();
-					if(joueurAttaque.getNom() == nomJoueurAttaque){
-						if (valAction <= joueurAttaque.getNbGraines()){
-							joueur.setNbGraines(joueur.getNbGraines()+valAction);
-							joueurAttaque.setNbGraines(joueur.getNbGraines()-valAction);
-						}
-						else{
-							joueur.setNbGraines(joueur.getNbGraines()+joueurAttaque.getNbGraines());
-							joueurAttaque.setNbGraines(0);
-						}
-							
-					}        
-				}
+		public void effectuerActionFarfadets(int valAction, Joueur joueur, Joueur joueurAttaque){			
+			if (valAction <= joueurAttaque.getNbGraines()){							
+				joueur.setNbGraines(joueur.getNbGraines()+valAction);
+				joueurAttaque.setNbGraines(joueurAttaque.getNbGraines()-valAction);
+			}
+			else{
+				joueur.setNbGraines(joueur.getNbGraines()+joueurAttaque.getNbGraines());
+				joueurAttaque.setNbGraines(0);
 			}
 		}
 		
