@@ -24,9 +24,8 @@ public class Controleur {
 		
 		Scanner sc = new Scanner(System.in);
 		Partie p = new Partie();
-		int valeurJuste = 0;
-		int nbHumain = 0;
-		int choixAction=1, choixCarte =0;
+		int valeurJuste = 0, indiceChoix =0, nbHumain = 0, choixAction=1, choixCarte =0;
+		String nomJoueurGagnant;
 		Action[] tabChoixAction = Action.values();
 		Saison[] tabSaison = Saison.values();
 
@@ -122,8 +121,9 @@ public class Controleur {
 				}while (choixAction > tabChoixAction.length || choixAction <= 0);				
 				
 				//on récupère la valeur de l'action
-				int valCarte[] = actif.getCarteIngredientJoueur().get(choixCarte-1).getValue();				
-				int value = valCarte[choixAction - 1 + tabSaison.length - actif.getCarteIngredientJoueur().size()];
+				int valCarte[] = actif.getCarteIngredientJoueur().get(choixCarte-1).getValue();
+				indiceChoix = valCarte.length/tabChoixAction.length * (choixAction-1) + tabSaison.length - actif.getCarteIngredientJoueur().size();
+				int value = valCarte[indiceChoix];
 				System.out.println("Vous avez choisi l'action " + tabChoixAction[choixAction-1] + " qui a pour valeur " + value);
 				
 				//en fonction du choix de l'action on appelle sa méthode
@@ -163,6 +163,13 @@ public class Controleur {
 			}
 		}
 		System.out.println("La partie est finie.");
+		
+		//rappelle le nombre de graines et de menhirs de chacun
+		for(Iterator<Joueur> it = p.ordreJeu.iterator(); it.hasNext();){
+			Joueur j = (Joueur) it.next();
+			System.out.println(j.getNom()+" a " + j.getNbGraines() + " graines et " + j.getNbMenhir() + " menhirs.");
+		}
+		
 		
 		
 	}
