@@ -12,7 +12,7 @@ import fr.utt.isi.lo02.menhir.modele.joueur.*;
 public class Partie{
 	private TypePartie typePartie;
 	private Saison saison;
-	private int nbJoueur, manche;
+	private int nbManche;
 	public ArrayList<Humain> listeHumains;
 	public ArrayList<Joueur> ordreJeu;
 	
@@ -71,6 +71,14 @@ public class Partie{
 		
 		public Saison getSaison(){
 			return this.saison;
+		}
+		
+		public int getNbManche(){
+			return this.nbManche;
+		}
+		
+		public void setNbManche(int nbManche){
+			this.nbManche=nbManche;
 		}
 		
 		public void effectuerActionGeant(int valAction, Joueur joueur){	
