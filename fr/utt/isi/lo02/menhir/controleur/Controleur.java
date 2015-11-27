@@ -138,36 +138,38 @@ public class Controleur {
     				Joueur j = (Joueur) it.next();
     				System.out.println(j.getNom()+" a " + j.getNbGraines() + " graines et " + j.getNbMenhir() + " menhirs.");
     			}
-    			for (Iterator<Joueur> it = p.ordreJeu.iterator(); it.hasNext();){
-    				Joueur j = (Joueur) it.next();
-    				if (j.getCarteAllieJoueur().getNom().equals("La taupe géante")){
-    					System.out.println(j.getNom() + " voulez vous jouer la carte (o/n)" +newLine + j.getCarteAllieJoueur());
-    					reponseBonusAvancee= sc.nextLine().charAt(0);
-    					if (reponseBonusAvancee == 'o'){    						    						
-    						System.out.println("Quelle joueur voulez vous attaquer ? ");
-        					String nomJoueurAttaque = sc.nextLine();
-        					
-        					//on parcourt la liste de joueurs en comparant chaque nom de joueur au nom rentré par l'utilisateur
-        					for(Iterator<Joueur> it2 = p.ordreJeu.iterator(); it2.hasNext();){
-        						Joueur joueurAttaque = (Joueur) it2.next();
-        						valCarte=j.getCarteAllieJoueur().getValue();
-        						
-        						//nombre de saisons - nombre de cartes du dernier joueur
-        						value=valCarte[tabSaison.length - p.ordreJeu.get(p.ordreJeu.size()-1).getCarteIngredientJoueur().size()];
-        						
-        						//si le joueur éxiste on appelle la fonction TaupeGeante
-        						if(joueurAttaque.getNom().equals(nomJoueurAttaque)){							
-        							System.out.println("Le joueur : " + j.getNom() +" détruit des menhirs à " +joueurAttaque.getNom() + " avec sa carte de valeur " + value);
-        							p.effectuerActionTaupeGeante(value, joueurAttaque);        							
-        							}
-        					}
-    						
-    					}
-    				}
-    				
-    			}
+    			
     			//on fait jouer les joueurs les uns après les autres
     			for(int numOrdreJoueur = 0; numOrdreJoueur < p.ordreJeu.size(); numOrdreJoueur++){
+    				for (Iterator<Joueur> it = p.ordreJeu.iterator(); it.hasNext();){
+        				Joueur j = (Joueur) it.next();
+        				if (j.getCarteAllieJoueur().getNom().equals("La taupe géante")){
+        					System.out.println(j.getNom() + " voulez vous jouer la carte (o/n)" +newLine + j.getCarteAllieJoueur());
+        					reponseBonusAvancee= sc.nextLine().charAt(0);
+        					if (reponseBonusAvancee == 'o'){    						    						
+        						System.out.println("Quel joueur voulez vous attaquer ? ");
+            					String nomJoueurAttaque = sc.nextLine();
+            					
+            					//on parcourt la liste de joueurs en comparant chaque nom de joueur au nom rentré par l'utilisateur
+            					for(Iterator<Joueur> it2 = p.ordreJeu.iterator(); it2.hasNext();){
+            						Joueur joueurAttaque = (Joueur) it2.next();
+            						valCarte=j.getCarteAllieJoueur().getValue();
+            						
+            						//nombre de saisons - nombre de cartes du dernier joueur
+            						value=valCarte[tabSaison.length - p.ordreJeu.get(p.ordreJeu.size()-1).getCarteIngredientJoueur().size()];
+            						
+            						//si le joueur éxiste on appelle la fonction TaupeGeante
+            						if(joueurAttaque.getNom().equals(nomJoueurAttaque)){							
+            							System.out.println("Le joueur : " + j.getNom() +" détruit des menhirs à " +joueurAttaque.getNom() + " avec sa carte de valeur " + value);
+            							p.effectuerActionTaupeGeante(value, joueurAttaque);
+            							break;
+            							}
+            					}
+        						
+        					}
+        				}
+        				
+        			}
     				Joueur actif = p.getJoueurActif(numOrdreJoueur);
     				System.out.println(newLine+"C'est au tour de " + actif.getNom()+ " de jouer !");
     				if (actif instanceof Humain){
@@ -225,7 +227,7 @@ public class Controleur {
     						System.out.println(j.getNom()+" a " + j.getNbGraines() + " graines et " + j.getNbMenhir() + " menhirs.");
     					}
     					if (actif instanceof Humain){
-    						System.out.println("Quelle joueur voulez vous attaquer ? ");
+    						System.out.println("Quel joueur voulez vous attaquer ? ");
         					String nomJoueurAttaque = sc.nextLine();
         					
         					//on parcourt la liste de joueurs en comparant chaque nom de joueur au nom rentré par l'utilisateur
@@ -255,6 +257,13 @@ public class Controleur {
     				//on supprime la carte quand le joueur a fini de jouer
     				actif.getCarteIngredientJoueur().remove(choixCarte-1);	    			
     			}
+    		}
+    		for (Iterator<Joueur> it = p.ordreJeu.iterator(); it.hasNext();){
+				Joueur j = (Joueur) it.next();
+				if (j.getCarteAllieJoueur().getNom().equals("La taupe géante")){
+					j.setCarteAllieJoueur(null);
+				}
+					
     		}
 		}
 		System.out.println("La partie est finie.");
