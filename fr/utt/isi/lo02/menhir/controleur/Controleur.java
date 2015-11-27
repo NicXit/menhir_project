@@ -30,7 +30,6 @@ public class Controleur {
 		Action[] tabChoixAction = Action.values();
 		Saison[] tabSaison = Saison.values();
 		
-		
 		System.out.println("*** JEU MENHIR ***");
 
 		do{
@@ -182,11 +181,14 @@ public class Controleur {
 		
 		System.out.println("La partie est finie.");
 		
+		//On tri les joueurs par ordre de Score
+		p.triOrdreScore();
 		//rappelle le nombre de graines et de menhirs de chacun
 		for(Iterator<Joueur> it = p.ordreJeu.iterator(); it.hasNext();){
 			Joueur j = (Joueur) it.next();
 			System.out.println(j.getNom()+" a " + j.getNbGraines() + " graines et " + j.getNbMenhir() + " menhirs.");
 		}
+		
 
 		
 	}

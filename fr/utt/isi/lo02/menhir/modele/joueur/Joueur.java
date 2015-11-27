@@ -51,7 +51,7 @@ public abstract class Joueur{
 
 	public ArrayList<CarteIngredient> getCarteIngredientJoueur(){
 		return this.cartesIngredientsJoueur;
-	}	
+	}		
 	
 	public void ajouterCarteIngredientJoueur(CarteIngredient carte){
 		cartesIngredientsJoueur.add(carte);		

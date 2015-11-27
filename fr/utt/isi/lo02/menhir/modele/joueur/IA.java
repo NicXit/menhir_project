@@ -14,11 +14,19 @@ public class IA extends Joueur{
 	
 	private Strategy choisirStrategy(){
 		double a = Math.random();
+		if (a<=0.5)
+			return new DefensiveStrategy();
+		else
+			return new RandomStrategy();
+	}
+	
+	/*private Strategy choisirStrategy(){
+		double a = Math.random();
 		if (a<=0.33)
 			return new DefensiveStrategy();
 		else if (0.33<a && a<=0.66)
 			return new OffensiveStrategy();
 		else
 			return new RandomStrategy();
-	}
+	}*/
 }
