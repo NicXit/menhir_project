@@ -13,7 +13,7 @@ import fr.utt.isi.lo02.menhir.modele.joueur.*;
 public class Partie{
 	private TypePartie typePartie;
 	private Saison saison;
-	private int nbJoueur, manche;
+	private int nbManche;
 	public ArrayList<Humain> listeHumains;
 	public ArrayList<Joueur> ordreJeu;
 	
@@ -78,6 +78,17 @@ public class Partie{
 			return this.saison;
 		}
 		
+		public void setSaison(Saison saison){
+			this.saison=saison;
+		}
+		public int getNbManche(){
+			return this.nbManche;
+		}
+		
+		public void setNbManche(int nbManche){
+			this.nbManche=nbManche;
+		}
+		
 		public void effectuerActionGeant(int valAction, Joueur joueur){	
 				joueur.setNbGraines(joueur.getNbGraines() + valAction);
 		}
@@ -102,6 +113,12 @@ public class Partie{
 			}
 		}
 		
+		public void effectuerActionTaupeGeante(int valAction, Joueur joueurAttaque){
+			if (valAction <= joueurAttaque.getNbMenhir())			
+				joueurAttaque.setNbMenhir(joueurAttaque.getNbMenhir()-valAction);			
+			else
+				joueurAttaque.setNbGraines(0);
+		}
 			
 }
 	

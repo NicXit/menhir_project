@@ -11,4 +11,8 @@ public class CarteAllie extends Carte{
 	public String toString(){
 		return (this.nom+"\n"+this.value[0]+" "+this.value[1]+" "+this.value[2]+" "+this.value[3]+"\n");
 	}
+	
+	public int[] getValue(){
+		return this.value;
+	}
 }

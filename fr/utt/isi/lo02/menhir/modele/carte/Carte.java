@@ -13,4 +13,7 @@ public abstract class Carte {
 		return this.nom;
 	}
 	
+	public String getNom(){
+		return this.nom;
+	}
 }
