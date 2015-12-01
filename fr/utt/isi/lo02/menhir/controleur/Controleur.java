@@ -219,7 +219,9 @@ public class Controleur {
         				value = valCarte[indiceChoix];
         				System.out.println("Vous avez choisi l'action " + tabChoixAction[choixAction-1] + " qui a pour valeur " + value);
     				}
-    				//choix de l'action et de la carte pour un IA
+    				/**
+    				 * choix de l'action et de la carte pour un IA
+    				 */
     				else{
     					System.out.println(((IA) actif).getStrategy().jouer(actif, actif.getCarteIngredientJoueur(), tabSaison.length - actif.getCarteIngredientJoueur().size() + 1, p));
     				}
@@ -302,22 +304,40 @@ public class Controleur {
     		for (Iterator<Joueur> it = p.ordreJeu.iterator(); it.hasNext();){
 				Joueur j = (Joueur) it.next();
 				if (j.getCarteAllieJoueur() != null){
-					j.setCarteAllieJoueur(null);
+					j.setCarteAllieJoueur(null);					
 				}
+				if(p.getTypePartie().equals(TypePartie.avancée)){
+					j.setNbGraines(0);
+					j.setNbPoints(j.getNbPoints()+j.getNbMenhir());
+					j.setNbMenhir(0);
 					
+					if(numManche != p.getNbManche())
+						System.out.println(newLine + j.getNom()+" a " + j.getNbMenhir() + " points.");						
+					else						
+						j.setNbMenhir(j.getNbPoints());
+				}
     		}
+	
 		}
-		System.out.println("La partie est finie.");
+		
+		System.out.println(newLine+"La partie est finie.");
 		
 		//On tri les joueurs par ordre de Score
 		p.triOrdreScore();
-		//rappelle le nombre de graines et de menhirs de chacun
-		for(Iterator<Joueur> it = p.ordreJeu.iterator(); it.hasNext();){
-			Joueur j = (Joueur) it.next();
-			System.out.println(j.getNom()+" a " + j.getNbGraines() + " graines et " + j.getNbMenhir() + " menhirs.");
+		
+		if(p.getTypePartie().equals(TypePartie.rapide)){
+			//rappelle le nombre de graines et de menhirs de chacun
+			for(Iterator<Joueur> it = p.ordreJeu.iterator(); it.hasNext();){
+				Joueur j = (Joueur) it.next();
+				System.out.println(j.getNom()+" a " + j.getNbGraines() + " graines et " + j.getNbMenhir() + " menhirs.");
+			}
 		}
-		
-
-		
+		else{
+			for(Iterator<Joueur> it = p.ordreJeu.iterator(); it.hasNext();){
+				Joueur j = (Joueur) it.next();
+				System.out.println(j.getNom()+" a " + j.getNbMenhir() + " points.");
+			}
+		}
 	}
+
 }

@@ -80,4 +80,12 @@ public abstract class Joueur{
 		this.nbMenhir=nbMenhir;
 	}
 	
+	public int getNbPoints(){
+		return this.nbPoints;
+	}
+	public void setNbPoints(int nbPoints){
+		this.nbPoints=nbPoints;
+	}
+	
+	
 }
