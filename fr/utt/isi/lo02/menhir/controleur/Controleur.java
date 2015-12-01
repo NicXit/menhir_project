@@ -74,7 +74,7 @@ public class Controleur {
 		
 		
 		
-		paquet.distribuerCartesIngredientsJoueur(p.ordreJeu);	
+		
 		do{
 			//on choisit le type de partie
 			System.out.println("Choisir le type de partie (r/a)");
@@ -109,6 +109,7 @@ public class Controleur {
 		System.out.println("Vous avez choisi la partie " + p.getTypePartie());
 		
 		for (numManche = 1; numManche <= p.getNbManche(); numManche++){
+			paquet.distribuerCartesIngredientsJoueur(p.ordreJeu);	
 			if (p.getTypePartie().equals(TypePartie.avancée)){
 				for(Iterator<Joueur> it = p.ordreJeu.iterator(); it.hasNext();){
 					Joueur j = (Joueur) it.next();							
@@ -312,7 +313,7 @@ public class Controleur {
 					j.setNbMenhir(0);
 					
 					if(numManche != p.getNbManche())
-						System.out.println(newLine + j.getNom()+" a " + j.getNbMenhir() + " points.");						
+						System.out.println(newLine + j.getNom()+" a " + j.getNbPoints() + " points.");						
 					else						
 						j.setNbMenhir(j.getNbPoints());
 				}
