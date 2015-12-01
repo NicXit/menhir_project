@@ -143,42 +143,53 @@ public class Controleur {
     			if(p.getTypePartie().equals(TypePartie.avancée)){
     				for (Iterator<Joueur> it = p.ordreJeu.iterator(); it.hasNext();){
         				Joueur j = (Joueur) it.next();
-        				if (j.getCarteAllieJoueur().getNom().equals("La taupe géante")){
-        					System.out.println(j.getNom() + " voulez vous jouer la carte (o/n)" +newLine + j.getCarteAllieJoueur());
-        					reponseBonusAvancee= sc.nextLine().charAt(0);
-        					if (reponseBonusAvancee == 'o'){
-        						for(Iterator<Joueur> it2 = p.ordreJeu.iterator(); it2.hasNext();){
-            						Joueur j2 = (Joueur) it2.next();
-            						System.out.println(j2.getNom()+" a " + j2.getNbGraines() + " graines et " + j2.getNbMenhir() + " menhirs.");
+        				if (j.getCarteAllieJoueur() != null){
+        					if (j.getCarteAllieJoueur().getNom().equals("La taupe géante")){
+        						//Taupe géante si le joueur est un humain
+            					if (j instanceof Humain){
+	            					System.out.println(j.getNom() + " voulez vous jouer la carte (o/n)" +newLine + j.getCarteAllieJoueur());
+	            					reponseBonusAvancee= sc.nextLine().charAt(0);
+	            					if (reponseBonusAvancee == 'o'){
+	            						for(Iterator<Joueur> it2 = p.ordreJeu.iterator(); it2.hasNext();){
+	                						Joueur j2 = (Joueur) it2.next();
+	                						System.out.println(j2.getNom()+" a " + j2.getNbGraines() + " graines et " + j2.getNbMenhir() + " menhirs.");
+	                					}
+	            						System.out.println("Quel joueur voulez vous attaquer ? ");
+	                					String nomJoueurAttaque = sc.nextLine();
+	                					
+	    		        					//on parcourt la liste de joueurs en comparant chaque nom de joueur au nom rentré par l'utilisateur
+	    	        					for(Iterator<Joueur> it2 = p.ordreJeu.iterator(); it2.hasNext();){
+	    	        						Joueur joueurAttaque = (Joueur) it2.next();
+	    	        						valCarte=j.getCarteAllieJoueur().getValue();
+	    	        						
+	    	        						//nombre de saisons - nombre de cartes du dernier joueur
+	    	        						value=valCarte[tabSaison.length - p.ordreJeu.get(p.ordreJeu.size()-1).getCarteIngredientJoueur().size()];
+	    	        						
+	    	        						//si le joueur éxiste on appelle la fonction TaupeGeante
+	    	        						if(joueurAttaque.getNom().equals(nomJoueurAttaque)){							
+	    	        							System.out.println("Le joueur : " + j.getNom() +" détruit des menhirs à " +joueurAttaque.getNom() + " avec sa carte de valeur " + value);
+	    	        							p.effectuerActionTaupeGeante(value, joueurAttaque);
+	    	        							j.setCarteAllieJoueur(null);
+	    	        							break;
+	    	        						}
+	    	            				}
+	    	        						
+	    	        				}
             					}
-        						System.out.println("Quel joueur voulez vous attaquer ? ");
-            					String nomJoueurAttaque = sc.nextLine();
-            					
-		        					//on parcourt la liste de joueurs en comparant chaque nom de joueur au nom rentré par l'utilisateur
-	        					for(Iterator<Joueur> it2 = p.ordreJeu.iterator(); it2.hasNext();){
-	        						Joueur joueurAttaque = (Joueur) it2.next();
-	        						valCarte=j.getCarteAllieJoueur().getValue();
-	        						
-	        						//nombre de saisons - nombre de cartes du dernier joueur
-	        						value=valCarte[tabSaison.length - p.ordreJeu.get(p.ordreJeu.size()-1).getCarteIngredientJoueur().size()];
-	        						
-	        						//si le joueur éxiste on appelle la fonction TaupeGeante
-	        						if(joueurAttaque.getNom().equals(nomJoueurAttaque)){							
-	        							System.out.println("Le joueur : " + j.getNom() +" détruit des menhirs à " +joueurAttaque.getNom() + " avec sa carte de valeur " + value);
-	        							p.effectuerActionTaupeGeante(value, joueurAttaque);
-	        							//j.setCarteAllieJoueur("null");
-	        							break;
-	        						}
-	            				}
-	        						
-	        					}
-	        				}
-	        				
-	        			}
-	    			}    			
+            					else{
+            						/**
+            						 * Taupe géante si le joueur est un IA
+            						 */
+            					}
+    	        			}
+        				}
+        			}
+	    		}    			
     				
     				Joueur actif = p.getJoueurActif(numOrdreJoueur);
     				System.out.println(newLine+"C'est au tour de " + actif.getNom()+ " de jouer !");
+    				
+    				//choix de la carte et de l'action pour un humain
     				if (actif instanceof Humain){
     					System.out.println("Choisir une carte : ");
         				
@@ -201,16 +212,17 @@ public class Controleur {
         						sc.next();
         					}						
         				}while (choixAction > tabChoixAction.length || choixAction <= 0);
+        				
+        				//on récupère la valeur de l'action
+        				valCarte = actif.getCarteIngredientJoueur().get(choixCarte-1).getValue();
+        				indiceChoix = valCarte.length/tabChoixAction.length * (choixAction-1) + tabSaison.length - actif.getCarteIngredientJoueur().size();
+        				value = valCarte[indiceChoix];
+        				System.out.println("Vous avez choisi l'action " + tabChoixAction[choixAction-1] + " qui a pour valeur " + value);
     				}
+    				//choix de l'action et de la carte pour un IA
     				else{
     					System.out.println(((IA) actif).getStrategy().jouer(actif, actif.getCarteIngredientJoueur(), tabSaison.length - actif.getCarteIngredientJoueur().size() + 1, p));
     				}
-    				
-    				//on récupère la valeur de l'action
-    				valCarte = actif.getCarteIngredientJoueur().get(choixCarte-1).getValue();
-    				indiceChoix = valCarte.length/tabChoixAction.length * (choixAction-1) + tabSaison.length - actif.getCarteIngredientJoueur().size();
-    				value = valCarte[indiceChoix];
-    				System.out.println("Vous avez choisi l'action " + tabChoixAction[choixAction-1] + " qui a pour valeur " + value);
     				
     				//en fonction du choix de l'action on appelle sa méthode
     				switch (choixAction){				
@@ -226,6 +238,7 @@ public class Controleur {
     						Joueur j = (Joueur) it.next();
     						System.out.println(j.getNom()+" a " + j.getNbGraines() + " graines et " + j.getNbMenhir() + " menhirs.");
     					}
+    					//farfadets si le joueur est un humain
     					if (actif instanceof Humain){
     						System.out.println("Quel joueur voulez vous attaquer ? ");
         					String nomJoueurAttaque = sc.nextLine();
@@ -236,58 +249,59 @@ public class Controleur {
         						
         						//si le joueur éxiste on appelle la fonction farfadet
         						if(joueurAttaque.getNom().equals(nomJoueurAttaque)){
-        							if (p.getTypePartie().equals(TypePartie.avancée) && joueurAttaque.getCarteAllieJoueur().nom.equals("Chien de garde")){
-        								System.out.println("Voulez-vous utiliser la carte (o/n)"+ newLine + joueurAttaque.getCarteAllieJoueur());
-        								reponseBonusAvancee= sc.nextLine().charAt(0);
-        	        					if (reponseBonusAvancee == 'o'){
-        	        						valCarte=joueurAttaque.getCarteAllieJoueur().getValue();                    						
-                    						//nombre de saisons - nombre de cartes du dernier joueur
-                    						valueCarteAllie=valCarte[tabSaison.length - p.ordreJeu.get(p.ordreJeu.size()-1).getCarteIngredientJoueur().size()];
-                    						if (value >= valueCarteAllie){
-                    							p.effectuerActionFarfadets(value-valueCarteAllie, actif, joueurAttaque);
-                    							System.out.println("Le joueur : " + actif.getNom() +" vole des graines à " +joueurAttaque.getNom() + " avec sa carte de valeur " 
-                    							+ value +" mais "+joueurAttaque.getNom()+" se défend avec sa carte "+newLine + joueurAttaque.getCarteAllieJoueur());                   							
-                    						}
-                    						else{                    							
-                    							System.out.println("Le joueur : " + actif.getNom() +" ne vole pas de graine car "+ joueurAttaque.getNom()+" s'est défendu avec sa carte "
-                    							+ newLine + joueurAttaque.getCarteAllieJoueur());
-                    							}
-                    						joueurAttaque.setCarteAllieJoueur(null);
-        	        					}
-        	        					else{
-        	        						System.out.println("Le joueur : " + actif.getNom() +" vole des graines à " +joueurAttaque.getNom() + " avec sa carte de valeur " + value);
-                							p.effectuerActionFarfadets(value, actif, joueurAttaque);
-        	        					}
-        	        					break;
-        	        					
+        							//on test si on est en partie avancée et si le joueur attaqué peut se défendre avec Chien de garde
+        							if (p.getTypePartie().equals(TypePartie.avancée) && joueurAttaque.getCarteAllieJoueur() != null ){
+        								if (joueurAttaque.getCarteAllieJoueur().nom.equals("Chien de garde")){
+	        								System.out.println("Voulez-vous utiliser la carte (o/n)"+ newLine + joueurAttaque.getCarteAllieJoueur());
+	        								reponseBonusAvancee= sc.nextLine().charAt(0);
+	        	        					if (reponseBonusAvancee == 'o'){
+	        	        						valCarte=joueurAttaque.getCarteAllieJoueur().getValue();                    						
+	                    						//nombre de saisons - nombre de cartes du dernier joueur
+	                    						valueCarteAllie=valCarte[tabSaison.length - p.ordreJeu.get(p.ordreJeu.size()-1).getCarteIngredientJoueur().size()];
+	                    						if (value >= valueCarteAllie){
+	                    							p.effectuerActionFarfadets(value-valueCarteAllie, actif, joueurAttaque);
+	                    							System.out.println("Le joueur : " + actif.getNom() +" vole des graines à " +joueurAttaque.getNom() + " avec sa carte de valeur " 
+	                    							+ value +" mais "+joueurAttaque.getNom()+" se défend avec sa carte "+newLine + joueurAttaque.getCarteAllieJoueur());                   							
+	                    						}
+	                    						else{                    							
+	                    							System.out.println("Le joueur : " + actif.getNom() +" ne vole pas de graine car "+ joueurAttaque.getNom()+" s'est défendu avec sa carte "
+	                    							+ newLine + joueurAttaque.getCarteAllieJoueur());
+	                    							}
+	                    						joueurAttaque.setCarteAllieJoueur(null);
+	        	        					}
+	        	        					else{
+	            								System.out.println("Le joueur : " + actif.getNom() +" vole des graines à " +joueurAttaque.getNom() + " avec sa carte de valeur " + value);
+	        	        						p.effectuerActionFarfadets(value, actif, joueurAttaque);
+	        	        					}
+        								}
+        								else{
+            								System.out.println("Le joueur : " + actif.getNom() +" vole des graines à " +joueurAttaque.getNom() + " avec sa carte de valeur " + value);
+        									p.effectuerActionFarfadets(value, actif, joueurAttaque);
+        								}
         							}
         							else{
         								System.out.println("Le joueur : " + actif.getNom() +" vole des graines à " +joueurAttaque.getNom() + " avec sa carte de valeur " + value);
-            							p.effectuerActionFarfadets(value, actif, joueurAttaque);
-        							}        							
+        								p.effectuerActionFarfadets(value, actif, joueurAttaque);
+        							}  							
         							break;
-        							}
+        						}
         					}			
     					}
-    					else{
+    					else {
     						/**
-    						 * 
-    						 * Ordinateur choisit qui il attaque
-    						 * 
-    						 * 
-    						 * 
-    						 * 
+    						 * farfadets si le joueur est un IA  					
     						 */
     					}
     					break;
     				}
+    				
     				//on supprime la carte quand le joueur a fini de jouer
     				actif.getCarteIngredientJoueur().remove(choixCarte-1);	    			
     			}
     		}
     		for (Iterator<Joueur> it = p.ordreJeu.iterator(); it.hasNext();){
 				Joueur j = (Joueur) it.next();
-				if (j.getCarteAllieJoueur().getNom() != null){
+				if (j.getCarteAllieJoueur() != null){
 					j.setCarteAllieJoueur(null);
 				}
 					
