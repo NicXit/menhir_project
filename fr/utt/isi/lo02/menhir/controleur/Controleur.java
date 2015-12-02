@@ -114,16 +114,27 @@ public class Controleur {
 				for(Iterator<Joueur> it = p.ordreJeu.iterator(); it.hasNext();){
 					Joueur j = (Joueur) it.next();							
 					do{
-						System.out.println(j.getNom() + " voulez vous prendre 2 graines ou piocher une carte Alliés ? (g/a)");
-						reponseBonusAvancee = sc.nextLine().charAt(0);
-						if (reponseBonusAvancee == 'g')
-							j.setNbGraines(2);
-						else  if (reponseBonusAvancee == 'a'){
-							paquet.distribuerCarteAllieJoueur(j);
-							System.out.println("Vous avez pioché la carte " + j.getCarteAllieJoueur());
+						if (j instanceof Humain){
+							System.out.println(j.getNom() + " voulez vous prendre 2 graines ou piocher une carte Alliés ? (g/a)");
+							reponseBonusAvancee = sc.nextLine().charAt(0);
+							if (reponseBonusAvancee == 'g')
+								j.setNbGraines(2);
+							else  if (reponseBonusAvancee == 'a'){
+								paquet.distribuerCarteAllieJoueur(j);
+								System.out.println("Vous avez pioché la carte " + j.getCarteAllieJoueur());
+							}
+							else
+								System.out.println("réponse incorrect");
 						}
-						else
-							System.out.println("réponse incorrect");
+						else{
+							/**
+							 * 
+							 * 
+							 * IA
+							 */
+							reponseBonusAvancee = 'g';
+						}
+						
 					}while (reponseBonusAvancee != 'g' && reponseBonusAvancee != 'a');
 					
 				}
@@ -222,6 +233,7 @@ public class Controleur {
     				}
     				/**
     				 * choix de l'action et de la carte pour un IA
+    				 * A MODIFIER POUR LA SORTIE TEXTE
     				 */
     				else{
     					System.out.println(((IA) actif).getStrategy().jouer(actif, actif.getCarteIngredientJoueur(), tabSaison.length - actif.getCarteIngredientJoueur().size() + 1, p));
@@ -241,8 +253,7 @@ public class Controleur {
     						Joueur j = (Joueur) it.next();
     						System.out.println(j.getNom()+" a " + j.getNbGraines() + " graines et " + j.getNbMenhir() + " menhirs.");
     					}
-    					//farfadets si le joueur est un humain
-    					if (actif instanceof Humain){
+    					
     						System.out.println("Quel joueur voulez vous attaquer ? ");
         					String nomJoueurAttaque = sc.nextLine();
         					
@@ -288,13 +299,7 @@ public class Controleur {
         							}  							
         							break;
         						}
-        					}			
-    					}
-    					else {
-    						/**
-    						 * farfadets si le joueur est un IA  					
-    						 */
-    					}
+        					}
     					break;
     				}
     				
