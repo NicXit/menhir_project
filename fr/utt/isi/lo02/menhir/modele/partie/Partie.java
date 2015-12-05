@@ -31,7 +31,7 @@ public class Partie{
 			System.out.println("Veuillez saisir le nom du joueur " + i + " (humain) : ");
 			String nom = joueur.nextLine();
 			
-			System.out.println("Veuillez sasir l'age du joueur " + i + " : ");
+			System.out.println("Veuillez saisir l'age du joueur " + i + " : ");
 			int age = joueur.nextInt();
 			
 			joueur.nextLine();

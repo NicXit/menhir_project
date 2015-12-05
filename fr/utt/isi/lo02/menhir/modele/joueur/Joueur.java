@@ -54,7 +54,7 @@ public abstract class Joueur{
 	}		
 	
 	public void ajouterCarteIngredientJoueur(CarteIngredient carte){
-		cartesIngredientsJoueur.add(carte);		
+		cartesIngredientsJoueur.add(carte);	
 	}
 	
 	public CarteAllie getCarteAllieJoueur(){

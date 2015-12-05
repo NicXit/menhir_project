@@ -1,8 +1,5 @@
 package fr.utt.isi.lo02.menhir.modele.carte;
 
-import fr.utt.isi.lo02.menhir.modele.enumeration.Action;
-import fr.utt.isi.lo02.menhir.modele.enumeration.Saison;
-
 public class CarteIngredient extends Carte {
 	public int[] value = new int[12];
 
@@ -24,7 +21,20 @@ public class CarteIngredient extends Carte {
 	
 	//Retourne la valeur exacte en fonction de la carte, de la saison et de l'action
 	public int getValuePrecise(int action, int saison){
-		return this.getValue()[((this.getValue().length / Action.values().length)*action)-(3-saison)];
+		int value = 0;
+		if(action == 0)
+		{
+			value = this.getValue()[saison-1];
+		}
+		else if(action == 1)
+		{
+			value = this.getValue()[saison+3];
+		}
+		else if(action == 2)
+		{
+			value = this.getValue()[saison+7];
+		}
+		return value;
 	}
 		
 }

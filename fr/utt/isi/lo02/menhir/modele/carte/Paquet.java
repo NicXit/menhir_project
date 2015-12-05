@@ -106,9 +106,10 @@ public class Paquet {
 	public void distribuerCartesIngredientsJoueur(ArrayList<Joueur> ordreJeu){
 		Collections.shuffle(cartesIngredient);		
 		for (Iterator<Joueur> it = ordreJeu.iterator(); it.hasNext(); ){
-			Joueur j = (Joueur) it.next();			
+			Joueur j = (Joueur) it.next();
 			for (int i=0; i<4; i++){
-				j.ajouterCarteIngredientJoueur(cartesIngredient.remove(0));
+				j.ajouterCarteIngredientJoueur(cartesIngredient.get(0));
+				cartesIngredient.remove(0);
 				}
 			}
 		}
@@ -120,4 +121,5 @@ public class Paquet {
 
 }
 
-	
+//for(Iterator<Joueur> it = ordreJeu.iterator(); it.hasNext();){
+	//System.out.println(((Joueur) it.next()).getNom());}

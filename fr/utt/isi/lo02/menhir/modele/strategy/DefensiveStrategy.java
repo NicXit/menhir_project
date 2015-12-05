@@ -16,7 +16,7 @@ public class DefensiveStrategy implements Strategy {
 		
 		//On parcours les cartes pour connaitre la plus haute valeur de l'action engrais
 		for (int i = 0; i < cartesIngredient.size(); i++){
-			int v = cartesIngredient.get(i).getValuePrecise(2,saison);
+			int v = cartesIngredient.get(i).getValuePrecise(1,saison);
 			if (vReference < v){
 				vReference = v;
 				numCarte = i; 
@@ -24,21 +24,18 @@ public class DefensiveStrategy implements Strategy {
 		}
 		
 		//On regarde si l'IA dispose d'assez de graines et si c'est le cas on joue cette action
-		if(j.getNbGraines() >= vReference){
-			System.out.println(vReference);
-			System.out.println(j.getNbGraines());
-			System.out.println(j.getNbGraines()-vReference);
+		if(j.getNbGraines() >= vReference && j.getNbGraines() != 0){
 			j.setNbGraines(j.getNbGraines()- vReference);
 			j.setNbMenhir(j.getNbMenhir()+ vReference);
 			j.getCarteIngredientJoueur().remove(numCarte);
-			return new String(j.getNom() + "a choisi l'action engrais de valeur" + vReference);
+			return new String(j.getNom() + " a choisi l'action engrais de valeur" + vReference);
 		}
 		//Si l'IA ne dispose pas d'assez de graines, il joue la meilleur carte pour l'action geant
 		else{
 			vReference = 0;
 			numCarte = 0;
 			for (int i = 0; i < cartesIngredient.size(); i++){
-				int v = cartesIngredient.get(i).getValuePrecise(1,saison);
+				int v = cartesIngredient.get(i).getValuePrecise(0,saison);
 				if (vReference < v){
 					vReference = v;
 					numCarte = i; 
@@ -46,7 +43,7 @@ public class DefensiveStrategy implements Strategy {
 			}
 			j.setNbGraines(j.getNbGraines()+ vReference);
 			j.getCarteIngredientJoueur().remove(numCarte);
-			return new String(j.getNom() + "a choisi l'action geant de valeur" + vReference);	
+			return new String(j.getNom() + " a choisi l'action geant de valeur" + vReference);	
 		}
 	}
 }

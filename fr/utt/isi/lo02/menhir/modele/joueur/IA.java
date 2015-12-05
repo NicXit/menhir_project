@@ -11,20 +11,12 @@ public class IA extends Joueur{
 		this.strategy=choisirStrategy();
 		
 	}
-	
-	private Strategy choisirStrategy(){
-		double a = Math.random();
-		if (a<=0.5)
-			return new DefensiveStrategy();
-		else
-			return new RandomStrategy();
-	}
-	
+
 	public Strategy getStrategy(){
 		return this.strategy;
 	}
 	
-	/*private Strategy choisirStrategy(){
+	private Strategy choisirStrategy(){
 		double a = Math.random();
 		if (a<=0.33)
 			return new DefensiveStrategy();
@@ -32,5 +24,5 @@ public class IA extends Joueur{
 			return new OffensiveStrategy();
 		else
 			return new RandomStrategy();
-	}*/
+	}
 }
