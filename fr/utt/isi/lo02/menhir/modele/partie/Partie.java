@@ -98,8 +98,10 @@ public class Partie{
 				joueur.setNbMenhir(joueur.getNbMenhir()+valAction);
 				joueur.setNbGraines(joueur.getNbGraines()-valAction);
 			}
-			else
-				joueur.setNbMenhir(joueur.getNbMenhir()+joueur.getNbGraines());		
+			else{
+				joueur.setNbMenhir(joueur.getNbMenhir()+joueur.getNbGraines());
+				joueur.setNbGraines(0);
+			}
 		}
 		
 		public void effectuerActionFarfadets(int valAction, Joueur joueur, Joueur joueurAttaque){			
