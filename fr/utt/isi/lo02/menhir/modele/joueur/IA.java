@@ -23,6 +23,7 @@ public class IA extends Joueur{
 	public Strategy getStrategy(){
 		return this.strategy;
 	}
+	
 	/*private Strategy choisirStrategy(){
 		double a = Math.random();
 		if (a<=0.33)

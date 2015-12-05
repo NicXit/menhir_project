@@ -24,7 +24,10 @@ public class DefensiveStrategy implements Strategy {
 		}
 		
 		//On regarde si l'IA dispose d'assez de graines et si c'est le cas on joue cette action
-		if(j.getNbGraines() <= vReference){
+		if(j.getNbGraines() >= vReference){
+			System.out.println(vReference);
+			System.out.println(j.getNbGraines());
+			System.out.println(j.getNbGraines()-vReference);
 			j.setNbGraines(j.getNbGraines()- vReference);
 			j.setNbMenhir(j.getNbMenhir()+ vReference);
 			j.getCarteIngredientJoueur().remove(numCarte);

@@ -143,7 +143,7 @@ public class Controleur {
     			for(int numOrdreJoueur = 0; numOrdreJoueur < p.ordreJeu.size(); numOrdreJoueur++){
     				for (Iterator<Joueur> it = p.ordreJeu.iterator(); it.hasNext();){
         				Joueur j = (Joueur) it.next();
-        				if (j.getCarteAllieJoueur().getNom().equals("La taupe géante")){
+        				/*if (j.getCarteAllieJoueur().getNom().equals("La taupe géante") && p.getTypePartie().equals("avancée")){
         					System.out.println(j.getNom() + " voulez vous jouer la carte (o/n)" +newLine + j.getCarteAllieJoueur());
         					reponseBonusAvancee= sc.nextLine().charAt(0);
         					if (reponseBonusAvancee == 'o'){    						    						
@@ -167,7 +167,7 @@ public class Controleur {
             					}
         						
         					}
-        				}
+        				}*/
         				
         			}
     				Joueur actif = p.getJoueurActif(numOrdreJoueur);
