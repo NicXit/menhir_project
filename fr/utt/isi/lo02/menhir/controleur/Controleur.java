@@ -306,25 +306,30 @@ public class Controleur {
         						
         						//si le joueur éxiste on appelle la fonction farfadet
         						if(joueurAttaque.getNom().equals(nomJoueurAttaque)){
+        							
+      
         							//on test si on est en partie avancée et si le joueur attaqué peut se défendre avec Chien de garde
         							if (p.getTypePartie().equals(TypePartie.avancée) && joueurAttaque.getCarteAllieJoueur() != null ){
+        								
+        	
         								if (joueurAttaque.getCarteAllieJoueur().nom.equals("Chien de garde")){
-	        								System.out.println("Voulez-vous utiliser la carte (o/n)"+ newLine + joueurAttaque.getCarteAllieJoueur());
+	        								System.out.println(joueurAttaque.getNom()+" voulez-vous utiliser la carte (o/n)"+ newLine + joueurAttaque.getCarteAllieJoueur());
 	        								reponseBonusAvancee= sc.nextLine().charAt(0);
 	        	        					if (reponseBonusAvancee == 'o'){
 	        	        						valCarte=joueurAttaque.getCarteAllieJoueur().getValue();                    						
 	                    						//nombre de saisons - nombre de cartes du dernier joueur
 	                    						valueCarteAllie=valCarte[tabSaison.length - p.ordreJeu.get(p.ordreJeu.size()-1).getCarteIngredientJoueur().size()];
+	                    						
 	                    						if (value >= valueCarteAllie){
 	                    							p.effectuerActionFarfadets(value-valueCarteAllie, actif, joueurAttaque);
 	                    							System.out.println("Le joueur : " + actif.getNom() +" vole des graines à " +joueurAttaque.getNom() + " avec sa carte de valeur " 
-	                    							+ value +" mais "+joueurAttaque.getNom()+" se défend avec sa carte "+newLine + joueurAttaque.getCarteAllieJoueur());                   							
+	                    							+ value +" mais "+joueurAttaque.getNom()+" se défend avec sa carte "+newLine + joueurAttaque.getCarteAllieJoueur());
 	                    						}
 	                    						else{                    							
 	                    							System.out.println("Le joueur : " + actif.getNom() +" ne vole pas de graine car "+ joueurAttaque.getNom()+" s'est défendu avec sa carte "
 	                    							+ newLine + joueurAttaque.getCarteAllieJoueur());
 	                    							}
-	                    						joueurAttaque.setCarteAllieJoueur(null);
+	                    						joueurAttaque.setCarteAllieJoueur(new CarteAllie("",null));
 	        	        					}
 	        	        					else{
 	            								System.out.println("Le joueur : " + actif.getNom() +" vole des graines à " +joueurAttaque.getNom() + " avec sa carte de valeur " + value);

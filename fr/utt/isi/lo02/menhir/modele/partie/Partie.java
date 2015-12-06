@@ -119,7 +119,7 @@ public class Partie{
 			if (valAction <= joueurAttaque.getNbMenhir())			
 				joueurAttaque.setNbMenhir(joueurAttaque.getNbMenhir()-valAction);			
 			else
-				joueurAttaque.setNbGraines(0);
+				joueurAttaque.setNbMenhir(0);
 		}
 			
 }
