@@ -8,8 +8,7 @@ import fr.utt.isi.lo02.menhir.modele.enumeration.Action;
 import fr.utt.isi.lo02.menhir.modele.joueur.Joueur;
 import fr.utt.isi.lo02.menhir.modele.partie.Partie;
 
-public class DefensiveStrategy implements Strategy {
-	
+public class DefensiveStrategy implements Strategy {	
 	public String jouer(Joueur j, ArrayList<CarteIngredient> cartesIngredient, int saison, Partie p){
 		int vReference = 0;
 		int numCarte = 0;

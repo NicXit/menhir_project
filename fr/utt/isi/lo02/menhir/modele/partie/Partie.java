@@ -4,13 +4,14 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Observable;
 import java.util.Scanner;
 
 import fr.utt.isi.lo02.menhir.modele.enumeration.Saison;
 import fr.utt.isi.lo02.menhir.modele.enumeration.TypePartie;
 import fr.utt.isi.lo02.menhir.modele.joueur.*;
 
-public class Partie{
+public class Partie extends Observable{
 	private TypePartie typePartie;
 	private Saison saison;
 	private int nbManche;
