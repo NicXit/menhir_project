@@ -14,11 +14,13 @@ import fr.utt.isi.lo02.menhir.modele.joueur.Humain;
 import fr.utt.isi.lo02.menhir.modele.joueur.IA;
 import fr.utt.isi.lo02.menhir.modele.joueur.Joueur;
 import fr.utt.isi.lo02.menhir.modele.partie.*;
+import fr.utt.isi.lo02.menhir.vue.VuePartie;
 
 public class Controleur {
 
 	public static void main(String[] args) {
 		// TEST
+		
 		Paquet paquet = new Paquet();
 		String newLine = System.getProperty("line.separator");
 		
@@ -29,6 +31,13 @@ public class Controleur {
 		char reponseBonusAvancee, choixTypePartie;
 		Action[] tabChoixAction = Action.values();
 		Saison[] tabSaison = Saison.values();
+		
+		//-------------------------Ajout interface graphique----------------
+		  
+		Controleur c = new Controleur();
+		VuePartie vp = new VuePartie(p, c);
+		
+		//---------------------Fin interface grapique--------------------
 		
 		System.out.println("*** JEU MENHIR ***");
 
