@@ -167,6 +167,10 @@ public class VuePartie extends JFrame implements Observer{
 			i+=40;
 		}
 		
+		JButton btnOk = new JButton("OK");		
+		btnOk.setBounds(171, i+20, 89, 23);
+		container.add(btnOk);
+		
 		this.setVisible(true);	
 		
 	}
