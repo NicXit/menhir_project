@@ -30,6 +30,11 @@ import java.awt.event.ActionListener;
 import java.text.NumberFormat;
 import java.awt.event.ActionEvent;
 
+/**
+ * 
+ * @author Mathieu DELALANDE, Nicolas Granet
+ *
+ */
 public class VuePartie extends JFrame implements Observer{
 	
 	private Partie partie;
@@ -38,7 +43,9 @@ public class VuePartie extends JFrame implements Observer{
 	private JPanel vueAjouterJoueur;
 
 	/**
-	 * Create the frame.
+	 * Le constructeur de la classe VuePartie permet la création de la fenêtre du programme
+	 * @param p
+	 * @param c
 	 */
 	public VuePartie(Partie p, Controleur c){
 		this.partie=p;
@@ -53,16 +60,20 @@ public class VuePartie extends JFrame implements Observer{
 		this.initContentPane();
 		
 	}
+	
+	/**
+	 * La méthode initContentPane permet d'initialiser le ContentePane
+	 */
 	public void initContentPane(){
 		JLabel lblJeuDuMenhirs = new JLabel("Jeu du menhir");
 		lblJeuDuMenhirs.setFont(new Font("Calibri", Font.BOLD, 14));
 		lblJeuDuMenhirs.setBounds(163, 11, 97, 17);
 		container.add(lblJeuDuMenhirs);
 		
-		JComboBox<Integer> comboBox = new JComboBox<Integer>();
-		comboBox.setModel(new DefaultComboBoxModel<Integer>(new Integer[] {1, 2, 3, 4, 5, 6}));
-		comboBox.setBounds(214, 91, 46, 20);
-		container.add(comboBox);
+		JComboBox<Integer> comboBoxNbHumain = new JComboBox<Integer>();
+		comboBoxNbHumain.setModel(new DefaultComboBoxModel<Integer>(new Integer[] {1, 2, 3, 4, 5, 6}));
+		comboBoxNbHumain.setBounds(214, 91, 46, 20);
+		container.add(comboBoxNbHumain);
 		
 		JLabel lblNombreDeJoueurs = new JLabel("Nombre de joueurs humains");
 		lblNombreDeJoueurs.setBounds(10, 94, 183, 14);
@@ -72,11 +83,11 @@ public class VuePartie extends JFrame implements Observer{
 		lblNombreDeJoueurs_1.setBounds(10, 119, 183, 14);
 		container.add(lblNombreDeJoueurs_1);
 		
-		JComboBox<Integer> comboBox_1 = new JComboBox<Integer>();
-		comboBox_1.setModel(new DefaultComboBoxModel<Integer>(new Integer[] {0,1,2,3,4,5}));
-		comboBox_1.setMaximumRowCount(5);
-		comboBox_1.setBounds(214, 116, 46, 20);
-		container.add(comboBox_1);
+		JComboBox<Integer> comboBoxNbIA = new JComboBox<Integer>();
+		comboBoxNbIA.setModel(new DefaultComboBoxModel<Integer>(new Integer[] {0,1,2,3,4,5}));
+		comboBoxNbIA.setMaximumRowCount(5);
+		comboBoxNbIA.setBounds(214, 116, 46, 20);
+		container.add(comboBoxNbIA);
 		
 		JLabel lblTypeDePartie = new JLabel("Type de partie");
 		lblTypeDePartie.setBounds(10, 151, 136, 14);
@@ -93,7 +104,7 @@ public class VuePartie extends JFrame implements Observer{
 		JButton btnOk = new JButton("OK");
 		btnOk.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				ajouterJoueur((int)comboBox.getSelectedItem());
+				ajouterJoueur((int)comboBoxNbHumain.getSelectedItem(),(int)comboBoxNbIA.getSelectedItem());
 			}
 		});
 		btnOk.setBounds(171, 227, 89, 23);
@@ -106,18 +117,32 @@ public class VuePartie extends JFrame implements Observer{
 		this.setVisible(true);
 	}
 	
-	public void ajouterJoueur(int nbJoueursHumain){
+	/**
+	 * La méthode ajouterJoueur permet d'ajouter les vues d'ajout de chacun des joueurs
+	 * 
+	 * @param nbJoueursHumain
+	 * @param nbJoueursIA
+	 */
+	public void ajouterJoueur(int nbJoueursHumain, int nbJoueursIA){
 		int i =0;
+		//on supprime les composants du contentPane
 		container.removeAll();
 		container.repaint();
 		
-		ArrayList<VueAjouterJoueurHumain> listeAjouterH = new ArrayList<VueAjouterJoueurHumain>();				
+		JLabel lblJoueurs = new JLabel("Veuillez remplir les informations des joueurs");
+		lblJoueurs.setBounds(80, 0, 350, 17);
+		container.add(lblJoueurs);
 		
+		//on ajoute les vues pour les joueurs humains
+		JLabel lblJoueursH = new JLabel("joueurs humains :");
+		lblJoueursH.setBounds(10,30, 183, 14);
+		container.add(lblJoueursH);
+		
+		ArrayList<VueAjouterJoueurHumain> listeAjouterH = new ArrayList<VueAjouterJoueurHumain>();
 		for (i=0; i<nbJoueursHumain; i++){
-			listeAjouterH.add(new VueAjouterJoueurHumain(partie, controleur));			
+			listeAjouterH.add(new VueAjouterJoueurHumain());			
 		}
-
-		i=0;
+		i=45;
 		for (Iterator<VueAjouterJoueurHumain> it = listeAjouterH.iterator(); it.hasNext();){			
 			VueAjouterJoueurHumain vH = (VueAjouterJoueurHumain) it.next();
 			vH.setBounds(0, i, 450, 39);
@@ -125,9 +150,24 @@ public class VuePartie extends JFrame implements Observer{
 			i+=40;
 		}
 		
-		this.setVisible(true);
-
 		
+		//on ajoute les vues pour les joueurs IA
+		JLabel lblJoueursIA = new JLabel("joueurs IA :");
+		lblJoueursIA.setBounds(10,i+10, 183, 14);
+		container.add(lblJoueursIA);
+		ArrayList<VueAjouterJoueurIA> listeAjouterIA = new ArrayList<VueAjouterJoueurIA>();
+		for (int j=0; j<nbJoueursIA; j++){			
+			listeAjouterIA.add(new VueAjouterJoueurIA());			
+		}		
+		i+=25;
+		for (Iterator<VueAjouterJoueurIA> it = listeAjouterIA.iterator(); it.hasNext();){			
+			VueAjouterJoueurIA vH = (VueAjouterJoueurIA) it.next();
+			vH.setBounds(0, i, 450, 39);
+			container.add(vH);
+			i+=40;
+		}
+		
+		this.setVisible(true);	
 		
 	}
 	

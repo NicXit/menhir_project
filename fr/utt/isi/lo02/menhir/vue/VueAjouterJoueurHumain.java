@@ -19,7 +19,7 @@ import javax.swing.JButton;
 
 public class VueAjouterJoueurHumain extends JPanel {
 	
-	public VueAjouterJoueurHumain(Partie p, Controleur c) {		
+	public VueAjouterJoueurHumain() {		
 		
 		setLayout(null);		
 		JLabel lblNom = new JLabel("Nom :");
