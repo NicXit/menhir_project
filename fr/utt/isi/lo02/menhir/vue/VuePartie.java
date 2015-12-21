@@ -106,8 +106,7 @@ public class VuePartie extends JFrame implements Observer{
 		
 		ButtonGroup group = new ButtonGroup();
 		group.add(rdbtnNewRadioButton);
-		group.add(rdbtnNewRadioButton_1);
-		
+		group.add(rdbtnNewRadioButton_1);		
 		JButton btnOk = new JButton("OK");
 		btnOk.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {				
@@ -117,7 +116,6 @@ public class VuePartie extends JFrame implements Observer{
 		});
 		btnOk.setBounds(171, 227, 89, 23);
 		container.add(btnOk);
-		
 		JLabel lblJoueursMaximum = new JLabel("2 \u00E0 6 joueurs");
 		lblJoueursMaximum.setBounds(10, 69, 183, 14);
 		container.add(lblJoueursMaximum);
@@ -158,27 +156,40 @@ public class VuePartie extends JFrame implements Observer{
 			i+=40;
 		}
 		
-		
-		//on ajoute les vues pour les joueurs IA
-		JLabel lblJoueursIA = new JLabel("joueurs IA :");
-		lblJoueursIA.setBounds(10,i+10, 183, 14);
-		container.add(lblJoueursIA);
 		ArrayList<VueAjouterJoueurIA> listeAjouterIA = new ArrayList<VueAjouterJoueurIA>();
-		for (int j=0; j<nbJoueursIA; j++){			
-			listeAjouterIA.add(new VueAjouterJoueurIA());			
-		}		
-		i+=25;
-		for (Iterator<VueAjouterJoueurIA> it = listeAjouterIA.iterator(); it.hasNext();){			
-			VueAjouterJoueurIA vH = (VueAjouterJoueurIA) it.next();
-			vH.setBounds(0, i, 450, 39);
-			container.add(vH);
-			i+=40;
+		//on ajoute les vues pour les joueurs IA
+		if (nbJoueursIA >0){
+			JLabel lblJoueursIA = new JLabel("joueurs IA :");
+			lblJoueursIA.setBounds(10,i+10, 183, 14);
+			container.add(lblJoueursIA);			
+			for (int j=0; j<nbJoueursIA; j++){			
+				listeAjouterIA.add(new VueAjouterJoueurIA());			
+			}		
+			i+=25;
+			for (Iterator<VueAjouterJoueurIA> it = listeAjouterIA.iterator(); it.hasNext();){			
+				VueAjouterJoueurIA vH = (VueAjouterJoueurIA) it.next();
+				vH.setBounds(0, i, 450, 39);
+				container.add(vH);
+				i+=40;
+			}
 		}
+		
 		
 		JButton btnOk2 = new JButton("OK");
 		btnOk2.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				;
+				//on ajoute les humains
+				for (Iterator<VueAjouterJoueurHumain> it = listeAjouterH.iterator(); it.hasNext();){
+					VueAjouterJoueurHumain vH = (VueAjouterJoueurHumain) it.next();	
+					controleur.ajouterHumain(vH.getItemNom(),vH.getItemAge(),vH.getItemSexe());
+				}
+				//on ajoute les joueurs IA
+				if (nbJoueursIA >0){
+					for (Iterator<VueAjouterJoueurIA> it = listeAjouterIA.iterator(); it.hasNext();){			
+						VueAjouterJoueurIA vH = (VueAjouterJoueurIA) it.next();
+						controleur.ajouterIA(vH.getItemNom());
+					}
+				}				
 			}
 		});
 		btnOk2.setBounds(171, i+20, 89, 23);

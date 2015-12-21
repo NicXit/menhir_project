@@ -15,6 +15,7 @@ public class Partie extends Observable{
 	private TypePartie typePartie;
 	private Saison saison;
 	private int nbManche;
+	private int nbHumains;
 	public ArrayList<Humain> listeHumains;
 	public ArrayList<Joueur> ordreJeu;
 	
@@ -22,6 +23,7 @@ public class Partie extends Observable{
 		this.saison=Saison.printemps;
 		this.listeHumains = new ArrayList<Humain>();
 		this.ordreJeu = new ArrayList<Joueur>();
+		this.nbHumains=0;
 	}
 
 	/*
@@ -57,6 +59,10 @@ public class Partie extends Observable{
 		this.ordreJeu.add(new IA(nom));		
 	}
 	
+	public void ajouterIA2(String nom){
+		this.ordreJeu.add(new IA(nom));	
+	}
+	
 	 
 	public void triOrdreJeu(){	 
 		Collections.sort(this.listeHumains);
@@ -76,6 +82,13 @@ public class Partie extends Observable{
 		public void setTypePartie(TypePartie typePartie){			
 				this.typePartie=typePartie;
 			
+		}
+		
+		public int getNbHumains(){
+			return this.nbHumains;
+		}
+		public void setNbHumains(int nbHumains){
+			this.nbHumains=nbHumains;
 		}
 		
 		public Joueur getJoueurActif(int numOrdreJoueur){

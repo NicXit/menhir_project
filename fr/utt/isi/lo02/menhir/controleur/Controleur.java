@@ -100,7 +100,9 @@ public class Controleur {
 				//si partie rapide on initialise le nombre de graines des joueurs à 2 et le nombre de manche à 1		
 				case 'r' :	   		
 		            p.setTypePartie(TypePartie.rapide);
-		            p.setNbManche(1);	
+		            p.setNbManche(1);
+		            
+		            
 		            	           
 		            break;
 		            /**
