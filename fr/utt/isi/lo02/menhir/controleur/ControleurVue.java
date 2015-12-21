@@ -7,6 +7,7 @@ import java.util.Scanner;
 import fr.utt.isi.lo02.menhir.modele.carte.Paquet;
 import fr.utt.isi.lo02.menhir.modele.enumeration.Action;
 import fr.utt.isi.lo02.menhir.modele.enumeration.Saison;
+import fr.utt.isi.lo02.menhir.modele.enumeration.TypePartie;
 import fr.utt.isi.lo02.menhir.modele.partie.Partie;
 import fr.utt.isi.lo02.menhir.vue.VuePartie;
 
@@ -27,6 +28,13 @@ public class ControleurVue {
 		vp = new VuePartie(p, this);
 	}
 	
+	public void paramPartie(int nbJoueursHumain, int nbJoueursIA, boolean rdbtRapide, boolean rdbtAvance){
+		if(rdbtRapide) p.setTypePartie(TypePartie.rapide);
+		else p.setTypePartie(TypePartie.avancée);		
+	}
 	
+	public void ajouterHumain(){
+		
+	}
 	
 }

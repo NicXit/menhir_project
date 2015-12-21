@@ -22,6 +22,7 @@ import java.awt.Font;
 import javax.swing.JComboBox;
 import javax.swing.JFormattedTextField;
 import javax.swing.BoxLayout;
+import javax.swing.ButtonGroup;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JRadioButton;
 import javax.swing.JButton;
@@ -95,6 +96,7 @@ public class VuePartie extends JFrame implements Observer{
 		container.add(lblTypeDePartie);
 		
 		JRadioButton rdbtnNewRadioButton = new JRadioButton("rapide");
+		rdbtnNewRadioButton.setSelected(true);
 		rdbtnNewRadioButton.setBounds(215, 147, 79, 23);
 		container.add(rdbtnNewRadioButton);
 		
@@ -102,10 +104,15 @@ public class VuePartie extends JFrame implements Observer{
 		rdbtnNewRadioButton_1.setBounds(305, 147, 109, 23);
 		container.add(rdbtnNewRadioButton_1);
 		
+		ButtonGroup group = new ButtonGroup();
+		group.add(rdbtnNewRadioButton);
+		group.add(rdbtnNewRadioButton_1);
+		
 		JButton btnOk = new JButton("OK");
 		btnOk.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
+			public void actionPerformed(ActionEvent arg0) {				
 				ajouterJoueur((int)comboBoxNbHumain.getSelectedItem(),(int)comboBoxNbIA.getSelectedItem());
+				controleur.paramPartie((int)comboBoxNbHumain.getSelectedItem(), (int)comboBoxNbIA.getSelectedItem(), rdbtnNewRadioButton.isSelected(), rdbtnNewRadioButton_1.isSelected());
 			}
 		});
 		btnOk.setBounds(171, 227, 89, 23);
