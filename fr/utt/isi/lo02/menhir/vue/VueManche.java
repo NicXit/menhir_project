@@ -8,12 +8,14 @@ import java.awt.Component;
 import javax.swing.JToggleButton;
 import org.eclipse.wb.swing.FocusTraversalOnArray;
 
+import fr.utt.isi.lo02.menhir.modele.carte.CarteIngredient;
 import fr.utt.isi.lo02.menhir.modele.joueur.Joueur;
 import fr.utt.isi.lo02.menhir.modele.partie.Partie;
 
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
+import java.util.Iterator;
 import java.awt.GridLayout;
 import javax.swing.JLabel;
 import javax.swing.GroupLayout;
@@ -27,6 +29,12 @@ import javax.swing.border.LineBorder;
 import java.awt.Color;
 import javax.swing.border.CompoundBorder;
 import javax.swing.border.MatteBorder;
+import javax.swing.JRadioButton;
+import javax.swing.JTextPane;
+import javax.swing.JTextField;
+import javax.swing.JFormattedTextField;
+import javax.swing.JTextArea;
+import java.awt.SystemColor;
 
 public class VueManche extends JPanel {
 
@@ -60,9 +68,6 @@ public class VueManche extends JPanel {
 		JPanel panel_3 = new JPanel();
 		panel_3.setBorder(new MatteBorder(0, 0, 2, 0, (Color) Color.LIGHT_GRAY));
 		
-		JLabel lblScores = new JLabel("Scores");
-		lblScores.setHorizontalAlignment(SwingConstants.CENTER);
-		
 		JPanel panel_4 = new JPanel();
 		panel_4.setBorder(new MatteBorder(0, 0, 2, 0, (Color) new Color(192, 192, 192)));
 		
@@ -70,14 +75,16 @@ public class VueManche extends JPanel {
 		GroupLayout gl_panel = new GroupLayout(panel);
 		gl_panel.setHorizontalGroup(
 			gl_panel.createParallelGroup(Alignment.LEADING)
+				.addComponent(panel_1, GroupLayout.DEFAULT_SIZE, 675, Short.MAX_VALUE)
+				.addComponent(panel_2, GroupLayout.DEFAULT_SIZE, 675, Short.MAX_VALUE)
 				.addGroup(gl_panel.createSequentialGroup()
-					.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
-						.addComponent(panel_1, GroupLayout.PREFERRED_SIZE, 580, GroupLayout.PREFERRED_SIZE)
-						.addComponent(panel_2, GroupLayout.PREFERRED_SIZE, 580, GroupLayout.PREFERRED_SIZE)
-						.addComponent(panel_3, GroupLayout.PREFERRED_SIZE, 580, GroupLayout.PREFERRED_SIZE)
-						.addComponent(panel_4, GroupLayout.PREFERRED_SIZE, 580, GroupLayout.PREFERRED_SIZE)
-						.addComponent(panel_5, GroupLayout.PREFERRED_SIZE, 580, GroupLayout.PREFERRED_SIZE))
-					.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+					.addComponent(panel_5, GroupLayout.DEFAULT_SIZE, 665, Short.MAX_VALUE)
+					.addContainerGap())
+				.addComponent(panel_4, GroupLayout.DEFAULT_SIZE, 675, Short.MAX_VALUE)
+				.addGroup(Alignment.TRAILING, gl_panel.createSequentialGroup()
+					.addContainerGap()
+					.addComponent(panel_3, GroupLayout.DEFAULT_SIZE, 675, Short.MAX_VALUE)
+					.addContainerGap())
 		);
 		gl_panel.setVerticalGroup(
 			gl_panel.createParallelGroup(Alignment.LEADING)
@@ -85,71 +92,105 @@ public class VueManche extends JPanel {
 					.addComponent(panel_1, GroupLayout.PREFERRED_SIZE, 46, GroupLayout.PREFERRED_SIZE)
 					.addPreferredGap(ComponentPlacement.RELATED)
 					.addComponent(panel_2, GroupLayout.PREFERRED_SIZE, 43, GroupLayout.PREFERRED_SIZE)
-					.addPreferredGap(ComponentPlacement.RELATED)
+					.addPreferredGap(ComponentPlacement.UNRELATED)
 					.addComponent(panel_3, GroupLayout.PREFERRED_SIZE, 123, GroupLayout.PREFERRED_SIZE)
+					.addGap(1)
+					.addComponent(panel_4, GroupLayout.DEFAULT_SIZE, 205, Short.MAX_VALUE)
 					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(panel_4, GroupLayout.PREFERRED_SIZE, 148, GroupLayout.PREFERRED_SIZE)
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(panel_5, GroupLayout.PREFERRED_SIZE, 38, GroupLayout.PREFERRED_SIZE)
-					.addGap(12))
+					.addComponent(panel_5, GroupLayout.PREFERRED_SIZE, 38, GroupLayout.PREFERRED_SIZE))
 		);
 		GroupLayout gl_panel_1 = new GroupLayout(panel_1);
 		gl_panel_1.setHorizontalGroup(
 			gl_panel_1.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_panel_1.createSequentialGroup()
-					.addGap(199)
-					.addComponent(label)
-					.addContainerGap(203, Short.MAX_VALUE))
+				.addGroup(Alignment.TRAILING, gl_panel_1.createSequentialGroup()
+					.addContainerGap(243, Short.MAX_VALUE)
+					.addComponent(label, GroupLayout.PREFERRED_SIZE, 192, GroupLayout.PREFERRED_SIZE)
+					.addGap(240))
 		);
 		gl_panel_1.setVerticalGroup(
 			gl_panel_1.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_panel_1.createSequentialGroup()
 					.addContainerGap()
-					.addComponent(label)
-					.addContainerGap(19, Short.MAX_VALUE))
+					.addComponent(label, GroupLayout.DEFAULT_SIZE, 22, Short.MAX_VALUE)
+					.addContainerGap())
 		);
 		panel_1.setLayout(gl_panel_1);
 		
 		JButton btnJouer = new JButton("Jouer");
 		panel_5.add(btnJouer);
+		GridBagLayout gbl_panel_4 = new GridBagLayout();
+		gbl_panel_4.columnWidths = new int[] {116, 116, 116, 116, 116};
+		gbl_panel_4.rowHeights = new int[] {30, 116, 20, 0};
+		gbl_panel_4.columnWeights = new double[]{1.0, 1.0, 1.0, 1.0, 1.0, 0.0, Double.MIN_VALUE};
+		gbl_panel_4.rowWeights = new double[]{0.0, 1.0, 0.0, Double.MIN_VALUE};
+		panel_4.setLayout(gbl_panel_4);
 		
 		JLabel lblCartesIngrdients = new JLabel("Cartes ingr\u00E9dients");
+		lblCartesIngrdients.setHorizontalAlignment(SwingConstants.CENTER);
+		GridBagConstraints gbc_lblCartesIngrdients = new GridBagConstraints();
+		gbc_lblCartesIngrdients.gridwidth = 4;
+		gbc_lblCartesIngrdients.fill = GridBagConstraints.VERTICAL;
+		gbc_lblCartesIngrdients.insets = new Insets(0, 0, 5, 5);
+		gbc_lblCartesIngrdients.gridx = 0;
+		gbc_lblCartesIngrdients.gridy = 0;
+		panel_4.add(lblCartesIngrdients, gbc_lblCartesIngrdients);
 		
 		JLabel lblCarteAllis = new JLabel("Carte Alli\u00E9s");
-		GroupLayout gl_panel_4 = new GroupLayout(panel_4);
-		gl_panel_4.setHorizontalGroup(
-			gl_panel_4.createParallelGroup(Alignment.TRAILING)
-				.addGroup(gl_panel_4.createSequentialGroup()
-					.addGap(28)
-					.addComponent(lblCartesIngrdients, GroupLayout.PREFERRED_SIZE, 163, GroupLayout.PREFERRED_SIZE)
-					.addPreferredGap(ComponentPlacement.RELATED, 245, Short.MAX_VALUE)
-					.addComponent(lblCarteAllis, GroupLayout.PREFERRED_SIZE, 89, GroupLayout.PREFERRED_SIZE)
-					.addGap(55))
-		);
-		gl_panel_4.setVerticalGroup(
-			gl_panel_4.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_panel_4.createSequentialGroup()
-					.addGroup(gl_panel_4.createParallelGroup(Alignment.BASELINE)
-						.addComponent(lblCarteAllis, GroupLayout.PREFERRED_SIZE, 41, GroupLayout.PREFERRED_SIZE)
-						.addComponent(lblCartesIngrdients, GroupLayout.PREFERRED_SIZE, 38, GroupLayout.PREFERRED_SIZE))
-					.addContainerGap(105, Short.MAX_VALUE))
-		);
-		panel_4.setLayout(gl_panel_4);
-		GroupLayout gl_panel_3 = new GroupLayout(panel_3);
-		gl_panel_3.setHorizontalGroup(
-			gl_panel_3.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_panel_3.createSequentialGroup()
-					.addComponent(lblScores, GroupLayout.PREFERRED_SIZE, 580, GroupLayout.PREFERRED_SIZE)
-					.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-		);
-		gl_panel_3.setVerticalGroup(
-			gl_panel_3.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_panel_3.createSequentialGroup()
-					.addComponent(lblScores, GroupLayout.PREFERRED_SIZE, 34, GroupLayout.PREFERRED_SIZE)
-					.addContainerGap(89, Short.MAX_VALUE))
-		);
-		panel_3.setLayout(gl_panel_3);
+		GridBagConstraints gbc_lblCarteAllis = new GridBagConstraints();
+		gbc_lblCarteAllis.fill = GridBagConstraints.VERTICAL;
+		gbc_lblCarteAllis.gridwidth = 3;
+		gbc_lblCarteAllis.insets = new Insets(0, 0, 5, 0);
+		gbc_lblCarteAllis.gridx = 4;
+		gbc_lblCarteAllis.gridy = 0;
+		panel_4.add(lblCarteAllis, gbc_lblCarteAllis);
+		
+		jLabelIngredient(j, panel_4);	
+		
+		JRadioButton radioButton = new JRadioButton("");
+		GridBagConstraints gbc_radioButton = new GridBagConstraints();
+		gbc_radioButton.fill = GridBagConstraints.VERTICAL;
+		gbc_radioButton.insets = new Insets(0, 0, 0, 5);
+		gbc_radioButton.gridx = 0;
+		gbc_radioButton.gridy = 2;
+		panel_4.add(radioButton, gbc_radioButton);
+		panel_3.setLayout(new GridLayout(7, 1, 0, 0));
+		
+		JLabel lblScores = new JLabel("Scores");
+		lblScores.setHorizontalAlignment(SwingConstants.CENTER);
+		panel_3.add(lblScores);		
+		
+		for (Iterator<Joueur> it = p.ordreJeu.iterator(); it.hasNext();){
+			Joueur joueur = (Joueur) it.next();
+			panel_3.add(jLabelScore(joueur));
+		}
+		
 		panel.setLayout(gl_panel);
 
+	}
+	
+	public JLabel jLabelScore(Joueur j){
+		JLabel lblNewLabel = new JLabel("Nom : " +j.getNom()+ "             nombre de graines : " +j.getNbGraines()+"             Nombre de Menhirs : " +j.getNbMenhir());
+		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);		
+		return lblNewLabel;
+	}
+	
+	public void jLabelIngredient(Joueur j, JPanel panel){
+		int i=0;
+		for(Iterator<CarteIngredient> it = j.getCarteIngredientJoueur().iterator(); it.hasNext();){
+			CarteIngredient carte = (CarteIngredient) it.next();
+			
+			JTextArea lblNewLabel = new JTextArea();
+			lblNewLabel.setBackground(SystemColor.control);
+			lblNewLabel.setEditable(false);
+			lblNewLabel.setEditable(false);
+			lblNewLabel.setText(carte.toString());
+			GridBagConstraints gbc_lblNewLabel = new GridBagConstraints();	
+			gbc_lblNewLabel.fill = GridBagConstraints.HORIZONTAL;
+			gbc_lblNewLabel.insets = new Insets(0, 0, 5, 5);
+			gbc_lblNewLabel.gridx = i;
+			gbc_lblNewLabel.gridy = 1;
+			panel.add(lblNewLabel, gbc_lblNewLabel);		
+			i++;
+		}	
 	}
 }
