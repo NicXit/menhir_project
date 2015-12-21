@@ -47,7 +47,23 @@ public class ControleurVue {
 			p.triOrdreJeu();
 	}
 	
+	/**
+	 * Méthode qui ajoute les joueurs IA et qui appelle la méthode qui initialise le nombre de manches et pour la partie rapide le 
+	 * nombre de graines.
+	 * 
+	 * @param nom
+	 */
 	public void ajouterIA(String nom){
 		p.ajouterIA2(nom);
+		
+		if(p.ordreJeu.size() == (p.getNbHumains()+p.getNbIA())){
+			if(p.getTypePartie().equals(TypePartie.rapide)){
+				p.initGrainesPartieRapide();
+				p.setNbManche(1);
+			}
+			else
+				p.setNbManche(p.ordreJeu.size());	
+		}			
 	}
+	
 }

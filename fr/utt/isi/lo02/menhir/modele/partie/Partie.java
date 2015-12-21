@@ -15,7 +15,8 @@ public class Partie extends Observable{
 	private TypePartie typePartie;
 	private Saison saison;
 	private int nbManche;
-	private int nbHumains;
+	private int nbHumains, nbIA;
+
 	public ArrayList<Humain> listeHumains;
 	public ArrayList<Joueur> ordreJeu;
 	
@@ -77,11 +78,9 @@ public class Partie extends Observable{
 		
 		public TypePartie getTypePartie(){
 			return this.typePartie;
-		}
-		
+		}		
 		public void setTypePartie(TypePartie typePartie){			
-				this.typePartie=typePartie;
-			
+				this.typePartie=typePartie;			
 		}
 		
 		public int getNbHumains(){
@@ -89,6 +88,13 @@ public class Partie extends Observable{
 		}
 		public void setNbHumains(int nbHumains){
 			this.nbHumains=nbHumains;
+		}
+		
+		public int getNbIA() {
+			return nbIA;
+		}
+		public void setNbIA(int nbIA) {
+			this.nbIA = nbIA;
 		}
 		
 		public Joueur getJoueurActif(int numOrdreJoueur){
@@ -141,6 +147,13 @@ public class Partie extends Observable{
 				joueurAttaque.setNbMenhir(joueurAttaque.getNbMenhir()-valAction);			
 			else
 				joueurAttaque.setNbMenhir(0);
+		}
+		
+		public void initGrainesPartieRapide(){
+			for(Iterator<Joueur> it = this.ordreJeu.iterator(); it.hasNext();){
+				Joueur j = (Joueur) it.next();
+				j.setNbGraines(2);							
+			}
 		}
 			
 }

@@ -90,16 +90,17 @@ public class Controleur {
 			}	
 			choixTypePartie = sc.nextLine().charAt(0);
 			
-			//initialisation des graines des joueurs
-			for(Iterator<Joueur> it = p.ordreJeu.iterator(); it.hasNext();){
-				Joueur j = (Joueur) it.next();
-				j.setNbGraines(2);							
-			}
+			
 			switch (choixTypePartie){
 			
 				//si partie rapide on initialise le nombre de graines des joueurs à 2 et le nombre de manche à 1		
 				case 'r' :	   		
 		            p.setTypePartie(TypePartie.rapide);
+		          //initialisation des graines des joueurs
+					for(Iterator<Joueur> it = p.ordreJeu.iterator(); it.hasNext();){
+						Joueur j = (Joueur) it.next();
+						j.setNbGraines(2);							
+					}
 		            p.setNbManche(1);
 		            
 		            

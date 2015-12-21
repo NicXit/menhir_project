@@ -109,9 +109,9 @@ public class VuePartie extends JFrame implements Observer{
 		group.add(rdbtnNewRadioButton_1);		
 		JButton btnOk = new JButton("OK");
 		btnOk.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {				
-				ajouterJoueur((int)comboBoxNbHumain.getSelectedItem(),(int)comboBoxNbIA.getSelectedItem());
+			public void actionPerformed(ActionEvent arg0) {	
 				controleur.paramPartie((int)comboBoxNbHumain.getSelectedItem(), (int)comboBoxNbIA.getSelectedItem(), rdbtnNewRadioButton.isSelected(), rdbtnNewRadioButton_1.isSelected());
+				ajouterJoueur((int)comboBoxNbHumain.getSelectedItem(),(int)comboBoxNbIA.getSelectedItem());
 			}
 		});
 		btnOk.setBounds(171, 227, 89, 23);
@@ -194,6 +194,8 @@ public class VuePartie extends JFrame implements Observer{
 		});
 		btnOk2.setBounds(171, i+20, 89, 23);
 		container.add(btnOk2);
+		
+		VueChoixPartieAvancee vcpa = new VueChoixPartieAvancee();
 		
 		this.setVisible(true);	
 		
