@@ -7,6 +7,10 @@ import java.awt.BorderLayout;
 import java.awt.Component;
 import javax.swing.JToggleButton;
 import org.eclipse.wb.swing.FocusTraversalOnArray;
+
+import fr.utt.isi.lo02.menhir.modele.joueur.Joueur;
+import fr.utt.isi.lo02.menhir.modele.partie.Partie;
+
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
@@ -29,7 +33,7 @@ public class VueManche extends JPanel {
 	/**
 	 * Create the panel.
 	 */
-	public VueManche() {
+	public VueManche(Joueur j, Partie p) {
 		setLayout(new CardLayout(0, 0));
 		
 		JPanel panel = new JPanel();
@@ -38,18 +42,18 @@ public class VueManche extends JPanel {
 		JPanel panel_1 = new JPanel();
 		panel_1.setBorder(new MatteBorder(0, 0, 2, 0, (Color) Color.LIGHT_GRAY));
 		
-		JLabel label = new JLabel("C'est au tour de <dynamic> de jouer");
-		panel_1.add(label);
+		JLabel label = new JLabel("C'est au tour de "+j.getNom()+" de jouer");
+		label.setHorizontalAlignment(SwingConstants.CENTER);
 		
 		JPanel panel_2 = new JPanel();
 		panel_2.setBorder(new MatteBorder(0, 0, 2, 0, (Color) Color.LIGHT_GRAY));
 		panel_2.setLayout(new GridLayout(0, 2, 0, 0));
 		
-		JLabel label_1 = new JLabel("Manche :");
+		JLabel label_1 = new JLabel("Manche : " +p.getNumManche());
 		label_1.setHorizontalAlignment(SwingConstants.CENTER);
 		panel_2.add(label_1);
 		
-		JLabel label_2 = new JLabel("Saison :");
+		JLabel label_2 = new JLabel("Saison : " +p.getSaison());
 		label_2.setHorizontalAlignment(SwingConstants.CENTER);
 		panel_2.add(label_2);
 		
@@ -89,6 +93,22 @@ public class VueManche extends JPanel {
 					.addComponent(panel_5, GroupLayout.PREFERRED_SIZE, 38, GroupLayout.PREFERRED_SIZE)
 					.addGap(12))
 		);
+		GroupLayout gl_panel_1 = new GroupLayout(panel_1);
+		gl_panel_1.setHorizontalGroup(
+			gl_panel_1.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_panel_1.createSequentialGroup()
+					.addGap(199)
+					.addComponent(label)
+					.addContainerGap(203, Short.MAX_VALUE))
+		);
+		gl_panel_1.setVerticalGroup(
+			gl_panel_1.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_panel_1.createSequentialGroup()
+					.addContainerGap()
+					.addComponent(label)
+					.addContainerGap(19, Short.MAX_VALUE))
+		);
+		panel_1.setLayout(gl_panel_1);
 		
 		JButton btnJouer = new JButton("Jouer");
 		panel_5.add(btnJouer);
@@ -98,11 +118,11 @@ public class VueManche extends JPanel {
 		JLabel lblCarteAllis = new JLabel("Carte Alli\u00E9s");
 		GroupLayout gl_panel_4 = new GroupLayout(panel_4);
 		gl_panel_4.setHorizontalGroup(
-			gl_panel_4.createParallelGroup(Alignment.LEADING)
-				.addGroup(Alignment.TRAILING, gl_panel_4.createSequentialGroup()
+			gl_panel_4.createParallelGroup(Alignment.TRAILING)
+				.addGroup(gl_panel_4.createSequentialGroup()
 					.addGap(28)
-					.addComponent(lblCartesIngrdients, GroupLayout.PREFERRED_SIZE, 101, GroupLayout.PREFERRED_SIZE)
-					.addPreferredGap(ComponentPlacement.RELATED, 307, Short.MAX_VALUE)
+					.addComponent(lblCartesIngrdients, GroupLayout.PREFERRED_SIZE, 163, GroupLayout.PREFERRED_SIZE)
+					.addPreferredGap(ComponentPlacement.RELATED, 245, Short.MAX_VALUE)
 					.addComponent(lblCarteAllis, GroupLayout.PREFERRED_SIZE, 89, GroupLayout.PREFERRED_SIZE)
 					.addGap(55))
 		);
@@ -112,7 +132,7 @@ public class VueManche extends JPanel {
 					.addGroup(gl_panel_4.createParallelGroup(Alignment.BASELINE)
 						.addComponent(lblCarteAllis, GroupLayout.PREFERRED_SIZE, 41, GroupLayout.PREFERRED_SIZE)
 						.addComponent(lblCartesIngrdients, GroupLayout.PREFERRED_SIZE, 38, GroupLayout.PREFERRED_SIZE))
-					.addContainerGap(96, Short.MAX_VALUE))
+					.addContainerGap(105, Short.MAX_VALUE))
 		);
 		panel_4.setLayout(gl_panel_4);
 		GroupLayout gl_panel_3 = new GroupLayout(panel_3);

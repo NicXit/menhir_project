@@ -73,13 +73,14 @@ public class ControleurVue {
 	public void lancerPartie(){		
 			if(p.getTypePartie().equals(TypePartie.rapide)){
 				p.initGrainesPartieRapide();
-				p.setNbManche(1);
+				p.setNbManche(1);				
 			}
 			else{
 				p.setNbManche(p.ordreJeu.size());
 			}
 			
-		for (numManche = 1; numManche <= p.getNbManche(); numManche++){			
+		for (numManche = 1; numManche <= p.getNbManche(); numManche++){
+			p.setNumManche(numManche);
 			paquet.genererPaquetIngredient();
 			paquet.genererPaquetAllie();
 			paquet.distribuerCartesIngredientsJoueur(p.ordreJeu);	
@@ -103,6 +104,8 @@ public class ControleurVue {
 						
 				}
 			}
+			vp.vueManche(p.ordreJeu.get(0),p);
+			
 		}
 			
 	}

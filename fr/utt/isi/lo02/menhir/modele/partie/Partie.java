@@ -14,7 +14,7 @@ import fr.utt.isi.lo02.menhir.modele.joueur.*;
 public class Partie extends Observable{
 	private TypePartie typePartie;
 	private Saison saison;
-	private int nbManche;
+	private int nbManche, numManche;
 	private int nbHumains, nbIA;
 
 	public ArrayList<Humain> listeHumains;
@@ -25,6 +25,7 @@ public class Partie extends Observable{
 		this.listeHumains = new ArrayList<Humain>();
 		this.ordreJeu = new ArrayList<Joueur>();
 		this.nbHumains=0;
+		this.numManche=0;
 	}
 
 	/*
@@ -103,11 +104,18 @@ public class Partie extends Observable{
 		
 		public Saison getSaison(){
 			return this.saison;
-		}
-		
+		}		
 		public void setSaison(Saison saison){
 			this.saison=saison;
 		}
+		
+		public int getNumManche() {
+			return numManche;
+		}
+		public void setNumManche(int numManche) {
+			this.numManche = numManche;
+		}
+
 		public int getNbManche(){
 			return this.nbManche;
 		}

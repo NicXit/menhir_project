@@ -189,13 +189,21 @@ public class VuePartie extends JFrame implements Observer{
 						controleur.ajouterIA(vH.getItemNom());
 					}					
 				}
-				controleur.lancerPartie();
+				controleur.lancerPartie();				
 			}
 		});
 		btnOk2.setBounds(171, i+20, 89, 23);
 		container.add(btnOk2);
 		
 		this.setVisible(true);	
+		
+	}
+	
+	public void vueManche(Joueur j, Partie p){
+		VueManche vm = new VueManche(j,p);
+		setContentPane(vm);
+		this.pack();
+		this.setVisible(true);		
 		
 	}
 	
