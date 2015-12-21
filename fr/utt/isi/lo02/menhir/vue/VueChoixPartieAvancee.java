@@ -7,20 +7,30 @@ import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import fr.utt.isi.lo02.menhir.controleur.Controleur;
+import fr.utt.isi.lo02.menhir.controleur.ControleurVue;
+import fr.utt.isi.lo02.menhir.modele.joueur.Humain;
+import fr.utt.isi.lo02.menhir.modele.joueur.Joueur;
+
 import javax.swing.SwingConstants;
 import javax.swing.JLabel;
 import javax.swing.Box;
 import javax.swing.ButtonGroup;
 import javax.swing.JRadioButton;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class VueChoixPartieAvancee extends JDialog {
 
 	private final JPanel contentPanel = new JPanel();
+	private ControleurVue controleur;
 	
 	/**
 	 * Create the dialog.
 	 */
-	public VueChoixPartieAvancee() {
+	public VueChoixPartieAvancee(Joueur j, ControleurVue c) {
+		this.controleur=c;
 		setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 		
 		setBounds(100, 100, 391, 186);
@@ -29,7 +39,7 @@ public class VueChoixPartieAvancee extends JDialog {
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
 		contentPanel.setLayout(null);
 		
-		JLabel lblNewLabel = new JLabel("Veuillez choisir entre 2 graines ou une carte Alli\u00E9s");
+		JLabel lblNewLabel = new JLabel(j.getNom() + " veuillez choisir entre 2 graines ou une carte Alli\u00E9s");
 		lblNewLabel.setBounds(40, 11, 298, 37);
 		contentPanel.add(lblNewLabel);
 		
@@ -53,6 +63,12 @@ public class VueChoixPartieAvancee extends JDialog {
 			buttonPane.setLayout(fl_buttonPane);
 			{
 				JButton okButton = new JButton("OK");
+				okButton.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						controleur.initCarteAllies(j, rdbtnNewRadioButton.isSelected(), rdbtnNewRadioButton_1.isSelected());
+						setVisible(false);
+					}
+				});
 				okButton.setActionCommand("OK");
 				buttonPane.add(okButton);
 				getRootPane().setDefaultButton(okButton);

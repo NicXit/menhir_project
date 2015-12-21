@@ -188,14 +188,13 @@ public class VuePartie extends JFrame implements Observer{
 					for (Iterator<VueAjouterJoueurIA> it = listeAjouterIA.iterator(); it.hasNext();){			
 						VueAjouterJoueurIA vH = (VueAjouterJoueurIA) it.next();
 						controleur.ajouterIA(vH.getItemNom());
-					}
-				}				
+					}					
+				}
+				controleur.lancerPartie();
 			}
 		});
 		btnOk2.setBounds(171, i+20, 89, 23);
 		container.add(btnOk2);
-		
-		VueChoixPartieAvancee vcpa = new VueChoixPartieAvancee();
 		
 		this.setVisible(true);	
 		
