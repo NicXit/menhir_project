@@ -17,7 +17,8 @@ import fr.utt.isi.lo02.menhir.modele.partie.*;
 import fr.utt.isi.lo02.menhir.vue.VuePartie;
 
 public class Controleur {
-
+	
+	
 	public static void main(String[] args) {
 		// TEST
 		
@@ -34,8 +35,7 @@ public class Controleur {
 		
 		//-------------------------Ajout interface graphique----------------
 		  
-		Controleur c = new Controleur();
-		VuePartie vp = new VuePartie(p, c);
+		ControleurVue c = new ControleurVue();
 		
 		//---------------------Fin interface grapique--------------------
 		

@@ -42,6 +42,13 @@ public class Partie extends Observable{
 			this.listeHumains.add(new Humain(nom,age,genreF));			
 		}
 	
+	/**
+	 * ajouter humain avec l'iterface graphique
+	 */
+	public void ajouterHumain2(String nom, int age, char genreF){
+		this.listeHumains.add(new Humain(nom,age,genreF));
+	}
+	
 	public void ajouterIA(int i){
 		Scanner ia = new Scanner(System.in);
 		System.out.println("Veuillez saisir le nom de l'IA " + i + " : ");

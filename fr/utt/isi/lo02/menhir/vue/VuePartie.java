@@ -13,6 +13,7 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import fr.utt.isi.lo02.menhir.controleur.Controleur;
+import fr.utt.isi.lo02.menhir.controleur.ControleurVue;
 import fr.utt.isi.lo02.menhir.modele.joueur.Joueur;
 import fr.utt.isi.lo02.menhir.modele.partie.Partie;
 import javax.swing.JTextField;
@@ -38,7 +39,7 @@ import java.awt.event.ActionEvent;
 public class VuePartie extends JFrame implements Observer{
 	
 	private Partie partie;
-	private Controleur controleur;
+	private ControleurVue controleur;
 	private JPanel container;
 	private JPanel vueAjouterJoueur;
 
@@ -47,7 +48,7 @@ public class VuePartie extends JFrame implements Observer{
 	 * @param p
 	 * @param c
 	 */
-	public VuePartie(Partie p, Controleur c){
+	public VuePartie(Partie p, ControleurVue c){
 		this.partie=p;
 		this.controleur=c;
 		partie.addObserver(this);
@@ -167,9 +168,14 @@ public class VuePartie extends JFrame implements Observer{
 			i+=40;
 		}
 		
-		JButton btnOk = new JButton("OK");		
-		btnOk.setBounds(171, i+20, 89, 23);
-		container.add(btnOk);
+		JButton btnOk2 = new JButton("OK");
+		btnOk2.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				;
+			}
+		});
+		btnOk2.setBounds(171, i+20, 89, 23);
+		container.add(btnOk2);
 		
 		this.setVisible(true);	
 		
