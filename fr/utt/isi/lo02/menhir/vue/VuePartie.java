@@ -59,8 +59,7 @@ public class VuePartie extends JFrame implements Observer{
 		container.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(container);
 		container.setLayout(null);
-		this.initContentPane();
-		
+		this.initContentPane();		
 	}
 	
 	/**
