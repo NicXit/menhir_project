@@ -104,7 +104,7 @@ public class ControleurVue {
 						
 				}
 			}
-			vp.vueManche(p.ordreJeu.get(0),p);
+			vp.vueManche(p.ordreJeu.get(0),p);			
 			
 		}
 			
@@ -115,8 +115,9 @@ public class ControleurVue {
 			j.setNbGraines(2);
 			j.setCarteAllieJoueur(new CarteAllie("",null));									
 		}
-		else
+		else{
 			paquet.distribuerCarteAllieJoueur(j);
+		}
 	}
 	
 }

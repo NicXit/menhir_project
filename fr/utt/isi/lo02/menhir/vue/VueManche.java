@@ -3,6 +3,8 @@ package fr.utt.isi.lo02.menhir.vue;
 import javax.swing.JPanel;
 import java.awt.FlowLayout;
 import javax.swing.BoxLayout;
+import javax.swing.ButtonGroup;
+
 import java.awt.BorderLayout;
 import java.awt.Component;
 import javax.swing.JToggleButton;
@@ -15,6 +17,7 @@ import fr.utt.isi.lo02.menhir.modele.partie.Partie;
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.awt.GridLayout;
 import javax.swing.JLabel;
@@ -74,17 +77,16 @@ public class VueManche extends JPanel {
 		JPanel panel_5 = new JPanel();
 		GroupLayout gl_panel = new GroupLayout(panel);
 		gl_panel.setHorizontalGroup(
-			gl_panel.createParallelGroup(Alignment.LEADING)
+			gl_panel.createParallelGroup(Alignment.TRAILING)
 				.addComponent(panel_1, GroupLayout.DEFAULT_SIZE, 675, Short.MAX_VALUE)
 				.addComponent(panel_2, GroupLayout.DEFAULT_SIZE, 675, Short.MAX_VALUE)
 				.addGroup(gl_panel.createSequentialGroup()
 					.addComponent(panel_5, GroupLayout.DEFAULT_SIZE, 665, Short.MAX_VALUE)
 					.addContainerGap())
 				.addComponent(panel_4, GroupLayout.DEFAULT_SIZE, 675, Short.MAX_VALUE)
-				.addGroup(Alignment.TRAILING, gl_panel.createSequentialGroup()
+				.addGroup(Alignment.LEADING, gl_panel.createSequentialGroup()
 					.addContainerGap()
-					.addComponent(panel_3, GroupLayout.DEFAULT_SIZE, 675, Short.MAX_VALUE)
-					.addContainerGap())
+					.addComponent(panel_3, GroupLayout.DEFAULT_SIZE, 665, Short.MAX_VALUE))
 		);
 		gl_panel.setVerticalGroup(
 			gl_panel.createParallelGroup(Alignment.LEADING)
@@ -144,17 +146,27 @@ public class VueManche extends JPanel {
 		gbc_lblCarteAllis.gridy = 0;
 		panel_4.add(lblCarteAllis, gbc_lblCarteAllis);
 		
-		jLabelIngredient(j, panel_4);	
+		jLabelIngredient(j, panel_4);
 		
-		JRadioButton radioButton = new JRadioButton("");
-		GridBagConstraints gbc_radioButton = new GridBagConstraints();
-		gbc_radioButton.fill = GridBagConstraints.VERTICAL;
-		gbc_radioButton.insets = new Insets(0, 0, 0, 5);
-		gbc_radioButton.gridx = 0;
-		gbc_radioButton.gridy = 2;
-		panel_4.add(radioButton, gbc_radioButton);
-		panel_3.setLayout(new GridLayout(7, 1, 0, 0));
+		ArrayList<JRadioButton> arjr = new  ArrayList<JRadioButton>();
+		ArrayList<GridBagConstraints> argbc = new ArrayList<GridBagConstraints>();
+		ButtonGroup group = new ButtonGroup();	
 		
+		for(int i=0;i<j.getCarteIngredientJoueur().size();i++){			 
+			arjr.add(new JRadioButton(""));
+			arjr.get(0).setSelected(true);
+			group.add(arjr.get(i));			
+			GridBagConstraints gbc_radioButton = new GridBagConstraints();
+			gbc_radioButton.fill = GridBagConstraints.VERTICAL;
+			gbc_radioButton.insets = new Insets(0, 0, 0, 5);
+			gbc_radioButton.gridx = i;
+			gbc_radioButton.gridy = 2;
+			argbc.add(gbc_radioButton);
+			panel_4.add(arjr.get(i), argbc.get(i));
+		}
+		
+		
+		panel_3.setLayout(new GridLayout(7, 1, 0, 0));		
 		JLabel lblScores = new JLabel("Scores");
 		lblScores.setHorizontalAlignment(SwingConstants.CENTER);
 		panel_3.add(lblScores);		
@@ -189,8 +201,22 @@ public class VueManche extends JPanel {
 			gbc_lblNewLabel.insets = new Insets(0, 0, 5, 5);
 			gbc_lblNewLabel.gridx = i;
 			gbc_lblNewLabel.gridy = 1;
-			panel.add(lblNewLabel, gbc_lblNewLabel);		
+			panel.add(lblNewLabel, gbc_lblNewLabel);
 			i++;
 		}	
+	}
+	
+	public void jLabelAlliés(Joueur j, JPanel panel){
+		JTextArea lblNewLabel = new JTextArea();
+		lblNewLabel.setBackground(SystemColor.control);
+		lblNewLabel.setEditable(false);
+		lblNewLabel.setEditable(false);
+		lblNewLabel.setText(j.getCarteAllieJoueur().toString());
+		GridBagConstraints gbc_lblNewLabel = new GridBagConstraints();	
+		gbc_lblNewLabel.fill = GridBagConstraints.HORIZONTAL;
+		gbc_lblNewLabel.insets = new Insets(0, 0, 5, 5);
+		gbc_lblNewLabel.gridx = 4;
+		gbc_lblNewLabel.gridy = 1;
+		panel.add(lblNewLabel, gbc_lblNewLabel);
 	}
 }
