@@ -1,9 +1,17 @@
 package fr.utt.isi.lo02.menhir.modele.carte;
-
+/**
+ * Classe qui définit une carte Ingrédient.
+ * @author Mathieu DELALANDE, Nicolas GRANET
+ *
+ */
 public class CarteIngredient extends Carte {
 	public int[] value = new int[12];
 
-	
+	/**
+	 * Constructeur, crée une carte ingrédient avec un nom et des valeurs
+	 * @param nom Le nom de la carte
+	 * @param v Les valeurs de la carte
+	 */
 	public CarteIngredient(String nom, int[] v) {
 		super(nom);
 		this.value = v;
@@ -19,7 +27,12 @@ public class CarteIngredient extends Carte {
 		return this.value;
 	}
 	
-	//Retourne la valeur exacte en fonction de la carte, de la saison et de l'action
+	/**
+	 * Retourne la valeur exacte en fonction de la carte, de la saison et de l'action
+	 * @param action L'action choisie
+	 * @param saison La saison en cours
+	 * @return La valeur associée
+	 */
 	public int getValuePrecise(int action, int saison){
 		int value = 0;
 		if(action == 0)

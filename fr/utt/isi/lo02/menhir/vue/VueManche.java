@@ -40,10 +40,18 @@ import javax.swing.JFormattedTextField;
 import javax.swing.JTextArea;
 import java.awt.SystemColor;
 
+/**
+ * Classe qui crée la vue quand on lance la partie
+ * @author Mathieu DELALANDE, Nicolas GRANET
+ *
+ */
 public class VueManche extends JPanel {
 	private JPanel panel_4;
+	
 	/**
-	 * Create the panel.
+	 * Constructeur, crée le panel général
+	 * @param j Le joueur qui joue
+	 * @param p La partie associée à la fenêtre
 	 */
 	public VueManche(Joueur j, Partie p) {
 		setLayout(new CardLayout(0, 0));
@@ -144,6 +152,7 @@ public class VueManche extends JPanel {
 		ArrayList<GridBagConstraints> argbc = new ArrayList<GridBagConstraints>();
 		ButtonGroup group = new ButtonGroup();	
 		
+		//Crée un bouton radio en dessous de chaque carte
 		for(int i=0;i<j.getCarteIngredientJoueur().size();i++){			 
 			arjr.add(new JRadioButton(""));
 			arjr.get(0).setSelected(true);
@@ -163,6 +172,7 @@ public class VueManche extends JPanel {
 		lblScores.setHorizontalAlignment(SwingConstants.CENTER);
 		panel_3.add(lblScores);		
 		
+		//Affiche les scores des joueurs
 		for (Iterator<Joueur> it = p.ordreJeu.iterator(); it.hasNext();){
 			Joueur joueur = (Joueur) it.next();
 			panel_3.add(jLabelScore(joueur));
@@ -171,13 +181,22 @@ public class VueManche extends JPanel {
 		panel.setLayout(gl_panel);
 
 	}
-	
+	/**
+	 * Affiche le score d'un joueur dans un label
+	 * @param j Le joueur pour lequel afficher le score
+	 * @return Le label composé du scrore
+	 */
 	public JLabel jLabelScore(Joueur j){
 		JLabel lblNewLabel = new JLabel("Nom : " +j.getNom()+ "             nombre de graines : " +j.getNbGraines()+"             Nombre de Menhirs : " +j.getNbMenhir());
 		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);		
 		return lblNewLabel;
 	}
 	
+	/**
+	 * Affiche les cartes ingrédients d'un joueur dans dans un JTextArea et ajoute l'affichage au panel entré en paramètre 
+	 * @param j Le joueur pour lequel afficher les cartes ingrédients
+	 * @param panel Le panel qui ajoutera le résultat
+	 */
 	public void jLabelIngredient(Joueur j, JPanel panel){
 		int i=0;
 		for(Iterator<CarteIngredient> it = j.getCarteIngredientJoueur().iterator(); it.hasNext();){
@@ -198,6 +217,10 @@ public class VueManche extends JPanel {
 		}	
 	}
 	
+	/**
+	 * Affiche la carte Alliés d'un joueur dans un JTextArea et ajoute le résultat dans le panel_4
+	 * @param carte La carte Alliés à afficher
+	 */
 	public void jLabelAlliés(CarteAllie carte){
 		JLabel lblCarteAllis = new JLabel("Carte Alli\u00E9s");
 		GridBagConstraints gbc_lblCarteAllis = new GridBagConstraints();

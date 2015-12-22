@@ -1,8 +1,17 @@
 package fr.utt.isi.lo02.menhir.modele.carte;
-
+/**
+ * Classe qui définit les caractéristiques d'une carteAlliés
+ * @author Mathieu DELALANDE, Nicolas GRANET
+ *
+ */
 public class CarteAllie extends Carte{
 	public int[] value;
 	
+	/**
+	 * Constructeur, définit une carte Alliés avec son nom et ses valeurs
+	 * @param nom Le nom de la carte
+	 * @param v La valeur de la carte
+	 */
 	public CarteAllie(String nom, int[] v) {
 		super(nom);
 		this.value = v;

@@ -19,7 +19,7 @@ import fr.utt.isi.lo02.menhir.vue.VuePartie;
 
 /**
  * Classe qui permet de controler la vue graphique et le modele
- * @author Mathieu DELALANDE, Nicolas Granêt
+ * @author Mathieu DELALANDE, Nicolas GRANET
  *
  */
 public class ControleurVue {	
@@ -80,7 +80,7 @@ public class ControleurVue {
 	}
 	
 	/**
-	 * Méthode qui initialise le nombre de manches, le choix des graines ou de la carte Alliés en partie avancée et qui lance la partie
+	 * Initialise le nombre de manches, le choix des graines ou de la carte Alliés en partie avancée et lance la partie.
 	 */
 	public void lancerPartie(){		
 			if(p.getTypePartie().equals(TypePartie.rapide)){

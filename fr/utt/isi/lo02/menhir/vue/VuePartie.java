@@ -34,7 +34,7 @@ import java.awt.event.ActionEvent;
 
 /**
  * Classe qui représente la fenêtre principale du jeu
- * @author Mathieu DELALANDE, Nicolas Granêt
+ * @author Mathieu DELALANDE, Nicolas GRANET
  *
  */
 public class VuePartie extends JFrame implements Observer{

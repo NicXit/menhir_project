@@ -9,17 +9,26 @@ import java.util.NoSuchElementException;
 import java.util.Scanner;
 
 import fr.utt.isi.lo02.menhir.modele.joueur.Joueur;
-
+/**
+ * Classe qui crée les paquets de cartes
+ * @author Mathieu DELALANDE, Nicolas GRANET
+ *
+ */
 public class Paquet {
 	public ArrayList<CarteIngredient> cartesIngredient;
 	public ArrayList<CarteAllie> cartesAllie;
 	
+	/**
+	 * Constructeur, crée une liste de cartes Ingrédients et une liste de carte Alliés
+	 */
 	public Paquet() {
 		this.cartesIngredient = new ArrayList<CarteIngredient>();
 		this.cartesAllie = new ArrayList<CarteAllie>();
 	}
 	
-	
+	/**
+	 * Génère le paquet des cartes ingrédients à partir du fichier texte carteIngredient.txt
+	 */
 	public void genererPaquetIngredient() {
 		try
 		{
@@ -61,7 +70,9 @@ public class Paquet {
 	}
 	
 	
-	
+	/**
+	 * Génère le paquet des cartes alliés à partir du fichier texte carteAllie.txt
+	 */
 	public void genererPaquetAllie() {
 		try
 		{
@@ -103,6 +114,10 @@ public class Paquet {
 
 	}
 	
+	/**
+	 * Distribue les cartes ingrédients à chaque joueur de la partie
+	 * @param ordreJeu La liste des joueurs de la partie
+	 */
 	public void distribuerCartesIngredientsJoueur(ArrayList<Joueur> ordreJeu){
 		Collections.shuffle(cartesIngredient);		
 		for (Iterator<Joueur> it = ordreJeu.iterator(); it.hasNext(); ){
@@ -114,12 +129,13 @@ public class Paquet {
 			}
 		}
 		
+	/**
+	 * Distribue les cartes alliés au joueur spécifié
+	 * @param joueur Le joueur qui reçoit la carte alliés
+	 */
 	public void distribuerCarteAllieJoueur(Joueur joueur){
 		Collections.shuffle(cartesAllie);
 		joueur.setCarteAllieJoueur(cartesAllie.remove(0));		
 	}
 
 }
-
-//for(Iterator<Joueur> it = ordreJeu.iterator(); it.hasNext();){
-	//System.out.println(((Joueur) it.next()).getNom());}

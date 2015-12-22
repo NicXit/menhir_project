@@ -18,11 +18,19 @@ import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
 
+/**
+ * Classe qui crée un panel avec les champs pour la saisie d'un joueur humain
+ * @author Mathieu DELALANDE, Nicolas GRANET
+ *
+ */
 public class VueAjouterJoueurHumain extends JPanel {
 	private JTextField textField;
 	JFormattedTextField formattedTextField ;
 	JComboBox<String> comboBox; 
 	
+	/**
+	 * Constructeur, crée le panel
+	 */
 	public VueAjouterJoueurHumain() {		
 		
 		setLayout(null);		
