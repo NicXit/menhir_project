@@ -21,13 +21,20 @@ import javax.swing.JRadioButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
+/**
+ * Classe qui crée une fenêtre de dialogue pour demander à l'utilisateur s'il veut 2 graines ou une carte Alliés
+ * @author Mathieu DELALANDE, Nicolas Granêt
+ *
+ */
 public class VueChoixPartieAvancee extends JDialog {
 
 	private final JPanel contentPanel = new JPanel();
 	private ControleurVue controleur;
 	
 	/**
-	 * Create the dialog.
+	 * Constructeur, crée la fenêtre de dialogue.
+	 * @param j Le joueur à qui s'adresse la fenêtre
+	 * @param c Le controleur associé à la fenêtre
 	 */
 	public VueChoixPartieAvancee(Joueur j, ControleurVue c) {
 		this.controleur=c;
@@ -65,7 +72,7 @@ public class VueChoixPartieAvancee extends JDialog {
 				JButton okButton = new JButton("OK");
 				okButton.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
-						controleur.initCarteAllies(j, rdbtnNewRadioButton.isSelected(), rdbtnNewRadioButton_1.isSelected());
+						controleur.initCarteAllies(j, rdbtnNewRadioButton.isSelected());
 						setVisible(false);
 					}
 				});

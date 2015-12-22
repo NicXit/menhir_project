@@ -33,8 +33,8 @@ import java.text.NumberFormat;
 import java.awt.event.ActionEvent;
 
 /**
- * 
- * @author Mathieu DELALANDE, Nicolas Granet
+ * Classe qui représente la fenêtre principale du jeu
+ * @author Mathieu DELALANDE, Nicolas Granêt
  *
  */
 public class VuePartie extends JFrame implements Observer{
@@ -45,9 +45,9 @@ public class VuePartie extends JFrame implements Observer{
 	private JPanel vueAjouterJoueur;
 
 	/**
-	 * Le constructeur de la classe VuePartie permet la création de la fenêtre du programme
-	 * @param p
-	 * @param c
+	 * Constructeur, permet la création de la fenêtre du programme.
+	 * @param p La partie associée à la fenêtre
+	 * @param c Le controleur associé à la fenêtre
 	 */
 	public VuePartie(Partie p, ControleurVue c){
 		this.partie=p;
@@ -63,7 +63,7 @@ public class VuePartie extends JFrame implements Observer{
 	}
 	
 	/**
-	 * La méthode initContentPane permet d'initialiser le ContentePane
+	 * Initialise le ContentePane avec la première vue : Choix du nombre de joueurs IA et humains et du type de partie.
 	 */
 	public void initContentPane(){
 		JLabel lblJeuDuMenhirs = new JLabel("Jeu du menhir");
@@ -109,7 +109,7 @@ public class VuePartie extends JFrame implements Observer{
 		JButton btnOk = new JButton("OK");
 		btnOk.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {	
-				controleur.paramPartie((int)comboBoxNbHumain.getSelectedItem(), (int)comboBoxNbIA.getSelectedItem(), rdbtnNewRadioButton.isSelected(), rdbtnNewRadioButton_1.isSelected());
+				controleur.paramPartie((int)comboBoxNbHumain.getSelectedItem(), rdbtnNewRadioButton.isSelected());
 				ajouterJoueur((int)comboBoxNbHumain.getSelectedItem(),(int)comboBoxNbIA.getSelectedItem());
 			}
 		});
@@ -123,10 +123,11 @@ public class VuePartie extends JFrame implements Observer{
 	}
 	
 	/**
-	 * La méthode ajouterJoueur permet d'ajouter les vues d'ajout de chacun des joueurs
+	 * Modifie le ContentPane en affichant les saisies des joueurs et renvoie les données des saisies lors du click sur le bouton OK
+	 * Ajouter les vues d'ajout de chacun des joueurs.
 	 * 
-	 * @param nbJoueursHumain
-	 * @param nbJoueursIA
+	 * @param nbJoueursHumain Le nombre de joueurs humains
+	 * @param nbJoueursIA Le nombre de joueurs IA
 	 */
 	public void ajouterJoueur(int nbJoueursHumain, int nbJoueursIA){
 		int i =0;
@@ -199,11 +200,16 @@ public class VuePartie extends JFrame implements Observer{
 		
 	}
 	
+	/**
+	 * Modifie le contentPane en remplaçant sa valeur par le panel d'une manche.
+	 * @param j Le joueur qui joue
+	 * @param p La partie en cours
+	 * @param allie Boolean qui a pour valeur vraie si l'utilisateur a une carte Alliés et pour valeur faux si l'utilisaeur n'a pas de carte Alliés
+	 */
 	public void vueManche(Joueur j, Partie p, boolean allie){
-		VueManche vm = new VueManche(j,p);
-		System.out.println(allie);
+		VueManche vm = new VueManche(j,p);		
 		if (allie) 
-			vm.jLabelAlliés(j.getCarteAllieJoueur(), vm.getPanel_4());		
+			vm.jLabelAlliés(j.getCarteAllieJoueur());		
 		setContentPane(vm);
 		this.pack();
 		this.setVisible(true);		

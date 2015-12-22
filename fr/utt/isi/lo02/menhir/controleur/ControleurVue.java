@@ -17,11 +17,15 @@ import fr.utt.isi.lo02.menhir.modele.partie.Partie;
 import fr.utt.isi.lo02.menhir.vue.VueChoixPartieAvancee;
 import fr.utt.isi.lo02.menhir.vue.VuePartie;
 
+/**
+ * Classe qui permet de controler la vue graphique et le modele
+ * @author Mathieu DELALANDE, Nicolas Granêt
+ *
+ */
 public class ControleurVue {	
 	private Paquet paquet;	
 	private Partie p;
 	private VuePartie vp;
-	private int numManche;
 	
 	int valeurJuste = 0, indiceChoix =0, choixAction=1, choixCarte =0, value = 0, valCarte[], valueCarteAllie = 0;
 	String nomJoueurGagnant, typePartie;
@@ -29,24 +33,32 @@ public class ControleurVue {
 	Action[] tabChoixAction = Action.values();
 	Saison[] tabSaison = Saison.values();
 	
+	/**
+	 * Constructeur, initialise la partie, les cartes et l'interface graphique du jeu 
+	 */
 	public ControleurVue(){
-		this.numManche=0;
 		paquet = new Paquet();
 		p = new Partie();
 		vp = new VuePartie(p, this);
 	}
 	
-	public void paramPartie(int nbJoueursHumain, int nbJoueursIA, boolean rdbtRapide, boolean rdbtAvance){
+	/**
+	 * Initialise le type de partie (rapid/avancée) et le nombre de joueurs humains
+	 * @param nbJoueursHumain Nombre de joueurs humains
+	 * @param rdbtRapide Boolean qui prend pour valeur vrai si l'utilisateur a choisi partie rapide et faux si l'utilisateur a choisi partie avancée
+	 */
+	public void paramPartie(int nbJoueursHumain, boolean rdbtRapide){
 		if(rdbtRapide) p.setTypePartie(TypePartie.rapide);
 		else p.setTypePartie(TypePartie.avancée);
 		p.setNbHumains(nbJoueursHumain);
 	}
 
 	/**
-	 * Méthode qui ajoute les joueurs Humains et qui les trie
-	 * @param nom
-	 * @param age
-	 * @param genre
+	 * Ajoute un joueur humain par l'intermédiaire de la méthode ajouterHumain2 de la classe Partie et trie les joueurs quand tous
+	 * les joueurs sont ajoutés à la partie
+	 * @param nom Le nom du joueur à ajouter
+	 * @param age L'age du joueur à ajouter
+	 * @param genre Le genre du joueur à ajouter
 	 */
 	public void ajouterHumain(String nom, String age, String genre){
 		int ageInt;
@@ -60,8 +72,8 @@ public class ControleurVue {
 	}
 	
 	/**
-	 * Méthode qui ajoute les joueurs IA 
-	 * @param nom
+	 * Ajoute un joueur IA par l'intermédiaire de la méthode ajouterIA2 de la classe Partie 
+	 * @param nom Le nom du joueur IA à ajouter
 	 */
 	public void ajouterIA(String nom){
 		p.ajouterIA2(nom);	
@@ -79,7 +91,7 @@ public class ControleurVue {
 				p.setNbManche(p.ordreJeu.size());
 			}
 			
-		for (numManche = 1; numManche <= p.getNbManche(); numManche++){
+		for (int numManche = 1; numManche <= p.getNbManche(); numManche++){
 			p.setNumManche(numManche);
 			paquet.genererPaquetIngredient();
 			paquet.genererPaquetAllie();
@@ -131,7 +143,12 @@ public class ControleurVue {
 			
 	}
 	
-	public void initCarteAllies(Joueur j, boolean rdGraines, boolean rdCarte){
+	/**
+	 * Ajoute 2 graines ou distribue une carte Alliés au joueur passé en paramètre 
+	 * @param j Le joueur qui reçoit les graines ou une carte Alliés
+	 * @param rdGraines Boolean qui prend pour valeur vrai le joueur choisit les graines et faux si le joueur choisit la carte Alliés 
+	 */
+	public void initCarteAllies(Joueur j, boolean rdGraines){
 		if (rdGraines){
 			j.setNbGraines(2);
 			j.setCarteAllieJoueur(new CarteAllie("",null));									

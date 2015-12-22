@@ -136,16 +136,7 @@ public class VueManche extends JPanel {
 		gbc_lblCartesIngrdients.insets = new Insets(0, 0, 5, 5);
 		gbc_lblCartesIngrdients.gridx = 0;
 		gbc_lblCartesIngrdients.gridy = 0;
-		panel_4.add(lblCartesIngrdients, gbc_lblCartesIngrdients);
-		
-		JLabel lblCarteAllis = new JLabel("Carte Alli\u00E9s");
-		GridBagConstraints gbc_lblCarteAllis = new GridBagConstraints();
-		gbc_lblCarteAllis.fill = GridBagConstraints.VERTICAL;
-		gbc_lblCarteAllis.gridwidth = 3;
-		gbc_lblCarteAllis.insets = new Insets(0, 0, 5, 0);
-		gbc_lblCarteAllis.gridx = 4;
-		gbc_lblCarteAllis.gridy = 0;
-		panel_4.add(lblCarteAllis, gbc_lblCarteAllis);
+		panel_4.add(lblCartesIngrdients, gbc_lblCartesIngrdients);	
 		
 		jLabelIngredient(j, panel_4);
 		
@@ -207,7 +198,16 @@ public class VueManche extends JPanel {
 		}	
 	}
 	
-	public void jLabelAlliés(CarteAllie carte, JPanel panel){
+	public void jLabelAlliés(CarteAllie carte){
+		JLabel lblCarteAllis = new JLabel("Carte Alli\u00E9s");
+		GridBagConstraints gbc_lblCarteAllis = new GridBagConstraints();
+		gbc_lblCarteAllis.fill = GridBagConstraints.VERTICAL;
+		gbc_lblCarteAllis.gridwidth = 3;
+		gbc_lblCarteAllis.insets = new Insets(0, 0, 5, 0);
+		gbc_lblCarteAllis.gridx = 4;
+		gbc_lblCarteAllis.gridy = 0;
+		panel_4.add(lblCarteAllis, gbc_lblCarteAllis);
+		
 		JTextArea lblNewLabel = new JTextArea();
 		lblNewLabel.setBackground(SystemColor.control);
 		lblNewLabel.setEditable(false);
@@ -218,12 +218,9 @@ public class VueManche extends JPanel {
 		gbc_lblNewLabel.insets = new Insets(0, 0, 5, 5);
 		gbc_lblNewLabel.gridx = 4;
 		gbc_lblNewLabel.gridy = 1;
-		panel.add(lblNewLabel, gbc_lblNewLabel);
+		panel_4.add(lblNewLabel, gbc_lblNewLabel);
 	}
 
-	public JPanel getPanel_4() {
-		return panel_4;
-	}
 	
 	
 	
