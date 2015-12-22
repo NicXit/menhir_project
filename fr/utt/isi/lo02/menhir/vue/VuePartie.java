@@ -199,8 +199,11 @@ public class VuePartie extends JFrame implements Observer{
 		
 	}
 	
-	public void vueManche(Joueur j, Partie p){
+	public void vueManche(Joueur j, Partie p, boolean allie){
 		VueManche vm = new VueManche(j,p);
+		System.out.println(allie);
+		if (allie) 
+			vm.jLabelAlliés(j.getCarteAllieJoueur(), vm.getPanel_4());		
 		setContentPane(vm);
 		this.pack();
 		this.setVisible(true);		

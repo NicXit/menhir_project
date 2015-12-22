@@ -10,6 +10,7 @@ import java.awt.Component;
 import javax.swing.JToggleButton;
 import org.eclipse.wb.swing.FocusTraversalOnArray;
 
+import fr.utt.isi.lo02.menhir.modele.carte.CarteAllie;
 import fr.utt.isi.lo02.menhir.modele.carte.CarteIngredient;
 import fr.utt.isi.lo02.menhir.modele.joueur.Joueur;
 import fr.utt.isi.lo02.menhir.modele.partie.Partie;
@@ -40,7 +41,7 @@ import javax.swing.JTextArea;
 import java.awt.SystemColor;
 
 public class VueManche extends JPanel {
-
+	private JPanel panel_4;
 	/**
 	 * Create the panel.
 	 */
@@ -71,7 +72,7 @@ public class VueManche extends JPanel {
 		JPanel panel_3 = new JPanel();
 		panel_3.setBorder(new MatteBorder(0, 0, 2, 0, (Color) Color.LIGHT_GRAY));
 		
-		JPanel panel_4 = new JPanel();
+		panel_4 = new JPanel();
 		panel_4.setBorder(new MatteBorder(0, 0, 2, 0, (Color) new Color(192, 192, 192)));
 		
 		JPanel panel_5 = new JPanel();
@@ -206,12 +207,12 @@ public class VueManche extends JPanel {
 		}	
 	}
 	
-	public void jLabelAlliés(Joueur j, JPanel panel){
+	public void jLabelAlliés(CarteAllie carte, JPanel panel){
 		JTextArea lblNewLabel = new JTextArea();
 		lblNewLabel.setBackground(SystemColor.control);
 		lblNewLabel.setEditable(false);
 		lblNewLabel.setEditable(false);
-		lblNewLabel.setText(j.getCarteAllieJoueur().toString());
+		lblNewLabel.setText(carte.toString());
 		GridBagConstraints gbc_lblNewLabel = new GridBagConstraints();	
 		gbc_lblNewLabel.fill = GridBagConstraints.HORIZONTAL;
 		gbc_lblNewLabel.insets = new Insets(0, 0, 5, 5);
@@ -219,4 +220,11 @@ public class VueManche extends JPanel {
 		gbc_lblNewLabel.gridy = 1;
 		panel.add(lblNewLabel, gbc_lblNewLabel);
 	}
+
+	public JPanel getPanel_4() {
+		return panel_4;
+	}
+	
+	
+	
 }

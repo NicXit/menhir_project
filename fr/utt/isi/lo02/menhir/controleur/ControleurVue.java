@@ -104,7 +104,28 @@ public class ControleurVue {
 						
 				}
 			}
-			vp.vueManche(p.ordreJeu.get(0),p);			
+			for (Saison saison : Saison.values()){
+    			p.setSaison(saison);    			
+    			
+    			//on fait jouer les joueurs les uns après les autres
+    			for(int numOrdreJoueur = 0; numOrdreJoueur < p.ordreJeu.size(); numOrdreJoueur++){
+    				Joueur actif = p.getJoueurActif(numOrdreJoueur);    				
+    				//choix de la carte et de l'action pour un humain
+    				if (actif instanceof Humain){     					
+    					if (p.getTypePartie().equals(TypePartie.avancée) && actif.getCarteAllieJoueur() != null && (actif.getCarteAllieJoueur().getNom().equals("La taupe géante") || 
+    							actif.getCarteAllieJoueur().getNom().equals("Chien de garde"))){    						
+    						vp.vueManche(actif,p, true);
+        				}
+    					else{    						
+    						vp.vueManche(actif, p, false);
+    					}
+    				}
+    					
+    			}
+    			
+				
+			}
+					
 			
 		}
 			
