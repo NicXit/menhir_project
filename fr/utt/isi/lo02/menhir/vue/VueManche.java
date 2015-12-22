@@ -39,6 +39,8 @@ import javax.swing.JTextField;
 import javax.swing.JFormattedTextField;
 import javax.swing.JTextArea;
 import java.awt.SystemColor;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 /**
  * Classe qui crée la vue quand on lance la partie
@@ -127,13 +129,13 @@ public class VueManche extends JPanel {
 		);
 		panel_1.setLayout(gl_panel_1);
 		
-		JButton btnJouer = new JButton("Jouer");
+		JButton btnJouer = new JButton("Jouer");		
 		panel_5.add(btnJouer);
 		GridBagLayout gbl_panel_4 = new GridBagLayout();
 		gbl_panel_4.columnWidths = new int[] {116, 116, 116, 116, 116};
-		gbl_panel_4.rowHeights = new int[] {30, 116, 20, 0};
-		gbl_panel_4.columnWeights = new double[]{1.0, 1.0, 1.0, 1.0, 1.0, 0.0, Double.MIN_VALUE};
-		gbl_panel_4.rowWeights = new double[]{0.0, 1.0, 0.0, Double.MIN_VALUE};
+		gbl_panel_4.rowHeights = new int[] {30, 96, 30, 0, 20};
+		gbl_panel_4.columnWeights = new double[]{1.0, 1.0, 1.0, 1.0, 1.0};
+		gbl_panel_4.rowWeights = new double[]{0.0, 1.0, 0.0, 0.0, Double.MIN_VALUE};
 		panel_4.setLayout(gbl_panel_4);
 		
 		JLabel lblCartesIngrdients = new JLabel("Cartes ingr\u00E9dients");
@@ -147,6 +149,32 @@ public class VueManche extends JPanel {
 		panel_4.add(lblCartesIngrdients, gbc_lblCartesIngrdients);	
 		
 		jLabelIngredient(j, panel_4);
+		ButtonGroup groupAction = new ButtonGroup();
+		
+		JRadioButton rdbtnGant = new JRadioButton("G\u00E9ant");
+		rdbtnGant.setSelected(true);
+		GridBagConstraints gbc_rdbtnGant = new GridBagConstraints();
+		gbc_rdbtnGant.insets = new Insets(0, 0, 0, 5);
+		gbc_rdbtnGant.gridx = 0;
+		gbc_rdbtnGant.gridy = 3;
+		panel_4.add(rdbtnGant, gbc_rdbtnGant);
+		groupAction.add(rdbtnGant);
+		
+		JRadioButton rdbtnEngrais = new JRadioButton("Engrais");
+		GridBagConstraints gbc_rdbtnEngrais = new GridBagConstraints();
+		gbc_rdbtnEngrais.insets = new Insets(0, 0, 0, 5);
+		gbc_rdbtnEngrais.gridx = 1;
+		gbc_rdbtnEngrais.gridy = 3;
+		panel_4.add(rdbtnEngrais, gbc_rdbtnEngrais);
+		groupAction.add(rdbtnEngrais);
+		
+		JRadioButton rdbtnFarfadets = new JRadioButton("Farfadets");
+		GridBagConstraints gbc_rdbtnFarfadets = new GridBagConstraints();
+		gbc_rdbtnFarfadets.insets = new Insets(0, 0, 0, 5);
+		gbc_rdbtnFarfadets.gridx = 2;
+		gbc_rdbtnFarfadets.gridy = 3;
+		panel_4.add(rdbtnFarfadets, gbc_rdbtnFarfadets);
+		groupAction.add(rdbtnFarfadets);
 		
 		ArrayList<JRadioButton> arjr = new  ArrayList<JRadioButton>();
 		ArrayList<GridBagConstraints> argbc = new ArrayList<GridBagConstraints>();
