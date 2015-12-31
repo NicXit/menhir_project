@@ -190,7 +190,9 @@ public class VuePartie extends JFrame implements Observer{
 						controleur.ajouterIA(vH.getItemNom());
 					}					
 				}
-				controleur.lancerPartie();				
+				setVisible(false);
+				controleur.lancerPartie();	
+				
 			}
 		});
 		btnOk2.setBounds(171, i+20, 89, 23);

@@ -7,9 +7,19 @@ import fr.utt.isi.lo02.menhir.modele.carte.CarteIngredient;
 import fr.utt.isi.lo02.menhir.modele.enumeration.Action;
 import fr.utt.isi.lo02.menhir.modele.joueur.Joueur;
 import fr.utt.isi.lo02.menhir.modele.partie.Partie;
-
+/**
+ * Classe qui définie la strategy de jeu d'un IA aléatoire
+ * @author Mathieu DELALANDE, Nicolas GRANET
+ *
+ */
 public class RandomStrategy implements Strategy{
-
+	/**
+	 * Effectue les actions de l'IA lors d'un tour de jeu
+	 * @param j L'IA qui joue
+	 * @param cartesIngredient La liste des cartes de l'IA
+	 * @param saison La saison en cours
+	 * @param p La partie en cours
+	 */
 	public String jouer(Joueur j, ArrayList<CarteIngredient> cartesIngredient, int saison, Partie p){
 		//On choisi une carte au hasard
 		int v;
