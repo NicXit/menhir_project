@@ -184,14 +184,14 @@ public class ControleurVue {
 		else if (farfadets)
 			//Si le joueur a une carte chien de garde
 			if (p.getTypePartie().equals(TypePartie.avancée) && stringToJoueur(nomJoueurAttaque).getCarteAllieJoueur().nom.equals("Chien de garde"))
-				//Si le joueur est le dernier de la partie
+				//Si le joueur n'est pas le dernier de la partie
 				if(p.ordreJeu.indexOf(j)+1 < p.ordreJeu.size()){
 					stop = true;
-					utiliserChienDeGarde(p.ordreJeu.get(p.ordreJeu.indexOf(j)+1), j, stringToJoueur(nomJoueurAttaque));
+					utiliserChienDeGarde(p.ordreJeu.get(p.ordreJeu.indexOf(j)+1), j, stringToJoueur(nomJoueurAttaque), value, p);
 				}
 				else{
 					stop = true;
-					utiliserChienDeGarde(null, j, stringToJoueur(nomJoueurAttaque));
+					utiliserChienDeGarde(null, j, stringToJoueur(nomJoueurAttaque), value, p);
 				}
 			else
 				p.effectuerActionFarfadets(value, j,stringToJoueur(nomJoueurAttaque));
@@ -232,13 +232,16 @@ public class ControleurVue {
 			for(Iterator<Joueur> it = p.ordreJeu.iterator(); it.hasNext();){
 				Joueur j = (Joueur) it.next();
 				j.setNbPoints(j.getNbPoints()+j.getNbMenhir());
+				j.setNbMenhir(0);
+				j.setNbGraines(0);
 			}
 			if(p.getNumManche() == p.ordreJeu.size()){
-				//FIN DE PARTIE
+				p.triOrdreScore();
+				finPartie();
 			}
 			else{
 				p.setSaison(Saison.printemps);
-				NouvelleManchePartieAvancée();
+				lancerPartieAvancée();
 			}
 		}
 		else if(p.getSaison() != Saison.hiver){
@@ -281,8 +284,19 @@ public class ControleurVue {
 		return j;
 	}
 	
-	public void utiliserChienDeGarde(Joueur joueurSuivant, Joueur joueurActif, Joueur joueurAttaque){
-		//fenetre voulez vous utiliser chien de garde ?
+	public void utiliserChienDeGarde(Joueur joueurSuivant, Joueur joueurActif, Joueur joueurAttaque, int attaque, Partie p){
+		int[] valeurs = joueurAttaque.getCarteAllieJoueur().getValue();
+		int valeur = 0;
+		if(p.getSaison() == Saison.printemps)
+			valeur = valeurs[0];
+		else if(p.getSaison() == Saison.été)
+			valeur = valeurs[1];
+		else if(p.getSaison() == Saison.automne)
+			valeur = valeurs[2];
+		else if(p.getSaison() == Saison.hiver)
+			valeur = valeurs[3];
+		
+		VueChiensDeGarde(joueurSuivant, joueurActif, joueurAttaque, attaque, p, valeur);
 	}
 	
 }
