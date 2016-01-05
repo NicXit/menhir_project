@@ -233,7 +233,7 @@ public class ControleurVue {
 		vp.vueFinPartie(p);
 	}
 		 
-
+	
 	/**
 	 * Retourne un joueur à partir de son nom
 	 * @param nom Le nom du joueur
