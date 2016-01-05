@@ -5,6 +5,9 @@ import java.awt.event.ActionListener;
 import java.util.Iterator;
 import java.util.Scanner;
 
+import javax.swing.ButtonModel;
+import javax.swing.JRadioButton;
+
 import fr.utt.isi.lo02.menhir.modele.carte.CarteAllie;
 import fr.utt.isi.lo02.menhir.modele.carte.CarteIngredient;
 import fr.utt.isi.lo02.menhir.modele.carte.Paquet;
@@ -116,12 +119,14 @@ public class ControleurVue {
 						
 				}
 			}
+			/**
 			for (Saison saison : Saison.values()){
     			p.setSaison(saison);    			
     			
     			//on fait jouer les joueurs les uns après les autres
-    			for(int numOrdreJoueur = 0; numOrdreJoueur < p.ordreJeu.size(); numOrdreJoueur++){
-    				Joueur actif = p.getJoueurActif(numOrdreJoueur);    				
+    			//for(int numOrdreJoueur = 0; numOrdreJoueur < p.ordreJeu.size(); numOrdreJoueur++){
+    				//Joueur actif = p.getJoueurActif(numOrdreJoueur);
+    				Joueur actif = p.getJoueurActif(0);  
     				//choix de la carte et de l'action pour un humain
     				if (actif instanceof Humain){     					
     					if (p.getTypePartie().equals(TypePartie.avancée) && actif.getCarteAllieJoueur() != null && (actif.getCarteAllieJoueur().getNom().equals("La taupe géante") || 
@@ -133,12 +138,12 @@ public class ControleurVue {
     					}
     				}
     					
-    			}
+    			//}
     			
 				
-			}
+			}**/
 					
-			
+			vp.vueManche(p.ordreJeu.get(0), p, false);
 		}
 			
 	}
@@ -156,6 +161,52 @@ public class ControleurVue {
 		else{
 			paquet.distribuerCarteAllieJoueur(j);
 		}
+	}
+	
+	public void validationJoueur (Joueur j, boolean engrais, boolean farfadets, String nomJoueurAttaque, int numCarte){
+		//on récupère la valeur de l'action
+		valCarte = j.getCarteIngredientJoueur().get(numCarte-1).getValue();
+		if(engrais)
+			indiceChoix = valCarte.length/tabChoixAction.length * (choixAction-1) + tabSaison.length - j.getCarteIngredientJoueur().size();
+		else if(farfadets)
+			indiceChoix = valCarte.length/tabChoixAction.length * 2 + tabSaison.length - j.getCarteIngredientJoueur().size();
+		else
+			indiceChoix = tabSaison.length - j.getCarteIngredientJoueur().size();
+
+		value = valCarte[indiceChoix];
+		
+		if(engrais)
+			p.effectuerActionEngrais(value, j);
+		//else if (farfadets)
+			//p.effectuerActionFarfadets(value, j,stringToJoueur(nomJoueurAttaque) );
+		else
+			p.effectuerActionGeant(value, j);
+		
+		int numOrdreJoueur = p.ordreJeu.indexOf(j);	
+		if(numOrdreJoueur+1 < p.ordreJeu.size()){
+			vp.vueManche(p.ordreJeu.get(numOrdreJoueur+1), p, false);
+		}
+		
+	}
+	
+	public void finTour(){
+		if(p.getSaison() != Saison.hiver){
+			int i = 0;
+			boolean continuer = true;
+			 Saison tabSaison[] = Saison.values();
+			 do{
+				 if (tabSaison[i] == p.getSaison()){
+					 continuer = false;
+				 }
+				 i++;
+			 }while(continuer == true);
+			 p.setSaison(tabSaison[i]);
+			 vp.vueManche(p.ordreJeu.get(0), p, false);
+		}
+		else{
+			finManche();
+		}
+		 
 	}
 	
 }

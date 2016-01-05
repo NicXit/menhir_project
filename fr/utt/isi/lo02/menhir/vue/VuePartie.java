@@ -207,7 +207,7 @@ public class VuePartie extends JFrame implements Observer{
 	 * @param allie Boolean qui a pour valeur vraie si l'utilisateur a une carte Alliés et pour valeur faux si l'utilisaeur n'a pas de carte Alliés
 	 */
 	public void vueManche(Joueur j, Partie p, boolean allie){
-		VueManche vm = new VueManche(j,p);		
+		VueManche vm = new VueManche(j,p,controleur);		
 		if (allie) 
 			vm.jLabelAlliés(j.getCarteAllieJoueur());		
 		setContentPane(vm);

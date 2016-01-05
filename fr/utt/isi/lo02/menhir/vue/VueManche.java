@@ -10,6 +10,7 @@ import java.awt.Component;
 import javax.swing.JToggleButton;
 import org.eclipse.wb.swing.FocusTraversalOnArray;
 
+import fr.utt.isi.lo02.menhir.controleur.ControleurVue;
 import fr.utt.isi.lo02.menhir.modele.carte.CarteAllie;
 import fr.utt.isi.lo02.menhir.modele.carte.CarteIngredient;
 import fr.utt.isi.lo02.menhir.modele.joueur.Joueur;
@@ -20,6 +21,8 @@ import java.awt.GridBagConstraints;
 import java.awt.Insets;
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.Observable;
+import java.util.Observer;
 import java.awt.GridLayout;
 import javax.swing.JLabel;
 import javax.swing.GroupLayout;
@@ -41,13 +44,17 @@ import javax.swing.JTextArea;
 import java.awt.SystemColor;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import javax.swing.JList;
+import javax.swing.AbstractListModel;
+import javax.swing.JComboBox;
+import javax.swing.DefaultComboBoxModel;
 
 /**
  * Classe qui crée la vue quand on lance la partie
  * @author Mathieu DELALANDE, Nicolas GRANET
  *
  */
-public class VueManche extends JPanel {
+public class VueManche extends JPanel implements Observer {
 	private JPanel panel_4;
 	
 	/**
@@ -55,7 +62,7 @@ public class VueManche extends JPanel {
 	 * @param j Le joueur qui joue
 	 * @param p La partie associée à la fenêtre
 	 */
-	public VueManche(Joueur j, Partie p) {
+	public VueManche(Joueur j, Partie p, ControleurVue c) {
 		setLayout(new CardLayout(0, 0));
 		
 		JPanel panel = new JPanel();
@@ -129,13 +136,12 @@ public class VueManche extends JPanel {
 		);
 		panel_1.setLayout(gl_panel_1);
 		
-		JButton btnJouer = new JButton("Jouer");		
-		panel_5.add(btnJouer);
+
 		GridBagLayout gbl_panel_4 = new GridBagLayout();
 		gbl_panel_4.columnWidths = new int[] {116, 116, 116, 116, 116};
 		gbl_panel_4.rowHeights = new int[] {30, 96, 30, 0, 20};
 		gbl_panel_4.columnWeights = new double[]{1.0, 1.0, 1.0, 1.0, 1.0};
-		gbl_panel_4.rowWeights = new double[]{0.0, 1.0, 0.0, 0.0, Double.MIN_VALUE};
+		gbl_panel_4.rowWeights = new double[]{0.0, 1.0, 0.0, 1.0, Double.MIN_VALUE};
 		panel_4.setLayout(gbl_panel_4);
 		
 		JLabel lblCartesIngrdients = new JLabel("Cartes ingr\u00E9dients");
@@ -150,6 +156,14 @@ public class VueManche extends JPanel {
 		
 		jLabelIngredient(j, panel_4);
 		ButtonGroup groupAction = new ButtonGroup();
+		
+		JLabel lblCartes = new JLabel("Cartes");
+		GridBagConstraints gbc_lblCartes = new GridBagConstraints();
+		gbc_lblCartes.anchor = GridBagConstraints.EAST;
+		gbc_lblCartes.insets = new Insets(0, 0, 5, 5);
+		gbc_lblCartes.gridx = 0;
+		gbc_lblCartes.gridy = 2;
+		panel_4.add(lblCartes, gbc_lblCartes);
 		
 		JRadioButton rdbtnGant = new JRadioButton("G\u00E9ant");
 		rdbtnGant.setSelected(true);
@@ -176,23 +190,32 @@ public class VueManche extends JPanel {
 		panel_4.add(rdbtnFarfadets, gbc_rdbtnFarfadets);
 		groupAction.add(rdbtnFarfadets);
 		
-		ArrayList<JRadioButton> arjr = new  ArrayList<JRadioButton>();
-		ArrayList<GridBagConstraints> argbc = new ArrayList<GridBagConstraints>();
-		ButtonGroup group = new ButtonGroup();	
 		
-		//Crée un bouton radio en dessous de chaque carte
-		for(int i=0;i<j.getCarteIngredientJoueur().size();i++){			 
-			arjr.add(new JRadioButton(""));
-			arjr.get(0).setSelected(true);
-			group.add(arjr.get(i));			
-			GridBagConstraints gbc_radioButton = new GridBagConstraints();
-			gbc_radioButton.fill = GridBagConstraints.VERTICAL;
-			gbc_radioButton.insets = new Insets(0, 0, 0, 5);
-			gbc_radioButton.gridx = i;
-			gbc_radioButton.gridy = 2;
-			argbc.add(gbc_radioButton);
-			panel_4.add(arjr.get(i), argbc.get(i));
+		JComboBox<String> comboBoxNomJoueurs = new JComboBox<String>();
+		String nomJoueur[] = new String[p.ordreJeu.size()];
+		for(int i=0; i<p.ordreJeu.size();i++){			
+			nomJoueur[i] = p.ordreJeu.get(i).getNom();					
+		}		
+		comboBoxNomJoueurs.setModel(new DefaultComboBoxModel(nomJoueur));
+		GridBagConstraints gbc_comboBoxJoueurs = new GridBagConstraints();
+		gbc_comboBoxJoueurs.insets = new Insets(0, 0, 0, 5);
+		gbc_comboBoxJoueurs.fill = GridBagConstraints.HORIZONTAL;
+		gbc_comboBoxJoueurs.gridx = 3;
+		gbc_comboBoxJoueurs.gridy = 3;
+		panel_4.add(comboBoxNomJoueurs, gbc_comboBoxJoueurs);
+		
+		Integer choixCarte[] = new Integer[j.getCarteIngredientJoueur().size()];
+		for(int i=0; i<j.getCarteIngredientJoueur().size();i++){
+			choixCarte[i] = i+1;
 		}
+		JComboBox<Integer> comboBoxCartes = new JComboBox<Integer>();
+		comboBoxCartes.setModel(new DefaultComboBoxModel<Integer>(choixCarte));
+		GridBagConstraints gbc_comboBoxCartes = new GridBagConstraints();
+		gbc_comboBoxCartes.insets = new Insets(0, 0, 5, 5);
+		gbc_comboBoxCartes.fill = GridBagConstraints.HORIZONTAL;
+		gbc_comboBoxCartes.gridx = 1;
+		gbc_comboBoxCartes.gridy = 2;
+		panel_4.add(comboBoxCartes, gbc_comboBoxCartes);
 		
 		
 		panel_3.setLayout(new GridLayout(7, 1, 0, 0));		
@@ -205,6 +228,18 @@ public class VueManche extends JPanel {
 			Joueur joueur = (Joueur) it.next();
 			panel_3.add(jLabelScore(joueur));
 		}
+		
+		JButton btnJouer = new JButton("Jouer");		
+		btnJouer.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {				
+				c.validationJoueur(j,rdbtnEngrais.isSelected(),rdbtnFarfadets.isSelected(), (String)comboBoxNomJoueurs.getSelectedItem(),
+						(int)comboBoxCartes.getSelectedItem());
+				if(p.ordreJeu.get(p.ordreJeu.size()-1)==j){
+					c.finTour();
+				}
+			}
+		});
+		panel_5.add(btnJouer);
 		
 		panel.setLayout(gl_panel);
 
@@ -272,7 +307,7 @@ public class VueManche extends JPanel {
 		panel_4.add(lblNewLabel, gbc_lblNewLabel);
 	}
 
-	
-	
-	
+	public void update(Observable arg0, Object arg1){
+		
+	}
 }
