@@ -257,9 +257,15 @@ public class ControleurVue {
  			 else
  				vp.vueManche(p.ordreJeu.get(0), p, false);
 		}
-		/*else{
-			finManche();*/
+		else{
+			p.triOrdreScore();
+			finPartie();
 		}
+	}
+	
+	public void finPartie(){
+		vp.vueFinPartie(p);
+	}
 		 
 
 	/**
