@@ -218,13 +218,17 @@ public class VuePartie extends JFrame implements Observer{
 		this.setVisible(true);		
 		
 	}
-	
+	/**
+	 * Modifie le contentPane en remplaçant sa valeur par le panel d'une fin de partie
+	 * @param p La partie en cours
+	 */
 	public void vueFinPartie(Partie p){
 		VueFinPartie vf = new VueFinPartie(p);
 		setContentPane(vf);
 		this.pack();
 		this.setVisible(true);
 	}
+
 	
 	public void update(Observable arg0, Object arg1){
 		

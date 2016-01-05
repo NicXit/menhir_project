@@ -156,5 +156,7 @@ public class VueChiensDeGarde extends JDialog {
 		);
 		buttonPane.setLayout(gl_buttonPane);
 		getContentPane().setLayout(groupLayout);
+		
+		this.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 	}
 }
