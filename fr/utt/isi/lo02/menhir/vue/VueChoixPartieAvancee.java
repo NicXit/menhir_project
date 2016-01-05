@@ -10,7 +10,10 @@ import javax.swing.border.EmptyBorder;
 
 import fr.utt.isi.lo02.menhir.controleur.Controleur;
 import fr.utt.isi.lo02.menhir.controleur.ControleurVue;
+import fr.utt.isi.lo02.menhir.modele.carte.CarteAllie;
+import fr.utt.isi.lo02.menhir.modele.carte.Paquet;
 import fr.utt.isi.lo02.menhir.modele.joueur.Humain;
+import fr.utt.isi.lo02.menhir.modele.joueur.IA;
 import fr.utt.isi.lo02.menhir.modele.joueur.Joueur;
 
 import javax.swing.SwingConstants;
@@ -19,6 +22,7 @@ import javax.swing.Box;
 import javax.swing.ButtonGroup;
 import javax.swing.JRadioButton;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import java.awt.event.ActionEvent;
 
 /**
@@ -36,7 +40,7 @@ public class VueChoixPartieAvancee extends JDialog {
 	 * @param j Le joueur à qui s'adresse la fenêtre
 	 * @param c Le controleur associé à la fenêtre
 	 */
-	public VueChoixPartieAvancee(Joueur j, ControleurVue c) {
+	public VueChoixPartieAvancee(Joueur j, ControleurVue c, int nbJoueurs, int compteur, ArrayList<Joueur> listeJoueurs) {
 		this.controleur=c;
 		setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 		
@@ -73,7 +77,22 @@ public class VueChoixPartieAvancee extends JDialog {
 				okButton.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
 						controleur.initCarteAllies(j, rdbtnNewRadioButton.isSelected());
-						setVisible(false);
+						if (nbJoueurs - compteur == 0){
+							setVisible(false);
+							c.NouvelleManchePartieAvancée();
+						}
+						else{
+							setVisible(false);
+							if (listeJoueurs.get(compteur) instanceof Humain){
+								VueChoixPartieAvancee vCPA = new VueChoixPartieAvancee(listeJoueurs.get(compteur), c, nbJoueurs, compteur+1, listeJoueurs);															
+							}
+							else{
+								controleur.initialiserIA(compteur);
+								c.NouvelleManchePartieAvancée();
+							}
+							
+						}
+						
 					}
 				});
 				okButton.setActionCommand("OK");

@@ -26,9 +26,5 @@ public class Controleur {
 		ControleurVue c = new ControleurVue();
 		
 		//---------------------Fin interface grapique--------------------
-		
-
-
 	}
-
 }
