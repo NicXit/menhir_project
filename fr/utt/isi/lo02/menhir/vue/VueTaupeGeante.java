@@ -23,6 +23,10 @@ import javax.swing.DefaultComboBoxModel;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
+/**
+ * Classe qui créé une fenêtre de dialogue pour la carte Taupe Géante
+ * @author Mathieu DELALANDE, Nicolas Granêt
+ */
 public class VueTaupeGeante extends JDialog {
 
 	private final JPanel contentPanel = new JPanel();
@@ -35,7 +39,9 @@ public class VueTaupeGeante extends JDialog {
 	private JButton btnNon;
 
 	/**
-	 * Create the dialog.
+	 * Constructeur de la fenêtre de dialogue 
+	 * @param value La valeur de la carte jouée
+	 * @param p La partie associée
 	 */
 	public VueTaupeGeante(int value, Partie p) {
 		setBounds(100, 100, 450, 300);

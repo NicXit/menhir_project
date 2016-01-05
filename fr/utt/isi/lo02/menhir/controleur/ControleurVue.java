@@ -229,6 +229,9 @@ public class ControleurVue {
 		}
 	}
 	
+	/**
+	 * Fait appel à la vue de la fin de la partie
+	 */
 	public void finPartie(){
 		vp.vueFinPartie(p);
 	}

@@ -20,15 +20,26 @@ import javax.swing.SwingConstants;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
+/**
+ * Classe qui créé une fenêtre de dialogue pour la carte chiens de garde
+ * @author Mathieu DELALANDE, Nicolas Granêt
+ *
+ */
 public class VueChiensDeGarde extends JDialog {
 
 	private final JPanel contentPanel = new JPanel();
 	private JPanel panel;
 	private JPanel buttonPane;
 	private JLabel lblVoulezvousJouerChiens;
-
+	
 	/**
-	 * Create the dialog.
+	 * Constructeur de la fenêtre de dialogue 
+	 * @param joueurSuivant Le joueur qui joue après
+	 * @param joueurActif Le joueur qui vient de jouer
+	 * @param joueurAttaque Le joueur qui se fait attaquer
+	 * @param value La valeur de la carte jouée
+	 * @param p La partie associée
+	 * @param valueDef La valeur de la carte Chien de Garde
 	 */
 	public VueChiensDeGarde(Joueur joueurSuivant, Joueur joueurActif, Joueur joueurAttaque, int value, Partie p, int valueDef) {
 		setBounds(100, 100, 450, 300);

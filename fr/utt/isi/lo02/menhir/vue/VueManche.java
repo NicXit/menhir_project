@@ -54,7 +54,7 @@ import javax.swing.DefaultComboBoxModel;
  * @author Mathieu DELALANDE, Nicolas GRANET
  *
  */
-public class VueManche extends JPanel implements Observer {
+public class VueManche extends JPanel {
 	private JPanel panel_4;
 	
 	/**
@@ -308,7 +308,4 @@ public class VueManche extends JPanel implements Observer {
 		panel_4.add(lblNewLabel, gbc_lblNewLabel);
 	}
 
-	public void update(Observable arg0, Object arg1){
-		
-	}
 }
