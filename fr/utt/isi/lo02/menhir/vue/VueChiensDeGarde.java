@@ -8,6 +8,8 @@ import javax.swing.JDialog;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+import fr.utt.isi.lo02.menhir.controleur.ControleurVue;
+import fr.utt.isi.lo02.menhir.modele.carte.CarteAllie;
 import fr.utt.isi.lo02.menhir.modele.joueur.Joueur;
 import fr.utt.isi.lo02.menhir.modele.partie.Partie;
 
@@ -30,7 +32,7 @@ public class VueChiensDeGarde extends JDialog {
 	/**
 	 * Create the dialog.
 	 */
-	public VueChiensDeGarde(Joueur joueurSuivant, Joueur joueurActif, Joueur joueurAttaque, int value, Partie p, int valueDef) {
+	public VueChiensDeGarde(int joueurSuivant, Joueur joueurActif, Joueur joueurAttaque, int value, Partie p, int valueDef, ControleurVue c, VuePartie vp, int numCarte) {
 		setBounds(100, 100, 450, 300);
 		{
 			panel = new JPanel();
@@ -125,14 +127,47 @@ public class VueChiensDeGarde extends JDialog {
 		JButton btnOui = new JButton("Oui");
 		btnOui.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
+				if (valueDef >= value){
+					joueurActif.getCarteIngredientJoueur().remove(numCarte-1);
+				}
+				else if (joueurAttaque.getNbGraines() + valueDef >= value){
+					joueurActif.setNbGraines(joueurActif.getNbGraines()+ value - valueDef);
+					joueurAttaque.setNbGraines(joueurAttaque.getNbGraines()- value + valueDef);
+					joueurActif.getCarteIngredientJoueur().remove(numCarte-1);
+				}
+				else{
+					joueurActif.setNbGraines(joueurActif.getNbGraines()+ joueurAttaque.getNbGraines());
+					joueurAttaque.setNbGraines(0);
+					joueurActif.getCarteIngredientJoueur().remove(numCarte-1);
+				}
+				if (joueurSuivant == 666)
+					c.finTour();
+				else
+					if (p.ordreJeu.get(joueurSuivant).getCarteAllieJoueur() != null && p.ordreJeu.get(joueurSuivant).getCarteAllieJoueur().getNom() != "")    					 						
+						vp.vueManche(p.ordreJeu.get(joueurSuivant), p, true);
+					else
+						vp.vueManche(p.ordreJeu.get(joueurSuivant), p, false);
+				joueurAttaque.setCarteAllieJoueur(new CarteAllie("",null));
+				setVisible(false);
+				vp.setVisible(true);
 			}
 		});
 		
 		JButton btnNon = new JButton("Non");
 		btnNon.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
+				if (joueurAttaque.getNbGraines() >= value){
+					joueurActif.setNbGraines(joueurActif.getNbGraines()+ value);
+					joueurAttaque.setNbGraines(joueurAttaque.getNbGraines()- value);
+					joueurActif.getCarteIngredientJoueur().remove(numCarte-1);
+				}
+				else{
+					joueurActif.setNbGraines(joueurActif.getNbGraines()+ joueurAttaque.getNbGraines());
+					joueurAttaque.setNbGraines(0);
+					joueurActif.getCarteIngredientJoueur().remove(numCarte-1);
+				}
+				setVisible(false);
+				vp.setVisible(true);
 			}
 		});
 		GroupLayout gl_buttonPane = new GroupLayout(buttonPane);

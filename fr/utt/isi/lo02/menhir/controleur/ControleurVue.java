@@ -19,6 +19,7 @@ import fr.utt.isi.lo02.menhir.modele.joueur.Humain;
 import fr.utt.isi.lo02.menhir.modele.joueur.IA;
 import fr.utt.isi.lo02.menhir.modele.joueur.Joueur;
 import fr.utt.isi.lo02.menhir.modele.partie.Partie;
+import fr.utt.isi.lo02.menhir.vue.VueChiensDeGarde;
 import fr.utt.isi.lo02.menhir.vue.VueChoixPartieAvancee;
 import fr.utt.isi.lo02.menhir.vue.VuePartie;
 
@@ -181,20 +182,23 @@ public class ControleurVue {
 			
 		if(engrais)
 			p.effectuerActionEngrais(value, j);
-		else if (farfadets)
+		else if (farfadets){
 			//Si le joueur a une carte chien de garde
-			if (p.getTypePartie().equals(TypePartie.avancée) && stringToJoueur(nomJoueurAttaque).getCarteAllieJoueur().nom.equals("Chien de garde"))
+			if (p.getTypePartie().equals(TypePartie.avancée) && stringToJoueur(nomJoueurAttaque).getCarteAllieJoueur().getNom().equals("Chien de garde")){
 				//Si le joueur n'est pas le dernier de la partie
+				
 				if(p.ordreJeu.indexOf(j)+1 < p.ordreJeu.size()){
 					stop = true;
-					utiliserChienDeGarde(p.ordreJeu.get(p.ordreJeu.indexOf(j)+1), j, stringToJoueur(nomJoueurAttaque), value, p);
+					utiliserChienDeGarde(p.ordreJeu.indexOf(j)+1, j, stringToJoueur(nomJoueurAttaque), value, p, numCarte);
 				}
 				else{
 					stop = true;
-					utiliserChienDeGarde(null, j, stringToJoueur(nomJoueurAttaque), value, p);
+					utiliserChienDeGarde(666, j, stringToJoueur(nomJoueurAttaque), value, p, numCarte);
 				}
+			}
 			else
 				p.effectuerActionFarfadets(value, j,stringToJoueur(nomJoueurAttaque));
+		}
 		else
 			p.effectuerActionGeant(value, j);
 		
@@ -284,7 +288,7 @@ public class ControleurVue {
 		return j;
 	}
 	
-	public void utiliserChienDeGarde(Joueur joueurSuivant, Joueur joueurActif, Joueur joueurAttaque, int attaque, Partie p){
+	public void utiliserChienDeGarde(int joueurSuivant, Joueur joueurActif, Joueur joueurAttaque, int attaque, Partie p, int numCarte){
 		int[] valeurs = joueurAttaque.getCarteAllieJoueur().getValue();
 		int valeur = 0;
 		if(p.getSaison() == Saison.printemps)
@@ -296,7 +300,9 @@ public class ControleurVue {
 		else if(p.getSaison() == Saison.hiver)
 			valeur = valeurs[3];
 		
-		VueChiensDeGarde(joueurSuivant, joueurActif, joueurAttaque, attaque, p, valeur);
+		VueChiensDeGarde vcdg = new VueChiensDeGarde(joueurSuivant, joueurActif, joueurAttaque, attaque, p, valeur,this,vp, numCarte);
+		vp.setVisible(false);
+		vcdg.setVisible(true);
 	}
 	
 }
