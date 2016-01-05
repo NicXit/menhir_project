@@ -2,6 +2,7 @@ package fr.utt.isi.lo02.menhir.controleur;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Scanner;
 
@@ -15,6 +16,7 @@ import fr.utt.isi.lo02.menhir.modele.enumeration.Action;
 import fr.utt.isi.lo02.menhir.modele.enumeration.Saison;
 import fr.utt.isi.lo02.menhir.modele.enumeration.TypePartie;
 import fr.utt.isi.lo02.menhir.modele.joueur.Humain;
+import fr.utt.isi.lo02.menhir.modele.joueur.IA;
 import fr.utt.isi.lo02.menhir.modele.joueur.Joueur;
 import fr.utt.isi.lo02.menhir.modele.partie.Partie;
 import fr.utt.isi.lo02.menhir.vue.VueChoixPartieAvancee;
@@ -86,68 +88,81 @@ public class ControleurVue {
 	 * Initialise le nombre de manches, le choix des graines ou de la carte Alliés en partie avancée et lance la partie.
 	 */
 	public void lancerPartie(){		
-			if(p.getTypePartie().equals(TypePartie.rapide)){
-				p.initGrainesPartieRapide();
-				p.setNbManche(1);				
-			}
-			else{
-				p.setNbManche(p.ordreJeu.size());
-			}
-			
-		for (int numManche = 1; numManche <= p.getNbManche(); numManche++){
-			p.setNumManche(numManche);
-			paquet.genererPaquetIngredient();
-			paquet.genererPaquetAllie();
-			paquet.distribuerCartesIngredientsJoueur(p.ordreJeu);	
-			if (p.getTypePartie().equals(TypePartie.avancée)){				
-				for(Iterator<Joueur> it = p.ordreJeu.iterator(); it.hasNext();){
-					Joueur j = (Joueur) it.next();
-					//Si c'est un humain on lui propose un choix
-						if (j instanceof Humain){
-							VueChoixPartieAvancee vCPA = new VueChoixPartieAvancee(j, this);																
-						}
-						// si c'est un IA le choix est random
-						else{
-								int ran = (int)(Math.random()*2);
-								if(ran == 0)
-									paquet.distribuerCarteAllieJoueur(j);	
-								else{
-									j.setNbGraines(j.getNbGraines()+2);
-									j.setCarteAllieJoueur(new CarteAllie("",null));									
-								}
-							}
-						
-				}
-			}
-			/**
-			for (Saison saison : Saison.values()){
-    			p.setSaison(saison);    			
-    			
-    			//on fait jouer les joueurs les uns après les autres
-    			//for(int numOrdreJoueur = 0; numOrdreJoueur < p.ordreJeu.size(); numOrdreJoueur++){
-    				//Joueur actif = p.getJoueurActif(numOrdreJoueur);
-    				Joueur actif = p.getJoueurActif(0);  
-    				//choix de la carte et de l'action pour un humain
-    				if (actif instanceof Humain){     					
-    					if (p.getTypePartie().equals(TypePartie.avancée) && actif.getCarteAllieJoueur() != null && (actif.getCarteAllieJoueur().getNom().equals("La taupe géante") || 
-    							actif.getCarteAllieJoueur().getNom().equals("Chien de garde"))){    						
-    						vp.vueManche(actif,p, true);
-        				}
-    					else{    						
-    						vp.vueManche(actif, p, false);
-    					}
-    				}
-    					
-    			//}
-    			
+
+		if(p.getTypePartie().equals(TypePartie.rapide)){
+			p.initGrainesPartieRapide();
+			p.setNbManche(1);
 				
-			}**/
-					
-			vp.vueManche(p.ordreJeu.get(0), p, false);
+			for (int numManche = 1; numManche <= p.getNbManche(); numManche++){
+				p.setNumManche(numManche);
+				paquet.genererPaquetIngredient();
+				paquet.genererPaquetAllie();
+				paquet.distribuerCartesIngredientsJoueur(p.ordreJeu);			
+				     					 						
+				vp.vueManche(p.ordreJeu.get(0), p, false);
+			}			
+		}	
+		
+		else{
+			lancerPartieAvancée();
 		}
-			
+		
 	}
 	
+	/**
+	 * Initialise une partie avancée
+	 */
+	public void lancerPartieAvancée(){
+		int compteur = 1;
+		p.setNbManche(p.ordreJeu.size());
+		paquet.genererPaquetAllie();
+		VueChoixPartieAvancee vCPA = new VueChoixPartieAvancee(p.ordreJeu.get(0), this, p.ordreJeu.size(), compteur, p.ordreJeu);
+	}
+	
+	/**
+	 * Lance une nouvelle manche de partie avancée
+	 */
+	public void NouvelleManchePartieAvancée(){			 						
+			p.setNumManche(1);
+			paquet.genererPaquetIngredient();
+			paquet.distribuerCartesIngredientsJoueur(p.ordreJeu);
+			for (Saison saison : Saison.values()){
+	    		p.setSaison(saison);    			
+	    			
+	    		//on fait jouer les joueurs les uns après les autres
+	    		for(int numOrdreJoueur = 0; numOrdreJoueur < p.ordreJeu.size(); numOrdreJoueur++){
+	    			Joueur actif = p.getJoueurActif(numOrdreJoueur);    				
+	    			//choix de la carte et de l'action pour un humain
+	    			if (actif instanceof Humain && actif.getCarteAllieJoueur() != null && actif.getCarteAllieJoueur().getNom() != "")    					 						
+	    				vp.vueManche(actif, p, true);
+	    			else
+	    				vp.vueManche(actif, p, false);
+	    		}							
+			}							
+	}
+	
+	/**
+	 * Initialise le choix des IA en partie avancée
+	 * @param compteur La position du joueur dans la liste
+	 */
+	public void initialiserIA(int compteur){
+		boolean continuer = true;
+		do{
+			if (p.ordreJeu.get(compteur) instanceof IA){
+				int ran = (int)(Math.random()*2);
+				if(ran == 0)
+					initCarteAllies(p.ordreJeu.get(compteur), false);
+				else{
+					initCarteAllies(p.ordreJeu.get(compteur), true);
+				}
+				compteur++;
+				if(p.ordreJeu.size() - compteur == 0)
+					continuer = false;
+			}
+			else
+				continuer = false;
+		}while(continuer == true);
+	}
 	/**
 	 * Ajoute 2 graines ou distribue une carte Alliés au joueur passé en paramètre 
 	 * @param j Le joueur qui reçoit les graines ou une carte Alliés
@@ -163,24 +178,29 @@ public class ControleurVue {
 		}
 	}
 	
+	
 	public void validationJoueur (Joueur j, boolean engrais, boolean farfadets, String nomJoueurAttaque, int numCarte){
 		//on récupère la valeur de l'action
 		valCarte = j.getCarteIngredientJoueur().get(numCarte-1).getValue();
 		if(engrais)
-			indiceChoix = valCarte.length/tabChoixAction.length * (choixAction-1) + tabSaison.length - j.getCarteIngredientJoueur().size();
+			choixAction=2;
 		else if(farfadets)
-			indiceChoix = valCarte.length/tabChoixAction.length * 2 + tabSaison.length - j.getCarteIngredientJoueur().size();
+			choixAction=3;
 		else
-			indiceChoix = tabSaison.length - j.getCarteIngredientJoueur().size();
-
+			choixAction=1;
+		
+		indiceChoix = valCarte.length/tabChoixAction.length * (choixAction-1) + tabSaison.length - j.getCarteIngredientJoueur().size();
 		value = valCarte[indiceChoix];
 		
 		if(engrais)
 			p.effectuerActionEngrais(value, j);
-		//else if (farfadets)
-			//p.effectuerActionFarfadets(value, j,stringToJoueur(nomJoueurAttaque) );
+		else if (farfadets)
+			p.effectuerActionFarfadets(value, j,stringToJoueur(nomJoueurAttaque) );
 		else
 			p.effectuerActionGeant(value, j);
+		
+		//on supprime la carte quand le joueur a fini de jouer
+		j.getCarteIngredientJoueur().remove(numCarte-1);
 		
 		int numOrdreJoueur = p.ordreJeu.indexOf(j);	
 		if(numOrdreJoueur+1 < p.ordreJeu.size()){
@@ -203,10 +223,22 @@ public class ControleurVue {
 			 p.setSaison(tabSaison[i]);
 			 vp.vueManche(p.ordreJeu.get(0), p, false);
 		}
-		else{
-			finManche();
+		/*else{
+			finManche();*/
 		}
 		 
+
+	/**
+	 * Retourne un joueur à partir de son nom
+	 * @param nom Le nom du joueur
+	 */
+	public Joueur stringToJoueur(String nom){
+		Joueur j = null;
+		for(int i=0;i<p.ordreJeu.size();i++){
+			if (nom == p.ordreJeu.get(i).getNom())
+				j = p.ordreJeu.get(i);
+		}
+		return j;
 	}
 	
 }

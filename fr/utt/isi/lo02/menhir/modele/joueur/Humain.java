@@ -34,6 +34,7 @@ public class Humain extends Joueur implements Comparable<Humain>{
 	
 	/**
 	 * Compare les instances de la classes Humain entre elles et les trie selon leur genre puis leur age.
+	 * @param autreHumain L'humain à comparer
 	 */
 	public int compareTo(Humain autreHumain)
 	   {
