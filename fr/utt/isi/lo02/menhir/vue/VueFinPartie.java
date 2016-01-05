@@ -17,7 +17,7 @@ import fr.utt.isi.lo02.menhir.modele.partie.Partie;
 
 /**
  * Classe qui créé la vue à la fin de la partie
- * @author Mathieu DELALANDE, Nicolas Granêt *
+ * @author Mathieu DELALANDE, Nicolas Granêt
  */
 public class VueFinPartie extends JPanel {
 	
