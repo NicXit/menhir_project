@@ -92,15 +92,9 @@ public class ControleurVue {
 		if(p.getTypePartie().equals(TypePartie.rapide)){
 			p.initGrainesPartieRapide();
 			p.setNbManche(1);
-				
-			for (int numManche = 1; numManche <= p.getNbManche(); numManche++){
-				p.setNumManche(numManche);
-				paquet.genererPaquetIngredient();
-				paquet.genererPaquetAllie();
-				paquet.distribuerCartesIngredientsJoueur(p.ordreJeu);			
-				     					 						
-				vp.vueManche(p.ordreJeu.get(0), p, false);
-			}			
+			paquet.genererPaquetIngredient();
+			paquet.distribuerCartesIngredientsJoueur(p.ordreJeu);					 						
+			vp.vueManche(p.ordreJeu.get(0), p, false);			
 		}	
 		
 		else{
@@ -122,24 +116,16 @@ public class ControleurVue {
 	/**
 	 * Lance une nouvelle manche de partie avancée
 	 */
-	public void NouvelleManchePartieAvancée(){			 						
-			p.setNumManche(1);
+	public void NouvelleManchePartieAvancée(){
+			p.setNumManche(p.getNumManche()+1);
 			paquet.genererPaquetIngredient();
 			paquet.distribuerCartesIngredientsJoueur(p.ordreJeu);
-			for (Saison saison : Saison.values()){
-	    		p.setSaison(saison);    			
-	    			
-	    		//on fait jouer les joueurs les uns après les autres
-	    		for(int numOrdreJoueur = 0; numOrdreJoueur < p.ordreJeu.size(); numOrdreJoueur++){
-	    			Joueur actif = p.getJoueurActif(numOrdreJoueur);    				
-	    			//choix de la carte et de l'action pour un humain
-	    			if (actif instanceof Humain && actif.getCarteAllieJoueur() != null && actif.getCarteAllieJoueur().getNom() != "")    					 						
-	    				vp.vueManche(actif, p, true);
+			if (p.ordreJeu.get(0).getCarteAllieJoueur() != null && p.ordreJeu.get(0).getCarteAllieJoueur().getNom() != "")    					 						
+	    				vp.vueManche(p.ordreJeu.get(0), p, true);
 	    			else
-	    				vp.vueManche(actif, p, false);
-	    		}							
-			}							
-	}
+	    				vp.vueManche(p.ordreJeu.get(0), p, false);
+	}														
+	
 	
 	/**
 	 * Initialise le choix des IA en partie avancée
@@ -178,8 +164,9 @@ public class ControleurVue {
 		}
 	}
 	
-	
+
 	public void validationJoueur (Joueur j, boolean engrais, boolean farfadets, String nomJoueurAttaque, int numCarte){
+		boolean stop = false;
 		//on récupère la valeur de l'action
 		valCarte = j.getCarteIngredientJoueur().get(numCarte-1).getValue();
 		if(engrais)
@@ -188,29 +175,73 @@ public class ControleurVue {
 			choixAction=3;
 		else
 			choixAction=1;
-		
+			
 		indiceChoix = valCarte.length/tabChoixAction.length * (choixAction-1) + tabSaison.length - j.getCarteIngredientJoueur().size();
 		value = valCarte[indiceChoix];
-		
+			
 		if(engrais)
 			p.effectuerActionEngrais(value, j);
 		else if (farfadets)
-			p.effectuerActionFarfadets(value, j,stringToJoueur(nomJoueurAttaque) );
+			//Si le joueur a une carte chien de garde
+			if (p.getTypePartie().equals(TypePartie.avancée) && stringToJoueur(nomJoueurAttaque).getCarteAllieJoueur().nom.equals("Chien de garde"))
+				//Si le joueur est le dernier de la partie
+				if(p.ordreJeu.indexOf(j)+1 < p.ordreJeu.size()){
+					stop = true;
+					utiliserChienDeGarde(p.ordreJeu.get(p.ordreJeu.indexOf(j)+1), j, stringToJoueur(nomJoueurAttaque));
+				}
+				else{
+					stop = true;
+					utiliserChienDeGarde(null, j, stringToJoueur(nomJoueurAttaque));
+				}
+			else
+				p.effectuerActionFarfadets(value, j,stringToJoueur(nomJoueurAttaque));
 		else
 			p.effectuerActionGeant(value, j);
 		
-		//on supprime la carte quand le joueur a fini de jouer
-		j.getCarteIngredientJoueur().remove(numCarte-1);
-		
-		int numOrdreJoueur = p.ordreJeu.indexOf(j);	
-		if(numOrdreJoueur+1 < p.ordreJeu.size()){
-			vp.vueManche(p.ordreJeu.get(numOrdreJoueur+1), p, false);
+		if(!stop){
+				//on supprime la carte quand le joueur a fini de jouer
+				j.getCarteIngredientJoueur().remove(numCarte-1);
+				
+				int numOrdreJoueur = p.ordreJeu.indexOf(j);	
+				if(numOrdreJoueur+1 < p.ordreJeu.size()){
+					if (p.ordreJeu.get(numOrdreJoueur+1) instanceof IA)
+						finTour();
+					else if (p.ordreJeu.get(numOrdreJoueur+1).getCarteAllieJoueur() != null && p.ordreJeu.get(numOrdreJoueur+1).getCarteAllieJoueur().getNom() != "")    					 						
+						vp.vueManche(p.ordreJeu.get(numOrdreJoueur+1), p, true);
+					else
+						vp.vueManche(p.ordreJeu.get(numOrdreJoueur+1), p, false);
+			}
+
 		}
-		
 	}
 	
+	/**
+	 * Fonction qui permet de terminer un tour de jeu et initialiser les bonnes fonctions selon le déroulement de la partie
+	 */
 	public void finTour(){
-		if(p.getSaison() != Saison.hiver){
+		//Les IA jouent
+		for(Iterator<Joueur> it = p.ordreJeu.iterator(); it.hasNext();){
+			Joueur j = (Joueur) it.next();
+			if (j instanceof IA)
+				System.out.println(((IA) j).getStrategy().jouer(j, j.getCarteIngredientJoueur(), tabSaison.length - j.getCarteIngredientJoueur().size() + 1, p));
+		}
+		
+		
+		if(p.getSaison() == Saison.hiver && p.getTypePartie().equals(TypePartie.avancée)){
+			//On calcule le nombre de points de chacun
+			for(Iterator<Joueur> it = p.ordreJeu.iterator(); it.hasNext();){
+				Joueur j = (Joueur) it.next();
+				j.setNbPoints(j.getNbPoints()+j.getNbMenhir());
+			}
+			if(p.getNumManche() == p.ordreJeu.size()){
+				//FIN DE PARTIE
+			}
+			else{
+				p.setSaison(Saison.printemps);
+				NouvelleManchePartieAvancée();
+			}
+		}
+		else if(p.getSaison() != Saison.hiver){
 			int i = 0;
 			boolean continuer = true;
 			 Saison tabSaison[] = Saison.values();
@@ -221,7 +252,10 @@ public class ControleurVue {
 				 i++;
 			 }while(continuer == true);
 			 p.setSaison(tabSaison[i]);
-			 vp.vueManche(p.ordreJeu.get(0), p, false);
+			 if (p.ordreJeu.get(0).getCarteAllieJoueur() != null && p.ordreJeu.get(0).getCarteAllieJoueur().getNom() != "")    					 						
+ 				vp.vueManche(p.ordreJeu.get(0), p, true);
+ 			 else
+ 				vp.vueManche(p.ordreJeu.get(0), p, false);
 		}
 		/*else{
 			finManche();*/
@@ -239,6 +273,10 @@ public class ControleurVue {
 				j = p.ordreJeu.get(i);
 		}
 		return j;
+	}
+	
+	public void utiliserChienDeGarde(Joueur joueurSuivant, Joueur joueurActif, Joueur joueurAttaque){
+		//fenetre voulez vous utiliser chien de garde ?
 	}
 	
 }
