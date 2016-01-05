@@ -8,6 +8,9 @@ import javax.swing.JDialog;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+import fr.utt.isi.lo02.menhir.controleur.ControleurVue;
+import fr.utt.isi.lo02.menhir.modele.carte.CarteAllie;
+import fr.utt.isi.lo02.menhir.modele.joueur.Joueur;
 import fr.utt.isi.lo02.menhir.modele.partie.Partie;
 
 import java.awt.GridLayout;
@@ -43,7 +46,7 @@ public class VueTaupeGeante extends JDialog {
 	 * @param value La valeur de la carte jouée
 	 * @param p La partie associée
 	 */
-	public VueTaupeGeante(int value, Partie p) {
+	public VueTaupeGeante(int value, Partie p, ControleurVue c, Joueur j) {
 		setBounds(100, 100, 450, 300);
 		{
 			panel = new JPanel();
@@ -70,7 +73,7 @@ public class VueTaupeGeante extends JDialog {
 			btnNon = new JButton("Non");
 			btnNon.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					
+					setVisible(false);
 				}
 			});
 		}
@@ -78,7 +81,12 @@ public class VueTaupeGeante extends JDialog {
 			btnOui = new JButton("Oui");
 			btnOui.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					
+					if(c.stringToJoueur((String)comboBox.getSelectedItem()).getNbMenhir() >= value)
+						c.stringToJoueur((String)comboBox.getSelectedItem()).setNbMenhir(c.stringToJoueur((String)comboBox.getSelectedItem()).getNbMenhir() - value);
+					else
+						c.stringToJoueur((String)comboBox.getSelectedItem()).setNbMenhir(0);
+					j.setCarteAllieJoueur(new CarteAllie("",null));
+					setVisible(false);
 				}
 			});
 		}

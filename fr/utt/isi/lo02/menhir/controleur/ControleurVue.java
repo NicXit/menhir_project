@@ -22,6 +22,7 @@ import fr.utt.isi.lo02.menhir.modele.partie.Partie;
 import fr.utt.isi.lo02.menhir.vue.VueChiensDeGarde;
 import fr.utt.isi.lo02.menhir.vue.VueChoixPartieAvancee;
 import fr.utt.isi.lo02.menhir.vue.VuePartie;
+import fr.utt.isi.lo02.menhir.vue.VueTaupeGeante;
 
 /**
  * Classe qui permet de controler la vue graphique et le modele
@@ -210,8 +211,13 @@ public class ControleurVue {
 				if(numOrdreJoueur+1 < p.ordreJeu.size()){
 					if (p.ordreJeu.get(numOrdreJoueur+1) instanceof IA)
 						finTour();
-					else if (p.ordreJeu.get(numOrdreJoueur+1).getCarteAllieJoueur() != null && p.ordreJeu.get(numOrdreJoueur+1).getCarteAllieJoueur().getNom() != "")    					 						
+					else if (p.ordreJeu.get(numOrdreJoueur+1).getCarteAllieJoueur() != null && p.ordreJeu.get(numOrdreJoueur+1).getCarteAllieJoueur().getNom() != ""){
+						if (p.ordreJeu.get(numOrdreJoueur+1).getCarteAllieJoueur().getNom().equals("La taupe géante")){
+							VueTaupeGeante vt = new VueTaupeGeante(2, p,this,p.ordreJeu.get(numOrdreJoueur+1));
+							vt.setVisible(true);
+						}
 						vp.vueManche(p.ordreJeu.get(numOrdreJoueur+1), p, true);
+					}
 					else
 						vp.vueManche(p.ordreJeu.get(numOrdreJoueur+1), p, false);
 			}
@@ -259,8 +265,13 @@ public class ControleurVue {
 				 i++;
 			 }while(continuer == true);
 			 p.setSaison(tabSaison[i]);
-			 if (p.ordreJeu.get(0).getCarteAllieJoueur() != null && p.ordreJeu.get(0).getCarteAllieJoueur().getNom() != "")    					 						
+			 if (p.ordreJeu.get(0).getCarteAllieJoueur() != null && p.ordreJeu.get(0).getCarteAllieJoueur().getNom() != ""){ 
+				 if (p.ordreJeu.get(0).getCarteAllieJoueur().getNom().equals("La taupe géante")){
+						VueTaupeGeante vt = new VueTaupeGeante(2, p,this,p.ordreJeu.get(0));
+						vt.setVisible(true);
+				}
  				vp.vueManche(p.ordreJeu.get(0), p, true);
+			 }
  			 else
  				vp.vueManche(p.ordreJeu.get(0), p, false);
 		}
