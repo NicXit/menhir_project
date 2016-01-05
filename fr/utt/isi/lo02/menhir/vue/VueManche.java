@@ -250,7 +250,8 @@ public class VueManche extends JPanel implements Observer {
 	 * @return Le label composé du scrore
 	 */
 	public JLabel jLabelScore(Joueur j){
-		JLabel lblNewLabel = new JLabel("Nom : " +j.getNom()+ "             nombre de graines : " +j.getNbGraines()+"             Nombre de Menhirs : " +j.getNbMenhir());
+		JLabel lblNewLabel = new JLabel("Nom : " +j.getNom()+ "             Nombre de graines : " +j.getNbGraines()+"             Nombre de Menhirs : " +j.getNbMenhir()
+		+"             Nombre de points : "+j.getNbPoints());
 		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);		
 		return lblNewLabel;
 	}

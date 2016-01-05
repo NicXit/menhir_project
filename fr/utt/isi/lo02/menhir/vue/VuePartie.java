@@ -218,6 +218,13 @@ public class VuePartie extends JFrame implements Observer{
 		
 	}
 	
+	public void vueFinPartie(Partie p){
+		VueFinPartie vf = new VueFinPartie(p);
+		setContentPane(vf);
+		this.pack();
+		this.setVisible(true);
+	}
+	
 	public void update(Observable arg0, Object arg1){
 		
 	}

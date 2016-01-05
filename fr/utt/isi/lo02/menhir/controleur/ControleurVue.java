@@ -223,9 +223,13 @@ public class ControleurVue {
 			 p.setSaison(tabSaison[i]);
 			 vp.vueManche(p.ordreJeu.get(0), p, false);
 		}
-		/*else{
-			finManche();*/
+		else
+			finPartie();
 		}
+	
+	public void finPartie(){
+		vp.vueFinPartie(p);
+	}
 		 
 
 	/**
