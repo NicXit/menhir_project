@@ -15,9 +15,15 @@ import fr.utt.isi.lo02.menhir.controleur.ControleurVue;
 import fr.utt.isi.lo02.menhir.modele.joueur.Joueur;
 import fr.utt.isi.lo02.menhir.modele.partie.Partie;
 
+/**
+ * Classe qui créé la vue à la fin de la partie
+ * @author Mathieu DELALANDE, Nicolas Granêt *
+ */
 public class VueFinPartie extends JPanel {
+	
 	/**
-	 * Create the panel.
+	 * Constructeur du panel de fin de partie
+	 * @param p La partie associée à la fenêtre
 	 */
 	public VueFinPartie(Partie p) {
 		setLayout(new GridLayout(0, 1, 0, 0));

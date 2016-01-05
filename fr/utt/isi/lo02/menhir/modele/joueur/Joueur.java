@@ -43,18 +43,26 @@ public abstract class Joueur{
 	public int compareTo(Joueur autreJoueur)
 	   {
 	      int resultat = 0;
-	      if (autreJoueur.nbMenhir == this.nbMenhir){
-	    	  if(this.nbGraines < autreJoueur.nbGraines)
-	    		  resultat = 1;
-	    	  if(this.nbGraines > autreJoueur.nbGraines)
-	    		  resultat = -1;
-	    	  if(this.nbGraines == autreJoueur.nbGraines)
-	    		  resultat = 0;
+	      if (autreJoueur.nbPoints == this.nbPoints){
+		      if (autreJoueur.nbMenhir == this.nbMenhir){
+		    	  if(this.nbGraines < autreJoueur.nbGraines)
+		    		  resultat = 1;
+		    	  if(this.nbGraines > autreJoueur.nbGraines)
+		    		  resultat = -1;
+		    	  if(this.nbGraines == autreJoueur.nbGraines)
+		    		  resultat = 0;
+		      }
+		      if (this.nbMenhir < autreJoueur.nbMenhir)
+		    	  resultat = 1;
+		      if (this.nbMenhir > autreJoueur.nbMenhir)
+		    	  resultat = -1;
 	      }
-	      if (this.nbMenhir < autreJoueur.nbMenhir)
+	      if (this.nbPoints < autreJoueur.nbPoints)
 	    	  resultat = 1;
-	      if (this.nbMenhir > autreJoueur.nbMenhir)
+	      
+	      if (this.nbPoints > autreJoueur.nbPoints)
 	    	  resultat = -1;
+	      
 	      return resultat;
 	   }
 	

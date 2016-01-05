@@ -84,6 +84,7 @@ public class VuePartie extends JFrame implements Observer{
 		lblNombreDeJoueurs_1.setBounds(10, 119, 183, 14);
 		container.add(lblNombreDeJoueurs_1);
 		
+		
 		JComboBox<Integer> comboBoxNbIA = new JComboBox<Integer>();
 		comboBoxNbIA.setModel(new DefaultComboBoxModel<Integer>(new Integer[] {0,1,2,3,4,5}));
 		comboBoxNbIA.setMaximumRowCount(5);
