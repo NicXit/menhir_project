@@ -302,6 +302,15 @@ public class ControleurVue {
 		return j;
 	}
 	
+	/**
+	 * Fait appel à la vue chiens de garde pour savoir si le joueur veut utiliser sa carte
+	 * @param joueurSuivant Joueur qui joue ensuite
+	 * @param joueurActif Joueur attaquant
+	 * @param joueurAttaque Joueur attaqué
+	 * @param attaque Valeur de l'attaque farfadet
+	 * @param p Partie actuelle
+	 * @param numCarte Position de la carte farfadet du joueurActif
+	 */
 	public void utiliserChienDeGarde(int joueurSuivant, Joueur joueurActif, Joueur joueurAttaque, int attaque, Partie p, int numCarte){
 		int[] valeurs = joueurAttaque.getCarteAllieJoueur().getValue();
 		int valeur = 0;
