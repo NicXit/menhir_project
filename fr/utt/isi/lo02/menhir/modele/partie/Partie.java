@@ -16,7 +16,7 @@ import fr.utt.isi.lo02.menhir.modele.joueur.*;
  * @author Mathieu DELALANDE, Nicolas GRANET
  *
  */
-public class Partie extends Observable{
+public class Partie {
 	private TypePartie typePartie;
 	private Saison saison;
 	private int nbManche, numManche;
@@ -37,23 +37,6 @@ public class Partie extends Observable{
 		this.numManche=0;
 	}
 
-	/*
-	 * Méthode qui initialise les joueurs humains
-	 */
-	public void ajouterHumain(int i){
-			Scanner joueur = new Scanner(System.in);
-			System.out.println("Veuillez saisir le nom du joueur " + i + " (humain) : ");
-			String nom = joueur.nextLine();
-			
-			System.out.println("Veuillez saisir l'age du joueur " + i + " : ");
-			int age = joueur.nextInt();
-			
-			joueur.nextLine();
-			System.out.println("Le joueur est-il du genre féminin (o/n) ?");
-			char genreF = joueur.nextLine().charAt(0);
-			
-			this.listeHumains.add(new Humain(nom,age,genreF));			
-		}
 	
 	/**
 	 * Ajoute un joueur humain à la liste des humains
@@ -65,13 +48,7 @@ public class Partie extends Observable{
 		this.listeHumains.add(new Humain(nom,age,genreF));
 	}
 	
-	public void ajouterIA(int i){
-		Scanner ia = new Scanner(System.in);
-		System.out.println("Veuillez saisir le nom de l'IA " + i + " : ");
-		String nom = ia.nextLine();
 
-		this.ordreJeu.add(new IA(nom));		
-	}
 	
 	/**
 	 * Ajoute un joueur IA à la liste des joueurs

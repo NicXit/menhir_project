@@ -37,7 +37,7 @@ import java.awt.event.ActionEvent;
  * @author Mathieu DELALANDE, Nicolas GRANET
  *
  */
-public class VuePartie extends JFrame implements Observer{
+public class VuePartie extends JFrame{
 	
 	private Partie partie;
 	private ControleurVue controleur;
@@ -51,8 +51,7 @@ public class VuePartie extends JFrame implements Observer{
 	 */
 	public VuePartie(Partie p, ControleurVue c){
 		this.partie=p;
-		this.controleur=c;
-		partie.addObserver(this);
+		this.controleur=c;		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		container = new JPanel();
@@ -229,8 +228,4 @@ public class VuePartie extends JFrame implements Observer{
 		this.setVisible(true);
 	}
 
-	
-	public void update(Observable arg0, Object arg1){
-		
-	}
 }

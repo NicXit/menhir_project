@@ -27,7 +27,6 @@ import fr.utt.isi.lo02.menhir.vue.VueTaupeGeante;
 /**
  * Classe qui permet de controler la vue graphique et le modele
  * @author Mathieu DELALANDE, Nicolas GRANET
- *
  */
 public class ControleurVue {
 	
