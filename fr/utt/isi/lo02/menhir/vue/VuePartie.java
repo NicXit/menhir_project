@@ -12,7 +12,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
-import fr.utt.isi.lo02.menhir.controleur.Controleur;
+
 import fr.utt.isi.lo02.menhir.controleur.ControleurVue;
 import fr.utt.isi.lo02.menhir.modele.joueur.Joueur;
 import fr.utt.isi.lo02.menhir.modele.partie.Partie;

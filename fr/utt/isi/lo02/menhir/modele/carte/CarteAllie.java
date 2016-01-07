@@ -2,7 +2,6 @@ package fr.utt.isi.lo02.menhir.modele.carte;
 /**
  * Classe qui définit les caractéristiques d'une carteAlliés
  * @author Mathieu DELALANDE, Nicolas GRANET
- *
  */
 public class CarteAllie extends Carte{
 	public int[] value;

@@ -4,7 +4,7 @@ import javax.swing.JPanel;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 
-import fr.utt.isi.lo02.menhir.controleur.Controleur;
+
 import fr.utt.isi.lo02.menhir.modele.partie.Partie;
 
 import java.awt.TextField;

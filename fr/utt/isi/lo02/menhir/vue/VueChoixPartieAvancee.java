@@ -8,7 +8,6 @@ import javax.swing.JDialog;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
-import fr.utt.isi.lo02.menhir.controleur.Controleur;
 import fr.utt.isi.lo02.menhir.controleur.ControleurVue;
 import fr.utt.isi.lo02.menhir.modele.carte.CarteAllie;
 import fr.utt.isi.lo02.menhir.modele.carte.Paquet;

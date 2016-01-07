@@ -153,11 +153,12 @@ public class VueChiensDeGarde extends JDialog {
 				}
 				if (joueurSuivant == 666)
 					c.finTour();
-				else
+				else{
 					if (p.ordreJeu.get(joueurSuivant).getCarteAllieJoueur() != null && p.ordreJeu.get(joueurSuivant).getCarteAllieJoueur().getNom() != "")    					 						
 						vp.vueManche(p.ordreJeu.get(joueurSuivant), p, true);
 					else
 						vp.vueManche(p.ordreJeu.get(joueurSuivant), p, false);
+				}
 				joueurAttaque.setCarteAllieJoueur(new CarteAllie("",null));
 				setVisible(false);
 				vp.setVisible(true);
@@ -176,6 +177,14 @@ public class VueChiensDeGarde extends JDialog {
 					joueurActif.setNbGraines(joueurActif.getNbGraines()+ joueurAttaque.getNbGraines());
 					joueurAttaque.setNbGraines(0);
 					joueurActif.getCarteIngredientJoueur().remove(numCarte-1);
+				}
+				if (joueurSuivant == 666)
+					c.finTour();
+				else{
+					if (p.ordreJeu.get(joueurSuivant).getCarteAllieJoueur() != null && p.ordreJeu.get(joueurSuivant).getCarteAllieJoueur().getNom() != "")    					 						
+						vp.vueManche(p.ordreJeu.get(joueurSuivant), p, true);
+					else
+						vp.vueManche(p.ordreJeu.get(joueurSuivant), p, false);
 				}
 				setVisible(false);
 				vp.setVisible(true);

@@ -29,7 +29,14 @@ import fr.utt.isi.lo02.menhir.vue.VueTaupeGeante;
  * @author Mathieu DELALANDE, Nicolas GRANET
  *
  */
-public class ControleurVue {	
+public class ControleurVue {
+	
+	public static void main(String[] args) {
+		  
+		ControleurVue c = new ControleurVue();		
+		
+	}
+
 	private Paquet paquet;	
 	private Partie p;
 	private VuePartie vp;
@@ -292,6 +299,7 @@ public class ControleurVue {
 	/**
 	 * Retourne un joueur à partir de son nom
 	 * @param nom Le nom du joueur
+	 * @return Le joueur à partir de son nom
 	 */
 	public Joueur stringToJoueur(String nom){
 		Joueur j = null;
