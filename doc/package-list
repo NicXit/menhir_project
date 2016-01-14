@@ -1,8 +1,1 @@
 fr.utt.isi.lo02.menhir.controleur
-fr.utt.isi.lo02.menhir.modele.carte
-fr.utt.isi.lo02.menhir.modele.enumeration
-fr.utt.isi.lo02.menhir.modele.joueur
-fr.utt.isi.lo02.menhir.modele.partie
-fr.utt.isi.lo02.menhir.modele.strategy
-fr.utt.isi.lo02.menhir.vue
-org.eclipse.wb.swing
