@@ -26,7 +26,7 @@ public class Partie {
 	public ArrayList<Joueur> ordreJeu;
 	
 	/**
-	 * COnstructeur, initialise la saison à printemps, crée les listes d'humains et de joueurs, initialise le nombre d'humains et le nombre 
+	 * Constructeur, initialise la saison à printemps, crée les listes d'humains et de joueurs, initialise le nombre d'humains et le nombre 
 	 * de manches à 0;
 	 */
 	public Partie() {
@@ -47,8 +47,6 @@ public class Partie {
 	public void ajouterHumain2(String nom, int age, char genreF){
 		this.listeHumains.add(new Humain(nom,age,genreF));
 	}
-	
-
 	
 	/**
 	 * Ajoute un joueur IA à la liste des joueurs

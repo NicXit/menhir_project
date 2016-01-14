@@ -93,7 +93,7 @@ public class ControleurVue {
 	}
 	
 	/**
-	 * Initialise le nombre de manches, le choix des graines ou de la carte Alliés en partie avancée et lance la partie.
+	 * Initialise le lancement de la partie (avancée ou rapide).
 	 */
 	public void lancerPartie(){		
 
@@ -112,7 +112,7 @@ public class ControleurVue {
 	}
 	
 	/**
-	 * Initialise une partie avancée
+	 * Lance la partie avancée
 	 */
 	public void lancerPartieAvancée(){
 		int compteur = 1;
@@ -122,7 +122,7 @@ public class ControleurVue {
 	}
 	
 	/**
-	 * Lance une nouvelle manche de partie avancée
+	 * Lance une nouvelle manche de la partie avancée
 	 */
 	public void NouvelleManchePartieAvancée(){
 			p.setNumManche(p.getNumManche()+1);
@@ -172,7 +172,14 @@ public class ControleurVue {
 		}
 	}
 	
-
+	/**
+	 * Effectue l'action de jeu après validation du choix de l'utilisateur
+	 * @param j Joueur qui a validé son choix
+	 * @param engrais le choix du joueur était engrais
+	 * @param farfadets le choix du joueur était farfadets
+	 * @param nomJoueurAttaque nom du joueur attaqué si farfadets
+	 * @param numCarte position de la carte dans la main du joueur
+	 */
 	public void validationJoueur (Joueur j, boolean engrais, boolean farfadets, String nomJoueurAttaque, int numCarte){
 		boolean stop = false;
 		//on récupère la valeur de l'action
@@ -296,8 +303,8 @@ public class ControleurVue {
 		 
 	
 	/**
-	 * Retourne un joueur à partir de son nom
-	 * @param nom Le nom du joueur
+	 * Retourne un joueur (type Joueur) à partir de son nom (String)
+	 * @param nom Le nom du joueur (String)
 	 * @return Le joueur à partir de son nom
 	 */
 	public Joueur stringToJoueur(String nom){

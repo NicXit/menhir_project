@@ -30,6 +30,9 @@ public abstract class Joueur{
 		
 	}
 	
+	/**
+	 * Comparator permettant la comparaison de Joueurs
+	 */
 	public static Comparator<Joueur> comparatorScore = new Comparator<Joueur>(){
 		 public int compare(Joueur j1, Joueur j2) {
                return j1.compareTo(j2);
@@ -74,6 +77,10 @@ public abstract class Joueur{
 		return this.cartesIngredientsJoueur;
 	}		
 	
+	/**
+	 * Ajouter une carte ingredient à un joueur
+	 * @param carte La carte ingredient à ajouter
+	 */
 	public void ajouterCarteIngredientJoueur(CarteIngredient carte){
 		cartesIngredientsJoueur.add(carte);	
 	}
