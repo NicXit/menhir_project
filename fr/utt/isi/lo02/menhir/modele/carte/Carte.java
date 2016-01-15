@@ -9,11 +9,15 @@ public abstract class Carte {
 	
 	/**
 	 * Constructeur de Carte
+	 * @param nom Le nom de la carte
 	 */
 	public Carte(String nom) {
 		this.nom = nom;
 	}
-	
+	/**
+	 * 
+	 * @return Le détail de ce qu'a joué l'IA
+	 */
 	public String getNom(){
 		return this.nom;
 	}

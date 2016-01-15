@@ -45,6 +45,8 @@ public class VueTaupeGeante extends JDialog {
 	 * Constructeur de la fenêtre de dialogue 
 	 * @param value La valeur de la carte jouée
 	 * @param p La partie associée
+	 * @param c Le controleur associé
+	 * @param j Le joueur associé
 	 */
 	public VueTaupeGeante(int value, Partie p, ControleurVue c, Joueur j) {
 		setBounds(100, 100, 450, 300);

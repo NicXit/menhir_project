@@ -17,6 +17,7 @@ public interface Strategy {
 	 * @param cartesIngredient La liste des cartes de l'IA
 	 * @param saison La saison en cours
 	 * @param p La partie en cours
+	 * @return Le détail de ce qu'a joué l'IA
 	 */
 	public String jouer(Joueur j, ArrayList<CarteIngredient> cartesIngredient, int saison, Partie p);
 }

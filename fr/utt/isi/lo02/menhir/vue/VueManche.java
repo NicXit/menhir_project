@@ -61,6 +61,7 @@ public class VueManche extends JPanel {
 	 * Constructeur, crée le panel général
 	 * @param j Le joueur qui joue
 	 * @param p La partie associée à la fenêtre
+	 * @param c Le controleur associé
 	 */
 	public VueManche(Joueur j, Partie p, ControleurVue c) {
 		setLayout(new CardLayout(0, 0));

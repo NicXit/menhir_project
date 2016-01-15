@@ -42,6 +42,9 @@ public class VueChiensDeGarde extends JDialog {
 	 * @param value La valeur de la carte jouée
 	 * @param p La partie associée
 	 * @param valueDef La valeur de la carte Chien de Garde
+	 * @param c Le controleur associé
+	 * @param vp La vue de la partie associée
+	 * @param numCarte L'indice de la carte du joueur
 	 */
 	public VueChiensDeGarde(int joueurSuivant, Joueur joueurActif, Joueur joueurAttaque, int value, Partie p, int valueDef, ControleurVue c, VuePartie vp, int numCarte) {
 		setBounds(100, 100, 450, 300);

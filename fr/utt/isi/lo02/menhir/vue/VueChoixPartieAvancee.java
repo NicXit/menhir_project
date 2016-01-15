@@ -38,6 +38,9 @@ public class VueChoixPartieAvancee extends JDialog {
 	 * Constructeur, crée la fenêtre de dialogue.
 	 * @param j Le joueur à qui s'adresse la fenêtre
 	 * @param c Le controleur associé à la fenêtre
+	 * @param nbJoueurs Le nombre de joueur
+	 * @param compteur Le nombre de joueur qui ont déjà joué
+	 * @param listeJoueurs La liste des joueurs de la partie
 	 */
 	public VueChoixPartieAvancee(Joueur j, ControleurVue c, int nbJoueurs, int compteur, ArrayList<Joueur> listeJoueurs) {
 		this.controleur=c;
